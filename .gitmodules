@@ -1,0 +1,9 @@
+[submodule "src/utils/ft_printf"]
+	path = src/utils/ft_printf
+	url = https://github.com/ciuckc/ft_printf.git
+[submodule "src/utils/get_next_line"]
+	path = src/utils/get_next_line
+	url = https://github.com/ciuckc/get_next_line.git
+[submodule "src/utils/libft"]
+	path = src/utils/libft
+	url = https://github.com/ciuckc/libft.git
