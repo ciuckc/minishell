@@ -37,9 +37,9 @@ complete_command:	list	line_break
 list:	list	and_or
 	|			and_or
 
-and_or	:								pipeline
-		|	and_or	AND_IF	line_break	pipeline
-		|	and_or	OR_IF	line_break	pipeline
+and_or	:					pipeline
+		|	and_or	AND_IF	pipeline
+		|	and_or	OR_IF	pipeline
 
 pipeline	:					command
 			|	pipeline	'|'	command
@@ -75,4 +75,6 @@ io_file	:	'<'		filename
 		|	DGREAT	filename
 
 filename :	WORD	//	Rule 2: The expansions specified in Redirection (see 2.7) shall occur.
+
+line_break	:	NEW_LINE
 ~~~
