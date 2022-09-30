@@ -1,22 +1,38 @@
-include utilities.mk
+include make_include/sources_def.mk make_include/utilities.mk
 
 all: $(NAME)
 
-$(NAME): $(NAME_UTILS)
-	$(CC) $(FLAGS) $(INCLUDE) $(SRC_DIR)/$(addsuffix .c,$(NAME)) $(NAME_UTILS) -o $(NAME)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-$(NAME_UTILS):
-	$(MAKE) -C $(DIR_GNL)
-	$(MAKE) -C $(DIR_PRINTF)
+#	Compile objects into exec
+
+$(NAME): $(OBJ) | $(OBJ_DIR)
+	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) $(OBJ) -o $(NAME)
+
+#	Create object files
+
+$(NAME_LIBFT):
 	$(MAKE) -C $(DIR_LIBFT)
 
+$(MAIN_OBJ): $(MAIN_SRC) | $(OBJ_DIR)
+	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+#	Template for adding new object file from src files
+#
+#	$(OBJ_DIR)/%.o: $(EXAMPLE_DIR)/%.c
+#		$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(PARSE_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
 clean:
-	$(MAKE) clean -C $(DIR_GNL)
-	$(MAKE) clean -C $(DIR_PRINTF)
+	$(RM) -r $(OBJ_DIR)
 	$(MAKE) clean -C $(DIR_LIBFT)
 
 fclean: clean
-	$(RM) -f $(NAME) $(NAME_UTILS)
+	$(RM) -r $(NAME) 
+	$(RM) -r $(NAME_LIBFT)
 
 re: fclean
 	$(MAKE)

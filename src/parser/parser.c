@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/09/30 17:31:37 by scristia      ########   odam.nl         */
+/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
+/*   Updated: 2022/09/30 13:47:55 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "../src/utils/libft/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/wait.h>
-# include <unistd.h>
-
-void	parser(char *argv);
-
-#endif
+void	parser(char *argv)
+{
+	(void)argv;
+	ft_putstr_fd("HELLO FROM PARSE", 1);
+}

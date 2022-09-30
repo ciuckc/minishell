@@ -31,8 +31,8 @@ The following grammar defines the Shell Command Language. It is expressed via th
 
 %start complete_command
 
-complete_command:	list	line_break
-				|			line_break
+complete_command:	list	NULL
+				|			NULL
 
 list:	list	and_or
 	|			and_or
