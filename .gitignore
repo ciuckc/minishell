@@ -3,3 +3,6 @@
 *.swp
 *.out
 .DS_Store
+*.o
+obj
+*.a

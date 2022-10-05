@@ -6,7 +6,7 @@ OBJ_DIR := obj
 
 CC := gcc
 
-FLAGS := -Wall -Wextra -Werror
+FLAGS := -Wall -Wextra -Werror -fsanitize=address -g
 
 INCLUDE := -Iinclude
 

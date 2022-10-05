@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/09/30 17:31:37 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/05 22:21:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stdbool.h>
 
-void	parser(char *argv);
+void	parser(char *full_cmd, char **envp);
 
 #endif
