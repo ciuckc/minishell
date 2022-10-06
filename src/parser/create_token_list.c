@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
+/*   create_token_list.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/06 18:41:12 by scristia      ########   odam.nl         */
+/*   Created: 2022/10/06 17:04:19 by scristia      #+#    #+#                 */
+/*   Updated: 2022/10/06 18:49:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "parser.h"
 
-void	parser(char *full_cmd, char **envp)
+static void	st_skip_spaces(char **cmd)
 {
-	t_list	*tokens;
+	while (**cmd != '\0' && ft_isspace(**cmd))
+		(*cmd)++;
+}
 
-	(void)envp;
-	if (*full_cmd == '\0')
-		return ;
-	tokens = create_token_list(full_cmd);
+t_list	*create_token_list(char *full_cmd)
+{
+	st_skip_spaces(&full_cmd);
+	while (*full_cmd)
+	{
+		full_cmd++;
+	}
+	return (NULL);
 }

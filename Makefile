@@ -13,7 +13,7 @@ $(NAME): $(OBJ) | $(OBJ_DIR)
 #	Create object files
 
 $(NAME_LIBFT):
-	$(MAKE) -C $(DIR_LIBFT)
+	$(MAKE) bonus -C $(DIR_LIBFT)
 
 $(MAIN_OBJ): $(MAIN_SRC) | $(OBJ_DIR)
 	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@

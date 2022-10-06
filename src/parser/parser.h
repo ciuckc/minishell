@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
+/*   parser.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/06 18:41:12 by scristia      ########   odam.nl         */
+/*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
+/*   Updated: 2022/10/06 18:32:51 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "parser.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-void	parser(char *full_cmd, char **envp)
-{
-	t_list	*tokens;
+# include "minishell.h"
 
-	(void)envp;
-	if (*full_cmd == '\0')
-		return ;
-	tokens = create_token_list(full_cmd);
-}
+# define OPERATORS "&<|>"
+
+t_list	*create_token_list(char *full_cmd);
+
+#endif
