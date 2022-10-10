@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/06 18:32:51 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/10 23:27:02 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-# define OPERATORS "&<|>"
+# define TOKENS " &<|>"
 
 t_list	*create_token_list(char *full_cmd);
 

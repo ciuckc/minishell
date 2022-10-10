@@ -19,7 +19,7 @@ static void	st_cmd_input(char **envp)
 	full_cmd = NULL;
 	while (true)
 	{
-		full_cmd = readline("minishell$ ");
+		full_cmd = readline("$ ");
 		parser(full_cmd, envp);
 		free(full_cmd);
 	}
