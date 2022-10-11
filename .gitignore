@@ -6,3 +6,4 @@
 *.o
 obj
 *.a
+main.c

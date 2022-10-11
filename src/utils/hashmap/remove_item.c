@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
+/*   remove_item.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/05 18:41:29by scristia      ########   odam.nl         */
+/*   Created: 2022/10/11 07:48:25 by scristia      #+#    #+#                 */
+/*   Updated: 2022/10/11 09:32:06 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "hashmap.h"
 
-static void	st_cmd_input(char **envp)
+bool	remove_item(char *key, t_table **map)
 {
-	char	*full_cmd;
-	char	**commands;
+	u_int32_t	hash_index;
 
-	(void)envp;
-	full_cmd = NULL;
-	while (true)
-	{
-		full_cmd = readline("$ ");
-		commands = ft_split(full_cmd, ' ');
-		free(full_cmd);
-	}
-}
-
-int32_t	main(int32_t argc, char **argv, char **envp)
-{
-	if (argc == 1)
-	{
-		st_cmd_input(envp);
-	}
-	else if (argc == 2)
-	{
-		parser(*argv, envp);
-	}
-	return (0);
+	hash_index = hash_string(key) % (*map)->containers;
+	if ((*map)->table[hash_index] == NULL)
+		return (false);
+	return (true);
 }
