@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:38:11 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 09:13:18 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/14 16:58:09 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,13 @@ static void	st_remove_old_pwd(t_table *table, t_env *data, u_int32_t n)
 	t_container	*item;
 	u_int32_t	i;
 
-	item = item_search("OLDPWD", table);
-	if (item == NULL)
-		return ;
 	i = 0;
+	item = item_search("OLDPWD", table);
 	while (i < n)
 	{
-		if (item->key_str == data[i].name && item->data == data[i].value)
-		{
-			free(remove_item("OLDPWD", &table));
-			free(data[i].name);
-			break ;
-		}
+		if (data[i].name == item->key_str)
+			return (free(remove_item(data[i].name, &table)), \
+			free(data[i].name));
 		i++;
 	}
 }

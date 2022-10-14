@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:48:25 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 02:14:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/14 16:50:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,24 @@ void	*remove_item(char *key, t_table **map)
 {
 	t_container	*key_item;
 	void		*data_cpy;
+	u_int32_t	idx;
 
 	key_item = item_search(key, *map);
 	if (key_item == NULL)
 		return (NULL);
+	idx = key_item->hash % (*map)->containers;
+	data_cpy = key_item->data;
+	if (key_item->next == NULL)
+		return (free(key_item), data_cpy);
+	if (key_item == (*map)->table[idx])
+	{
+		(*map)->table[idx] = key_item->next;
+		key_item->next->prev = NULL;
+		return (decrease_num_items(key, *map), free(key_item), data_cpy);
+	}
 	if (key_item->prev != NULL)
 		key_item->prev->next = key_item->next;
 	if (key_item->next != NULL)
 		key_item->next->prev = key_item->prev;
-	data_cpy = key_item->data;
-	decrease_num_items(key, *map);
-	free(key_item);
-	return (data_cpy);
+	return (decrease_num_items(key, *map), free(key_item), data_cpy);
 }

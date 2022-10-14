@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 09:18:44 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/14 09:29:10 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_list	*create_token_list(char *full_cmd);
 
 /**
  * @brief Create a env table object. When initialised, we remove the $OLDPWD 
- * env variable.
+ * env variable. !!! When done remember to free every piece of data and key_str
+ * from each container allocated, before flush the actual table and containers.
  * @param envp Environment variables.
  * @return t_table* 
  */

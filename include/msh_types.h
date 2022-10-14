@@ -6,14 +6,14 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 06:59:56 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/14 10:17:23 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_TYPES_H
 # define MSH_TYPES_H
 
-# define TOKENS " &<|>"
+# define TOKENS " &<|>$"
 
 typedef struct s_env
 {
