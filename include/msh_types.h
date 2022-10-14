@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
+/*   msh_types.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/05 18:41:29by scristia      ########   odam.nl         */
+/*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
+/*   Updated: 2022/10/14 06:59:56 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MSH_TYPES_H
+# define MSH_TYPES_H
 
-static void	st_cmd_input(char **envp)
+# define TOKENS " &<|>"
+
+typedef struct s_env
 {
-	char	*full_cmd;
+	char	*name;
+	char	*value;
+}	t_env;
 
-	(void)envp;
-	full_cmd = NULL;
-	while (true)
-	{
-		full_cmd = readline("$ ");
-		parser(full_cmd, envp);
-		free(full_cmd);
-	}
-}
-
-int32_t	main(int32_t argc, char **argv, char **envp)
-{
-	if (argc == 1)
-		st_cmd_input(envp);
-	else if (argc == 2)
-		parser(*argv, envp);
-	return (EXIT_SUCCESS);
-}
+#endif

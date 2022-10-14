@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/06 18:41:12 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/14 09:10:06 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 void	parser(char *full_cmd, char **envp)
 {
 	t_list	*tokens;
+	t_table	*env_table;
 
 	(void)envp;
-	if (*full_cmd == '\0')
+	env_table = create_env_table(envp);
+	if (env_table == NULL)
 		return ;
 	tokens = create_token_list(full_cmd);
+	if (tokens == NULL)
+		return ;
 }

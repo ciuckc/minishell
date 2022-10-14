@@ -15,6 +15,10 @@ $(NAME): $(OBJ) | $(OBJ_DIR)
 $(NAME_LIBFT):
 	$(MAKE) bonus -C $(DIR_LIBFT)
 
+$(NAME_HASH):
+	$(MAKE) -C $(DIR_HASH)
+
+
 $(MAIN_OBJ): $(MAIN_SRC) | $(OBJ_DIR)
 	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
@@ -29,10 +33,12 @@ $(OBJ_DIR)/%.o: $(PARSE_DIR)/%.c
 clean:
 	$(RM) -r $(OBJ_DIR)
 	$(MAKE) clean -C $(DIR_LIBFT)
+	$(MAKE) clean -C $(DIR_HASH)
 
 fclean: clean
 	$(RM) -r $(NAME) 
 	$(RM) -r $(NAME_LIBFT)
+	$(RM) -r $(NAME_HASH)
 
 re: fclean
 	$(MAKE)

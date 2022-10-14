@@ -12,7 +12,7 @@ include make_include/general_def.mk
 
 PARSE_DIR = $(SRC_DIR)/parser
 
-PARSE_SRC = parser.c create_token_list.c
+PARSE_SRC = parser.c create_token_list.c create_env_table.c
 
 PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
 

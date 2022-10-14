@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/10 23:27:02 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/14 09:18:44 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,22 @@
 # define PARSER_H
 
 # include "minishell.h"
+# include "../utils/hashmap/hashmap.h"
+# include "msh_types.h"
 
-# define TOKENS " &<|>"
-
+/**
+ * @brief Create a token list
+ * @param full_cmd Input command.
+ * @return t_list* 
+ */
 t_list	*create_token_list(char *full_cmd);
+
+/**
+ * @brief Create a env table object. When initialised, we remove the $OLDPWD 
+ * env variable.
+ * @param envp Environment variables.
+ * @return t_table* 
+ */
+t_table	*create_env_table(char **envp);
 
 #endif

@@ -17,6 +17,8 @@
 # include <stdbool.h>
 
 # define DEFAULT_HASH_TABLE_SIZE 128
+# define HASH_TABLE_512 512
+# define HASH_TABLE_1024 1024
 
 /**
  * @brief Used for the Hashing function. Check out the FNV-1a and FNV-1 hash
