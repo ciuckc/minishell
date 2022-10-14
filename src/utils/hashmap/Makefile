@@ -1,12 +1,13 @@
 NAME = hashmap.a
 
-SRC = init_table.c insert_in_table.c remove_item.c hash_string.c
+SRC = init_table.c insert_in_table.c remove_item.c hash_string.c item_search.c \
+remove_all.c
 
 OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 
 AR = ar
 
@@ -21,9 +22,6 @@ $(NAME): $(OBJ)
 
 $(OBJ): $(SRC)
 	$(CC) $(FLAGS) -c $^
-
-main:
-	$(CC) $(FLAGS) -fsanitize=address -g main.c $(NAME) ../libft/libft.a
 
 clean:
 	$(RM) -r $(OBJ)

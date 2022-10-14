@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hash_string.c                                      :+:    :+:            */
+/*   remove_all.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/11 05:39:31 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 03:55:01 by scristia      ########   odam.nl         */
+/*   Created: 2022/10/14 03:56:36 by scristia      #+#    #+#                 */
+/*   Updated: 2022/10/14 04:34:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashmap.h"
 
-u_int32_t	hash_string(char *string)
+void	remove_all(t_table *map)
 {
-	u_int32_t		hash;
-	unsigned char	*s;
+	u_int32_t	i;
+	t_container	*prev;
 
-	hash = FNV_OFFSET;
-	s = (unsigned char *)string;
-	while (*s)
+	i = 0;
+	prev = NULL;
+	while (i < map->containers)
 	{
-		hash = hash ^ FNV_PRIME;
-		hash = hash * *s;
-		s++;
+		while (map->table[i] != NULL)
+		{
+			prev = map->table[i];
+			map->table[i] = map->table[i]->next;
+			free(prev);
+		}
+		i++;
 	}
-	return (hash);
 }
