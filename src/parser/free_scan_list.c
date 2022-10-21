@@ -1,14 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   free_scan_list.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/06 15:15:16 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/17 19:16:27 by scristia      ########   odam.nl         */
+/*   Created: 2022/10/21 03:42:10 by scristia      #+#    #+#                 */
+/*   Updated: 2022/10/21 03:43:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "parser.h"
+
+void	free_scan_list(t_scan_tok *lst)
+{
+	t_scan_tok	*prev;
+
+	prev = lst;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		free(prev);
+		prev = lst;
+	}
+}

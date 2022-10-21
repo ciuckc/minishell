@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   create_token_list.c                                :+:    :+:            */
+/*   retrieve_tok_list.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 17:04:19 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 12:08:54 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/21 03:50:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void	st_skip_spaces(char **cmd)
+t_token_list	*retrieve_tok_list(char *full_cmd)
 {
-	while (**cmd != '\0' && ft_isspace(**cmd))
-		(*cmd)++;
-}
+	t_scan_tok	*scan_tok;
 
-t_list	*create_token_list(char *full_cmd)
-{
-	size_t	len;
-
-	st_skip_spaces(&full_cmd);
-	if (*full_cmd == '\0')
+	scan_tok = tok_len_scan_list(&full_cmd);
+	if (scan_tok == NULL)
 		return (NULL);
-	len = 0;
-	ft_putendl_fd(full_cmd, 1);
-	while (*full_cmd)
+	while (scan_tok != NULL)
 	{
-		if (*full_cmd == '\'')
-			ft_len_to_char_set(full_cmd, "'");
-		else if (*full_cmd == '"')
-			ft_len_to_char_set(full_cmd, "\"");
-		else
-			ft_len_to_char_set(full_cmd, TOKENS);
-		full_cmd += len;
-		st_skip_spaces(&full_cmd);
-		ft_putendl_fd(full_cmd, 1);
+		printf("%s\n", ft_substr(scan_tok->orginal_str, scan_tok->boundry.start, \
+		scan_tok->boundry.end - scan_tok->boundry.start));
+		scan_tok = scan_tok->next;
 	}
 	return (NULL);
 }

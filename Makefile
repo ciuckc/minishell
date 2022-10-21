@@ -8,7 +8,7 @@ $(OBJ_DIR):
 #	Compile objects into exec
 
 $(NAME): $(OBJ) | $(OBJ_DIR)
-	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS)  -g $(CFLAGS) $(OBJ) -o $(NAME)
 
 #	Create object files
 

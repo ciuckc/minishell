@@ -50,7 +50,7 @@ command	:	cmd_prefix	cmd_word	cmd_suffix
 		|	cmd_name	cmd_suffix
 		|	cmd_name
 
-cmd_name :	WORD	// Rule 7a: When the token is a reserved word, the token identifier for that reserved word, shall result. Otherwise the word shall be returned.
+cmd_name :	ASSIGN_WORD	// Rule 7a: When the token is a reserved word, the token identifier for that reserved word, shall result. Otherwise the word shall be returned.
 					//			Also, if the parser is in any state where only a reserved word could be the next correct token, proceed as above.
 					//			Quoted strings cannot be recognized as reserved words.
 
@@ -68,6 +68,8 @@ cmd_suffix	:				io_file
 			|	cmd_suffix	io_file
 			|				ASSIGNMENT_WORD
 			|	cmd_suffix	ASSIGNMENT_WORD
+
+io_here	:
 
 io_file	:	'<'		filename
 		|	'>'		filename

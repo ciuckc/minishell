@@ -6,22 +6,18 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 17:07:58 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/21 00:17:30 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-void	parser(char *full_cmd, char **envp)
+void	parser(char *full_cmd)
 {
-	t_list		*tokens;
-	t_table		*env_table;
+	t_token_list		*tokens;
 
-	env_table = create_env_table(envp);
-	if (env_table == NULL)
-		return ;
-	tokens = create_token_list(full_cmd);
+	tokens = retrieve_tok_list(full_cmd);
 	if (tokens == NULL)
 		return ;
 }

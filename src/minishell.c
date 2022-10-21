@@ -12,25 +12,36 @@
 
 #include "minishell.h"
 
-static void	st_cmd_input(char **envp)
+static void	st_cmd_input(t_table *env_table)
 {
 	char	*full_cmd;
 
-	(void)envp;
+	(void)env_table;
 	full_cmd = NULL;
 	while (true)
 	{
 		full_cmd = readline("$ ");
-		parser(full_cmd, envp);
+		parser(full_cmd);
 		free(full_cmd);
 	}
 }
 
+static void	st_one_cmd(char *argv, t_table *env_table)
+{
+	(void)env_table;
+	parser(argv);
+}
+
 int32_t	main(int32_t argc, char **argv, char **envp)
 {
+	t_table	*env_table;
+
+	env_table = create_env_table(envp);
+	if (env_table == NULL)
+		return (EXIT_FAILURE);
 	if (argc == 1)
-		st_cmd_input(envp);
+		st_cmd_input(env_table);
 	else if (argc == 2)
-		parser(*argv, envp);
+		st_one_cmd(*(argv + 1), env_table);
 	return (EXIT_SUCCESS);
 }

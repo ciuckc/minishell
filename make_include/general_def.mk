@@ -8,7 +8,7 @@ CC := gcc
 
 FLAGS := -Wall -Wextra -Werror -fsanitize=address -g
 
-INCLUDE := -Iinclude
+INCLUDE := -Iinclude -Isrc/utils/hashmap
 
 LDFLAGS = -L $(shell brew --prefix readline)/lib -lreadline
 
