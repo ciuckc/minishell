@@ -23,17 +23,21 @@ static void	st_cmd_input(char **envp)
 	{
 		full_cmd = readline("$ ");
 		commands = ft_split(full_cmd, ' ');
+		while (*commands)
+		{
+			printf ("%s\n", *commands++);
+		}
 		free(full_cmd);
 	}
 }
 
 int32_t	main(int32_t argc, char **argv, char **envp)
 {
-	if (argc == 1)
+	if (argc > 1)
 	{
 		st_cmd_input(envp);
 	}
-	else if (argc == 2)
+	else if (argc == 0)
 	{
 		parser(*argv, envp);
 	}
