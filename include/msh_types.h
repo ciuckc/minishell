@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/21 03:03:06 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/25 17:17:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_env
 }	t_env;
 
 /*TOKEN STRUCTS*/
+
+typedef u_int64_t	t_tok_type;
 
 typedef enum e_token_type
 {
@@ -72,5 +74,13 @@ typedef struct s_token_list
 	struct s_token_list	*next;
 	struct s_token_list	*prev;
 }	t_token_list;
+
+typedef struct s_cmd_list
+{
+	char		*cmd;
+	char		**cmd_arg;
+	char		**outfiles;
+	char		**infile;
+}	t_cmd;
 
 #endif

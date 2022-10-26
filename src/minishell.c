@@ -20,7 +20,7 @@ static void	st_cmd_input(t_table *env_table)
 	full_cmd = NULL;
 	while (true)
 	{
-		full_cmd = readline("$ ");
+		full_cmd = readline("\033[1;32mminishell$\033[0m ");
 		parser(full_cmd);
 		free(full_cmd);
 	}

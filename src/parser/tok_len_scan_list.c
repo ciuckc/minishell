@@ -6,17 +6,11 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 03:09:34 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/21 03:44:40 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/25 18:08:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-static void	st_skip_spaces(char **cmd)
-{
-	while (**cmd != '\0' && ft_isspace(**cmd))
-		(*cmd)++;
-}
 
 static void	st_quote_len(char *full_cmd, u_int32_t *pos)
 {
@@ -26,7 +20,7 @@ static void	st_quote_len(char *full_cmd, u_int32_t *pos)
 	if (full_cmd[*pos] == '\"')
 		quote = "\"";
 	(*pos)++;
-	while (!ft_strchr(quote, full_cmd[*pos]) && full_cmd[*pos])
+	while (!ft_strchr(quote, full_cmd[*pos]) && full_cmd[*pos] != '\0')
 		(*pos)++;
 	if (full_cmd[*pos])
 		(*pos)++;
@@ -54,10 +48,10 @@ t_scan_tok	*tok_len_scan_list(char **full_cmd)
 	u_int32_t	end;
 	t_scan_tok	*scan_tok;
 
-	st_skip_spaces(full_cmd);
-	if (**full_cmd == '\0')
-		return (NULL);
 	start = 0;
+	scan_tok = NULL;
+	while ((*full_cmd)[start] && ft_isspace((*full_cmd)[start]))
+		start++;
 	end = start;
 	while ((*full_cmd)[end])
 	{

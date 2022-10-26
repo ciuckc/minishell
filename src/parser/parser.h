@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/21 03:40:56 by scristia      ########   odam.nl         */
+/*   Updated: 2022/10/21 05:07:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,28 @@ t_token			*create_token(char *tok);
  */
 t_token_list	*retrieve_tok_list(char *full_cmd);
 
+/**
+ * @brief create a list of individual microtokens splitted on 
+ * their type(word, assign_word, quotes)
+ * @param full_cmd 
+ * @return t_scan_tok* list with null terminated CMD node
+ */
 t_scan_tok		*tok_len_scan_list(char **full_cmd);
 
+/**
+ * @brief add the current token micro recognized and it s boundry to the list
+ * 
+ */
 t_scan_tok		*add_boundry_to_list(t_scan_tok **lst, u_int32_t start, \
 u_int32_t end, char *cmd);
 
+/**
+ * @brief free the list in case of error
+ * 
+ * @param list 
+ */
 void			free_scan_list(t_scan_tok *list);
+
+t_token			*build_word(t_scan_tok **lst);
 
 #endif
