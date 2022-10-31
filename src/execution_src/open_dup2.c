@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   open_dup2.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/27 15:47:23 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   open_dup2.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/22 19:11:18 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:06:01 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 void	openfiles(t_input *data)
 {
-	t_file	*file;
-
 	while (data->file_lst)
 	{
 		if (data->file_lst->flag == LESS)

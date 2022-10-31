@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lists_token.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 14:09:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/24 14:48:35 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lists_token.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/10 14:09:48 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:32:18 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 // void	end_free(t_token *env, int exit_code)
 // {
@@ -71,7 +71,7 @@ t_token	*ft_lstnew_t(void *content)
 	return (new_el);
 }
 
-int	ft_lstsize(t_token *lst)
+int	ft_lstsize_t(t_token *lst)
 {
 	t_token	*current;
 	int		elements;

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   files.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 16:18:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/26 18:40:49 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   files.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 16:18:34 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 11:39:49 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 t_file	*get_files_input(void)
 {

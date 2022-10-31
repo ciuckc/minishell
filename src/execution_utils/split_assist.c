@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_assist.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/22 16:57:02 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/24 14:48:40 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   split_assist.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/08/22 16:57:02 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 11:40:12 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
@@ -23,7 +23,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	string2 = (unsigned char *) s2;
 	if (n == 0)
 		return (0);
-	while (string1[i] == string2[i] && string1 != '\0' && i < n - 1)
+	while (string1[i] == string2[i] && string1 != (void *)0 && i < n - 1)
 		i++;
 	return (string1[i] - string2[i]);
 }

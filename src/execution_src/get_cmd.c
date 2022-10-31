@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/27 15:18:13 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_cmd.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/19 14:02:46 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:32:48 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 void	get_cmd(t_token **tok, t_input *data)
 {
@@ -20,7 +20,7 @@ void	get_cmd(t_token **tok, t_input *data)
 
 	i = 0;
 	token = *tok;
-	len = ft_lstsize(*tok) + 1;
+	len = ft_lstsize_t(*tok) + 1;
 	data->cmd_args = (char **)ft_calloc(len, sizeof (char *));
 	while (token && token->token_type != PIPE)
 	{

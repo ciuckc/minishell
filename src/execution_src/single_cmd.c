@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_cmd.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/27 20:16:20 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_cmd.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:07:03 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 void	set_fds(t_input *data)
 {
@@ -34,6 +34,7 @@ int	single_command(t_input *data)
 	pid_t	child_pid;
 
 	exit_code = 0;
+	child_pid = -2;
 	set_fds(data);
 	if (is_built_in(data->cmd_args[0]))
 	{

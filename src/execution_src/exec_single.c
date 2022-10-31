@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_single.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 13:45:08 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/27 16:29:58 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec_single.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/27 13:45:08 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:02:40 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 static int	waiting(int id)
 {
@@ -31,6 +31,7 @@ int	exec_single(t_input *data)
 	pid_t	id;
 	int		exit_code;
 
+	exit_code = -1;
 	id = fork();
 	if (id == -1)
 		error_exit("Fork failed", 1);

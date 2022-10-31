@@ -22,6 +22,14 @@ $(MAIN_OBJ): $(MAIN_SRC) | $(OBJ_DIR)
 #
 #	$(OBJ_DIR)/%.o: $(EXAMPLE_DIR)/%.c
 #		$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(EXEC_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(BUILTINS_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(EXEC_UTILSDIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(PARSE_DIR)/%.c
 	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@

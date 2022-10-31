@@ -8,7 +8,7 @@ CC := gcc
 
 FLAGS := -Wall -Wextra -Werror -fsanitize=address -g
 
-INCLUDE := -Iinclude
+INCLUDE := -I include
 
 LDFLAGS = -L $(shell brew --prefix readline)/lib -lreadline
 

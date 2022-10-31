@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lists_env.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 14:09:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/24 14:48:30 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lists_env.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/10 14:09:48 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:36:32 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 void	end_free(t_envi *env, int exit_code)
 {
@@ -42,7 +42,7 @@ void	list_clear(t_envi **lst)
 	}
 }
 
-void	ft_lstadd_back(t_envi **lst, t_envi *new)
+void	ft_lstadd_back_e(t_envi **lst, t_envi *new)
 {
 	t_envi	*addlast;
 
@@ -59,7 +59,7 @@ void	ft_lstadd_back(t_envi **lst, t_envi *new)
 	}
 }
 
-t_envi	*ft_lstnew(void *content)
+t_envi	*ft_lstnew_e(void *content)
 {
 	t_envi	*new_el;
 

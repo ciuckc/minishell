@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 13:01:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/24 14:48:27 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_path.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/14 13:01:48 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:05:44 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 char	*seeking_path(t_envi *envi)
 {
 	char	*get_path;
 	char	*path;
-	int		i;
 
-	i = 0;
 	path = NULL;
 	get_path = "PATH=";
 	while (envi != NULL)
@@ -37,12 +35,10 @@ char	*seeking_path(t_envi *envi)
 void	get_path(t_envi *envi, t_input *data)
 {
 	int		i;
-	char	**split_path;
 	char	*my_path;
 
 	i = -1;
 	my_path = NULL;
-	split_path = NULL;
 	my_path = seeking_path(envi);
 	if (!my_path)
 	{

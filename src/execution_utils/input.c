@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:32:30 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/27 19:37:35 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   input.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/25 14:32:30 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 12:10:06 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 t_token	*get_test_input(void)
 {
@@ -20,8 +20,8 @@ t_token	*get_test_input(void)
 	t_token	*node3;
 	t_token	*node4;
 	t_token	*node5;
-	t_token	*node6;
-	t_token	*node7;
+	// t_token	*node6;
+	// t_token	*node7;
 	// t_token_lst	*node8;
 	// t_token_lst	*node9;
 	// t_token_lst	*node10;
@@ -72,7 +72,7 @@ t_token	*get_test_input(void)
 	node2->next = node3;
 	node3->next = node4;
 	node4->next = node5;
-	node5->next = node6;
+	// node5->next = node6;
 	// node6->next = node7;
 	// node7->next = node8;
 	// node8->next = node9;

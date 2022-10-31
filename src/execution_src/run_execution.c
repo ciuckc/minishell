@@ -10,15 +10,15 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
-int	main(int argc, char **argv, char **envp)
+int	run_execution(char **argv, char **envp)
 {
 	t_envi		*envi_head;
 	t_input		*args;
 	t_token		*input;
 
-	(void)argc;
+	(void)argv;
 	envi_head = env_init(envp);
 	input = get_test_input();
 	args = (t_input *)malloc(sizeof(t_input) * 1);

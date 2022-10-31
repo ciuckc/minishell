@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 11:48:37 by emlicame          #+#    #+#             */
-/*   Updated: 2022/10/26 11:50:25 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   errors.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 11:48:37 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/10/30 11:39:04 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/myshell.h"
+#include "execution.h"
 
 // void	error_msg_exit(char *text, int exit_code)
 // {

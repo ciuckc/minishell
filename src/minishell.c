@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "execution.h"
 
 static void	st_cmd_input(char **envp)
 {
@@ -33,8 +34,14 @@ static void	st_cmd_input(char **envp)
 
 int32_t	main(int32_t argc, char **argv, char **envp)
 {
-	if (argc > 1)
+	// #define EXECUTIONDEMO 1
+	// #ifdef EXECUTIONDEMO
+	// 	run_execution(argv, envp);
+	// #else
+
+	if (argc > 0)
 	{
+		run_execution(argv, envp);
 		st_cmd_input(envp);
 	}
 	else if (argc == 0)
@@ -42,4 +49,5 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 		parser(*argv, envp);
 	}
 	return (0);
+	// #endif
 }
