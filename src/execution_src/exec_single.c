@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec_single.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/27 13:45:08 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:02:40 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec_single.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/27 13:45:08 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/01 17:56:33 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ static int	waiting(int id)
 		exit_code = WTERMSIG(status) + 128;
 	return (exit_code);
 }
+/*
+wait for all children
+while (data->cmd_count > 1)
+{
+	wait(&wait_status);
+	data->cmd_count--;
+}
+*/
 
 int	exec_single(t_input *data)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   open_dup2.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/22 19:11:18 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:06:01 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   open_dup2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/01 19:18:06 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,6 @@ void	openfiles(t_input *data)
 	close(data->fds[READ]);
 	close(data->fds[WRITE]);
 }
-
-// void	dupfiles(t_input *data)
-// {
-// 	data->fds[READ] = open("infile", O_RDONLY);
-// 	if (data->fds[READ] < 0)
-// 		error_exit("infile open failed", 1);
-// 	if (dup2(data->fds[READ], 0) < 0)
-// 		error_exit("Dup failed", 1);
-// 	data->fds[WRITE] = open("outfile", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	if (data->fds[WRITE] < 0)
-// 		error_exit("outfile open failed", 1);
-// 	if (dup2(data->fds[WRITE], 1) < 0)
-// 		error_exit("Dup failed", 1);
-// 	close (data->fds[READ]);
-// 	close (data->fds[WRITE]);
-// }
 
 /*
 	Remember!!! man dup2

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execution.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:37:08 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/01 18:54:36 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ typedef struct s_input
 	char			*cmd_path;
 	char			**cmd_args;
 	char			**cmds;
+	int				cmd_count;
+	int				readfd;
 	int				fds[2];
+	int				pipe_fd[2];
 	int				temp_fd[2];
 	struct s_file	*file_lst;
 }	t_input;
@@ -96,23 +99,25 @@ t_file		*new_node_file(char *content, t_token_type flag);
 int			ft_lstsize_t(t_token *lst);
 void		ft_lstadd_back_e(t_envi **lst, t_envi *new);
 t_file		*get_files_input(void);
+void		get_env_array(char **envi, t_input **data);
 
-int			data_fetch(t_envi **envi, t_token **tok, t_input **data);
-void		get_path(t_envi *envi, t_input *data);
+int			data_fetch(t_token **tok, t_input **data);
+void		get_path(t_input *data);
 void		error_exit(char *text, int exit_code);
 void		get_arg_path(t_input *var, int i);
-void		get_cmd(t_token **tok, t_input *data);
+void		get_cmd(t_token *tok, t_input *data);
 void		execution(t_input *data);
 int			access_file(t_input *data);
 void		dupfiles(t_input *data);
 int			check_builtin(t_input *data);
 bool		is_built_in(char *cmd);
 int			single_command(t_input *data);
-void		execution_start(t_input *data);
+void		execution_start(t_token *tok, t_input *data);
 void		get_files(t_input *data);
 void		openfiles(t_input *data);
 int			exec_single(t_input *data);
-int			multiple_commands(t_input *data);
+int			multiple_commands(t_token *tok, t_input *data);
+void		count_cmds(t_token *tok, t_input *data);
 
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);

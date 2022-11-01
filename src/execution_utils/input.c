@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   input.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/25 14:32:30 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:10:06 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:32:30 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/01 15:28:53 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_token	*get_test_input(void)
 	node2->content = ft_substr("infile", 0, 6);
 	node3 = malloc(sizeof(t_token));
 	node3->token_type = WORD;
-	node3->content = ft_substr("cd", 0, 2);
+	node3->content = ft_substr("cat", 0, 3);
 	node4 = malloc(sizeof(t_token));
 	node4->token_type = GREAT;
 	node4->content = ft_substr(">", 0, 1);
