@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/01 19:13:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:47:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	reset_fds(t_input *data)
 	close (data->temp_fd[1]);
 }
 
-int	single_command(t_input *data)
+int	single_command(t_token *tok, t_input *data)
 {
 	int		exit_code;
 	pid_t	child_pid;
 
 	exit_code = 0;
 	child_pid = -2;
+	(void)tok;
 	set_fds(data);
+	data->file_lst = get_files_input();
 	if (is_built_in(data->cmd_args[0]))
 	{
 		openfiles(data);

@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lists_token.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/10 14:09:48 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:32:18 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lists_token.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:09:48 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/02 19:21:32 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-// void	end_free(t_token *env, int exit_code)
-// {
-// 	if (env)
-// 		list_clear(&env);
-// 	exit (exit_code);
-// }
 
 t_token	*ft_lstlast_t(t_token *lst)
 {
@@ -26,20 +19,6 @@ t_token	*ft_lstlast_t(t_token *lst)
 	while (lst->next != NULL)
 		lst = lst->next;
 	return (lst);
-}
-
-void	list_clear_t(t_token **lst)
-{
-	t_token	*temp;
-
-	if (!lst)
-		return ;
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		free (*lst);
-		*lst = temp;
-	}
 }
 
 void	ft_lstadd_back_t(t_token **lst, t_token *new)

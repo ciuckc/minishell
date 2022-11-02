@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   files.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/26 16:18:34 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 11:39:49 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   files.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/26 16:18:34 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/02 19:39:12 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+/*
+t_file	*get_files_input(t_token *tok)
+{
+	t_file	*top;
+
+	top = NULL;
+	while (tok && tok->token_type != PIPE)
+	{
+		if (tok->token_type == LESS)
+		{
+			tok = tok->next;
+			ft_lstadd_back_file(&top, ft_lstnew_file(tok->content, \
+			tok->token_type));
+		}
+		tok = tok->next;
+	}
+	return (top);
+}
+*/
+
+//ft_lstadd_back_t(&argv_l, ft_lstnew_t(args[i++]));
 
 t_file	*get_files_input(void)
 {

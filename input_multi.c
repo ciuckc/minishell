@@ -6,12 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:32:30 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/02 14:16:03 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:29:28 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+//./minishell < infile cat | wc > outfile
 t_token	*get_test_input(void)
 {
 	t_token	*top;
@@ -20,8 +21,8 @@ t_token	*get_test_input(void)
 	t_token	*node3;
 	t_token	*node4;
 	t_token	*node5;
-	// t_token	*node6;
-	// t_token	*node7;
+	t_token	*node6;
+	t_token	*node7;
 	// t_token_lst	*node8;
 	// t_token_lst	*node9;
 	// t_token_lst	*node10;
@@ -41,11 +42,17 @@ t_token	*get_test_input(void)
 	node3->token_type = WORD;
 	node3->content = ft_substr("cat", 0, 3);
 	node4 = malloc(sizeof(t_token));
-	node4->token_type = GREAT;
-	node4->content = ft_substr(">", 0, 1);
+	node4->token_type = PIPE;
+	node4->content = ft_substr("|", 0, 1);
 	node5 = malloc(sizeof(t_token));
 	node5->token_type = WORD;
-	node5->content = ft_substr("outfile", 0, 7);
+	node5->content = ft_substr("wc", 0, 2);
+	node6 = malloc(sizeof(t_token));
+	node6->token_type = GREAT;
+	node6->content = ft_substr(">", 0, 1);
+	node7 = malloc(sizeof(t_token));
+	node7->token_type = WORD;
+	node7->content = ft_substr("outfile", 0, 7);
 	// node6 = malloc(sizeof(t_token));
 	// node6->token_type = GRT_TH;
 	// node6->content = ft_substr(">", 0, 2);
@@ -72,12 +79,12 @@ t_token	*get_test_input(void)
 	node2->next = node3;
 	node3->next = node4;
 	node4->next = node5;
-	// node5->next = node6;
-	// node6->next = node7;
+	node5->next = node6;
+	node6->next = node7;
 	// node7->next = node8;
 	// node8->next = node9;
 	// node9->next = node10;
 	// node10->next = node11;
-	node5->next = NULL;
+	node7->next = NULL;
 	return (top);
 }

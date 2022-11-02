@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/01 18:54:36 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:42:35 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_envi
 typedef struct s_input
 {
 	char			**environ;
-	char			**elements;
 	char			**paths;
 	char			*cmd_path;
 	char			**cmd_args;
@@ -85,22 +84,21 @@ typedef struct s_token
 // 	t_input i;
 // } aa;
 
-int			run_execution(char **argv, char **envp);
-t_envi		*env_init(char **envi);
-void		list_clear(t_envi **lst);
 void		ft_lstadd_back_t(t_token **lst, t_token *new);
 t_token		*argv_init(char **args);
-t_token		*get_test_input(void);
 t_token		*ft_lstnew_t(void *content);
-t_envi		*ft_lstnew_e(void *content);
 t_token		*ft_lstlast_t(t_token *lst);
-void		list_clear_t(t_token **lst);
 t_file		*new_node_file(char *content, t_token_type flag);
 int			ft_lstsize_t(t_token *lst);
 void		ft_lstadd_back_e(t_envi **lst, t_envi *new);
 t_file		*get_files_input(void);
 void		get_env_array(char **envi, t_input **data);
+t_file		*ft_lstnew_file(void *content, t_token_type flag);
+t_file		*ft_lstlast_file(t_file *lst);
+void		ft_lstadd_back_file(t_file **lst, t_file *new);
 
+int			run_execution(char **argv, char **envp);
+t_token		*get_test_input(void);
 int			data_fetch(t_token **tok, t_input **data);
 void		get_path(t_input *data);
 void		error_exit(char *text, int exit_code);
@@ -111,9 +109,8 @@ int			access_file(t_input *data);
 void		dupfiles(t_input *data);
 int			check_builtin(t_input *data);
 bool		is_built_in(char *cmd);
-int			single_command(t_input *data);
+int			single_command(t_token *tok, t_input *data);
 void		execution_start(t_token *tok, t_input *data);
-void		get_files(t_input *data);
 void		openfiles(t_input *data);
 int			exec_single(t_input *data);
 int			multiple_commands(t_token *tok, t_input *data);
