@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 03:09:34 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/25 18:08:33 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/02 23:32:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ static void	st_tok_len(char *full_cmd, u_int32_t *pos)
 	if (full_cmd[*pos] == '\"' || full_cmd[*pos] == '\'')
 		st_quote_len(full_cmd, pos);
 	else if (ft_strchr(OPERATORS, full_cmd[*pos]))
+	{
 		(*pos)++;
+		if (full_cmd[*pos] == full_cmd[*pos - 1])
+			(*pos)++;
+	}
 	else
 	{
 		(*pos)++;

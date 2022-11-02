@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/17 19:36:48 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/02 20:57:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	parser(char *full_cmd);
  * @param envp Environment variables.
  * @return t_table* 
  */
-t_table	*create_env_table(char **envp);
+t_table	*create_env_table(char **env);
 
 #endif

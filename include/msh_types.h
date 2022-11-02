@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/25 17:17:04 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/02 23:59:48 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,16 @@ typedef enum e_token_type
 	WORD = 1,
 	ASSIGNMENT_WORD = 1 << 1,
 	PIPE = 1 << 2,
-	LESS = 1 << 3,
-	GREAT = 1 << 4,
+	OR_IF = 1 << 3,
+	LESS = 1 << 4,
 	DLESS = 1 << 5,
-	DGREAT = 1 << 6,
-	AND_IF = 1 << 7,
-	OR_IF = 1 << 8,
-	S_QUOTE = 1 << 9,
-	D_QUOTE = 1 << 10,
-	END = 1 << 11
+	GREAT = 1 << 6,
+	DGREAT = 1 << 7,
+	AMP = 1 << 8,
+	AND_IF = 1 << 9,
+	S_QUOTE = 1 << 10,
+	D_QUOTE = 1 << 11,
+	END = 1 << 12
 }	t_token_type;
 
 typedef struct s_tok_len

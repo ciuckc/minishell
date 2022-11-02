@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/21 05:07:28 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/02 17:31:55 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ u_int32_t end, char *cmd);
  * @param list 
  */
 void			free_scan_list(t_scan_tok *list);
+
+void			free_word_list(t_token_list **list);
 
 t_token			*build_word(t_scan_tok **lst);
 
