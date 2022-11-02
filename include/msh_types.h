@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/02 23:59:48 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 00:19:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef enum e_token_type
 	AND_IF = 1 << 9,
 	S_QUOTE = 1 << 10,
 	D_QUOTE = 1 << 11,
-	END = 1 << 12
+	DOLLAR = 1 << 12,
+	END = 1 << 13
 }	t_token_type;
 
 typedef struct s_tok_len
