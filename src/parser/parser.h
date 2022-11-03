@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 01:10:23 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 01:54:13 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token			*create_token(char *tok);
  * @param full_cmd 
  * @return t_token_list* 
  */
-t_token_list	*retrieve_tok_list(char *full_cmd);
+t_token_list	*retrieve_word_list(char *full_cmd);
 
 /**
  * @brief create a list of individual microtokens splitted on 
