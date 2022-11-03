@@ -16,20 +16,18 @@ static void	st_cmd_input(t_table *env_table)
 {
 	char	*full_cmd;
 
-	(void)env_table;
 	full_cmd = NULL;
 	while (true)
 	{
 		full_cmd = readline("\033[1;32mminishell$\033[0m ");
-		parser(full_cmd);
+		parser(full_cmd, env_table);
 		free(full_cmd);
 	}
 }
 
 static void	st_one_cmd(char *argv, t_table *env_table)
 {
-	(void)env_table;
-	parser(argv);
+	parser(argv, env_table);
 }
 
 int32_t	main(int32_t argc, char **argv, char **envp)

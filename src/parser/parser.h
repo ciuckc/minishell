@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 02:28:40 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 05:15:17 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ t_token			*create_token(char *tok);
 /**
  * @brief get token list
  * 
- * @param full_cmd 
+ * @param full_cmd
+ * @param table
  * @return t_token_list* 
  */
-t_token_list	*retrieve_word_list(char *full_cmd);
+t_token_list	*retrieve_word_list(char *full_cmd, t_table *table);
 
 /**
  * @brief create a list of individual microtokens splitted on 
@@ -52,6 +53,6 @@ void			free_word_list(t_token_list **list);
 
 t_token			*build_word(t_scan_tok **lst);
 
-void			expand_variables(t_token_list *words);
+void			expand_variables(t_token_list *words, t_table *table);
 
 #endif

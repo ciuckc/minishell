@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/02 20:57:03 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 05:10:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdbool.h>
 # include "hashmap.h"
 
-void	parser(char *full_cmd);
+void	parser(char *full_cmd, t_table *table);
 
 /**
  * @brief Create a env table object. When initialised, we remove the $OLDPWD 
