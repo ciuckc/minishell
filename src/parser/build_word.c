@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 05:06:45 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 00:20:38 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 00:37:12 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static void	st_assign_type(t_token *word)
 		word->type <<= 1;
 	if (word->type == 0)
 		word->type = WORD;
+	if ((word->type == WORD || word->type == DOLLAR) && *(word->tok) != '=' && \
+	ft_strchr(word->tok, '='))
+		word->type = ASSIGNMENT_WORD;
 }
 
 static void	st_get_word(t_scan_tok **scan_tok, t_token **word)

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 17:04:19 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/02 23:40:51 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 01:41:17 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ static void	st_make_word_list(t_token_list **word_list, t_scan_tok *scan_tok)
 	{
 		word = build_word(&scan_tok);
 		if (word == NULL)
-			return (free_scan_list(scan_tok));
+			return (free_scan_list(&scan_tok), free_word_list(word_list));
 		st_add_word_to_list(word_list, word);
 		if (*word_list == NULL)
-			return (free_scan_list(scan_tok));
+			return (free_scan_list(&scan_tok));
 	}
 }
 
@@ -80,5 +80,10 @@ t_token_list	*retrieve_tok_list(char *full_cmd)
 		return (NULL);
 	word_list = NULL;
 	st_make_word_list(&word_list, scan_tok);
+	while (word_list)
+	{
+		printf("%s\n", word_list->tok->tok);
+		word_list = word_list->next;
+	}
 	return (word_list);
 }

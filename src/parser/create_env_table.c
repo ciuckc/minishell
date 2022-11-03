@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:38:11 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 16:58:09 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 01:40:36 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static void	st_remove_old_pwd(t_table *table, t_env *data, u_int32_t n)
 
 	i = 0;
 	item = item_search("OLDPWD", table);
+	if (item == NULL)
+		return ;
 	while (i < n)
 	{
 		if (data[i].name == item->key_str)

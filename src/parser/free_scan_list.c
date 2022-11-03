@@ -6,21 +6,22 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 03:42:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/21 03:43:40 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 01:11:00 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	free_scan_list(t_scan_tok *lst)
+void	free_scan_list(t_scan_tok **lst)
 {
 	t_scan_tok	*prev;
 
-	prev = lst;
+	prev = *lst;
 	while (lst != NULL)
 	{
-		lst = lst->next;
+		*lst = (*lst)->next;
 		free(prev);
-		prev = lst;
+		prev = *lst;
 	}
+	*lst = NULL;
 }
