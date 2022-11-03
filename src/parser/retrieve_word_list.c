@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 17:04:19 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 05:14:51 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 07:21:52 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,11 @@ t_token_list	*retrieve_word_list(char *full_cmd, t_table *table)
 	word_list = NULL;
 	st_make_word_list(&word_list, scan_tok);
 	free_scan_list(&scan_tok);
+	while (word_list)
+	{
+		printf("%s\n", word_list->tok->tok);
+		word_list = word_list->next;
+	}
 	expand_variables(word_list, table);
 	return (word_list);
 }
-
-	// while (word_list)
-	// {
-	// 	printf("%s\n", word_list->tok->tok);
-	// 	word_list = word_list->next;
-	// }

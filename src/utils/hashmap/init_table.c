@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 09:34:28 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/11 10:16:32 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 23:21:59 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	*st_calloc(size_t count, size_t size)
 t_table	*init_table(u_int32_t containers)
 {
 	t_table	*new;
-	size_t	i;
 
 	if (!containers)
 		containers = DEFAULT_HASH_TABLE_SIZE;
@@ -43,16 +42,7 @@ t_table	*init_table(u_int32_t containers)
 		return (NULL);
 	new->table = st_calloc(containers, sizeof(t_container *));
 	if (new->table == NULL)
-	{
-		free(new);
-		return (NULL);
-	}
-	i = 0;
-	while (i < containers)
-	{
-		new->table[i] = NULL;
-		i++;
-	}
+		return (free(new), NULL);
 	new->containers = containers;
 	new->entries = 0;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:48:25 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 16:50:38 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 23:23:21 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	*remove_item(char *key, t_table **map)
 		key_item->prev->next = key_item->next;
 	if (key_item->next != NULL)
 		key_item->next->prev = key_item->prev;
+	(*map)->entries--;
 	return (decrease_num_items(key, *map), free(key_item), data_cpy);
 }
