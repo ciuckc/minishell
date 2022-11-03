@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   retrieve_tok_list.c                                :+:    :+:            */
+/*   retrieve_word_list.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 17:04:19 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 01:53:34 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/03 03:51:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	st_add_word_to_list(t_token_list **list, t_token *word)
 
 static void	st_make_word_list(t_token_list **word_list, t_scan_tok *scan_tok)
 {
-	t_token	*word;
+	t_token		*word;
 
 	word = NULL;
 	while (scan_tok)
@@ -85,5 +85,7 @@ t_token_list	*retrieve_word_list(char *full_cmd)
 		printf("%s\n", word_list->tok->tok);
 		word_list = word_list->next;
 	}
+	free_scan_list(&scan_tok);
+	expand_variables(word_list);
 	return (word_list);
 }
