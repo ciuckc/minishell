@@ -35,9 +35,10 @@ BUILTINS_OBJ = $(addprefix $(OBJ_DIR)/,$(BUILTINS_SRC:.c=.o))
 
 EXEC_UTILSDIR = $(SRC_DIR)/execution_utils
 
-EXEC_UTILS_SRC = 	split_assist.c		files.c  \
-					ft_split.c	input.c		lists_token.c \
-					ft_list_files.c
+EXEC_UTILS_SRC = 	split_assist.c	ft_split.c	input.c	\
+					lists_token.c 	
+					
+# ft_list_files.c
 
 EXEC_UTILS_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_UTILS_SRC:.c=.o))
 

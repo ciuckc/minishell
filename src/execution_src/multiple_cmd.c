@@ -6,26 +6,36 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/02 14:03:02 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:28:24 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+void	dup_pipes(t_input *data)
+{
+	close(data->pipe_fd[0]);
+	if (dup2(data->pipe_fd[1], 1) < 0)
+		error_exit("Dup readfd failed", 1);;
+	close(data->pipe_fd[1]);
+}
+
 void	child_process(t_token *tok, t_input *data)
 {
-	get_cmd(tok, data);
+	dprintf (2, "close data->pipe_fd[0] %d\n", data->pipe_fd[0]);
 	close(data->pipe_fd[0]);
+	dprintf (2, " data->pipe_fd[1] %d\n", data->pipe_fd[1]);
 	if (dup2(data->pipe_fd[1], 1) < 0)
 		error_exit("Dup failed", STDOUT_FILENO);
 	close(data->pipe_fd[1]);
-// 	//dupinfile? dup oufile? get pipex
-// 	if (dup2(data->readfd, 0) < 0)
-// 		error_exit("Dup failed", 1);
-// 	close(data->readfd);
-// 	// dup_pipes(data);
+	dprintf (2, " data->readfd %d\n", data->readfd);
+	if (dup2(data->readfd, 0) < 0)
+		error_exit("Dup readfd failed", 1);
+	close(data->readfd);
+	dup_pipes(data);
+	get_cmd(tok, data);
 	access_file(data);
-	openfiles(data);
+	openfiles(tok, data);
 	execution(data);
 }
 
@@ -43,7 +53,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 	int		exit_code;
 	pid_t	id;
 
-	data->readfd = -1;
+	data->readfd = -2;
 	exit_code = 0;
 	while (tok)
 	{
@@ -59,6 +69,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 		while (tok->next && tok->token_type != PIPE)
 			tok = tok->next;
 		tok = tok->next;
+		data->cmd_count--;
 	}
 	// exit_code = waiting(id);
 	return (exit_code);

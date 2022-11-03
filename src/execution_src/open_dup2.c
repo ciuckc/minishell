@@ -6,37 +6,48 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/01 19:18:06 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:27:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	openfiles(t_input *data)
+void	openfiles(t_token *tok, t_input *data)
 {
-	while (data->file_lst)
+	while (tok && tok->token_type != PIPE)
 	{
-		if (data->file_lst->flag == LESS)
+		if (tok->token_type == LESS)
 		{
-			data->fds[READ] = open (data->file_lst->name, O_RDONLY);
+			data->fds[READ] = open (tok->next->content, O_RDONLY);
 			if (data->fds[READ] < 0)
-				error_exit(data->file_lst->name, 1);
+				error_exit(tok->next->content, 1);
 			if (dup2(data->fds[READ], STDIN_FILENO) < 0)
 				error_exit("Dup failed", 1);
 		}
-		else if (data->file_lst->flag == GREAT)
+		else if (tok->token_type == GREAT)
 		{
-			data->fds[WRITE] = open(data->file_lst->name, O_CREAT | \
-			O_WRONLY | O_TRUNC, 0644);
+			data->fds[WRITE] = open(tok->next->content, \
+			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			if (data->fds[WRITE] < 0)
-				error_exit(data->file_lst->name, 1);
+				error_exit(tok->next->content, 1);
 			if (dup2(data->fds[WRITE], STDOUT_FILENO) < 0)
 				error_exit("Dup failed", 1);
 		}
-		data->file_lst = data->file_lst->next;
+		tok = tok->next;
 	}
 	close(data->fds[READ]);
 	close(data->fds[WRITE]);
+}
+
+void	set_fds(t_input *data)
+{
+	if (dup2(data->fds[READ], STDIN_FILENO) == -1)
+		error_exit("Dup failed", 1);
+	close(data->fds[READ]);
+	if (dup2(data->fds[WRITE], STDOUT_FILENO) == -1)
+		error_exit("Dup failed", 1);
+	close(data->fds[WRITE]);
+	//check redirection and replace if needed
 }
 
 /*

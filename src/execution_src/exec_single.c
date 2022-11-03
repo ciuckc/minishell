@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 13:45:08 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/01 17:56:33 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:52:21 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ while (data->cmd_count > 1)
 }
 */
 
-int	exec_single(t_input *data)
+int	exec_single(t_token *tok, t_input *data)
 {
 	pid_t	id;
 	int		exit_code;
@@ -45,11 +45,17 @@ int	exec_single(t_input *data)
 		error_exit("Fork failed", 1);
 	if (id == 0)
 	{
+		// set_fds(data);
 		access_file(data);
-		openfiles(data);
+		openfiles(tok, data);
 		execution(data);
 	}
 	else
 		exit_code = waiting(id);
 	return (exit_code);
 }
+
+/*
+if (openfiles(tok, data) == 1)
+	return (1);
+*/

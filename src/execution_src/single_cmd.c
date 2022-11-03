@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/02 19:47:41 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:52:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	set_fds(t_input *data)
+void	temp_fds(t_input *data)
 {
 	data->temp_fd[0] = dup(STDIN_FILENO);
 	data->temp_fd[1] = dup(STDOUT_FILENO);
@@ -36,16 +36,15 @@ int	single_command(t_token *tok, t_input *data)
 	exit_code = 0;
 	child_pid = -2;
 	(void)tok;
-	set_fds(data);
-	data->file_lst = get_files_input();
+	temp_fds(data);
 	if (is_built_in(data->cmd_args[0]))
 	{
-		openfiles(data);
+		openfiles(tok, data);
 		exit_code = check_builtin(data);
-		// reset_fds(data);
+		reset_fds(data);
 	}
 	else
-		child_pid = exec_single(data);
+		child_pid = exec_single(tok, data);
 	printf ("child_pid  %d\n", child_pid);
 	return (exit_code);
 }
