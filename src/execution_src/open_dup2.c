@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/03 17:27:51 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/04 19:01:46 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	openfiles(t_token *tok, t_input *data)
+void	open_infiles(t_token *tok, t_input *data)
 {
 	while (tok && tok->token_type != PIPE)
 	{
@@ -24,7 +24,16 @@ void	openfiles(t_token *tok, t_input *data)
 			if (dup2(data->fds[READ], STDIN_FILENO) < 0)
 				error_exit("Dup failed", 1);
 		}
-		else if (tok->token_type == GREAT)
+		tok = tok->next;
+	}
+	close(data->fds[READ]);
+}
+
+void	open_outfiles(t_token *tok, t_input *data)
+{
+	while (tok && tok->token_type != PIPE)
+	{
+		if (tok->token_type == GREAT)
 		{
 			data->fds[WRITE] = open(tok->next->content, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -35,7 +44,6 @@ void	openfiles(t_token *tok, t_input *data)
 		}
 		tok = tok->next;
 	}
-	close(data->fds[READ]);
 	close(data->fds[WRITE]);
 }
 

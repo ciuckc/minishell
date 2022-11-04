@@ -18,12 +18,12 @@ PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
 
 EXEC_DIR = $(SRC_DIR)/execution_src
 
-EXEC_SRC = access_file.c	errors.c		\
-			execution.c		get_cmd.c  		\
-			multiple_cmd.c	run_execution.c	\
-			data_fetch.c	exec_single.c	\
-			execution_start.c get_path.c	\
-			open_dup2.c		single_cmd.c
+EXEC_SRC = 	access_file.c     exec_single.c     \
+			get_path.c        child_process.c   \
+			execution_start.c multiple_cmd.c    \
+			errors.c          get_cmd.c         \
+			open_dup2.c       single_cmd.c		\
+			run_execution.c	
 
 EXEC_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_SRC:.c=.o))
 
@@ -35,10 +35,10 @@ BUILTINS_OBJ = $(addprefix $(OBJ_DIR)/,$(BUILTINS_SRC:.c=.o))
 
 EXEC_UTILSDIR = $(SRC_DIR)/execution_utils
 
-EXEC_UTILS_SRC = 	split_assist.c	ft_split.c	input.c	\
-					lists_token.c 	
+EXEC_UTILS_SRC = 	split_assist.c	ft_split.c	\
+					lists_token.c 	input_multi.c
 					
-# ft_list_files.c
+# input.c
 
 EXEC_UTILS_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_UTILS_SRC:.c=.o))
 

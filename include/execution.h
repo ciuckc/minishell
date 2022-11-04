@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/03 17:24:42 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/04 19:03:33 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,13 @@ int			check_builtin(t_input *data);
 bool		is_built_in(char *cmd);
 int			single_command(t_token *tok, t_input *data);
 void		execution_start(t_token *tok, t_input *data);
-void		openfiles(t_token *tok, t_input *data);
+void		open_infiles(t_token *tok, t_input *data);
+void		open_outfiles(t_token *tok, t_input *data);
 int			exec_single(t_token *tok, t_input *data);
 int			multiple_commands(t_token *tok, t_input *data);
 void		count_cmds(t_token *tok, t_input *data);
 void		set_fds(t_input *data);
+void		child_process(t_token *tok, t_input *data, int max);
 
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);
