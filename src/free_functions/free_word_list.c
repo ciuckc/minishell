@@ -6,11 +6,11 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 17:28:39 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/02 17:55:02 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/04 04:00:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "free_functions.h"
 
 void	free_word_list(t_token_list **list)
 {

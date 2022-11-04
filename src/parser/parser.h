@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 05:15:17 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/04 09:29:32 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,12 @@
 # include "minishell.h"
 # include "msh_types.h"
 
-t_token			*create_token(char *tok);
-
 /**
- * @brief get token list
- * 
+ * @brief get word list
  * @param full_cmd
  * @param table
- * @return t_token_list* 
  */
-t_token_list	*retrieve_word_list(char *full_cmd, t_table *table);
+t_token_list	*retrieve_word_list(char *full_cmd);
 
 /**
  * @brief create a list of individual microtokens splitted on 
@@ -36,23 +32,20 @@ t_token_list	*retrieve_word_list(char *full_cmd, t_table *table);
 t_scan_tok		*tok_len_scan_list(char **full_cmd);
 
 /**
- * @brief add the current token micro recognized and it s boundry to the list
+ * @brief add the current micro token recognized and it s boundry to the list
  * 
  */
 t_scan_tok		*add_boundry_to_list(t_scan_tok **lst, u_int32_t start, \
 u_int32_t end, char *cmd);
 
 /**
- * @brief free the list in case of error
- * 
- * @param list 
+ * @brief build a word and assign it s type. This word is delimited by END, IFS
+ * or OPERTATORS
+ * @param lst the list of micro tokens
+ * @return t_token* 
  */
-void			free_scan_list(t_scan_tok **list);
-
-void			free_word_list(t_token_list **list);
-
 t_token			*build_word(t_scan_tok **lst);
 
-void			expand_variables(t_token_list *words, t_table *table);
+void			create_cmd_list(t_cmd_list **list, t_token_list *words);
 
 #endif

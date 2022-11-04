@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
+/*   free_scan_list.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 10:16:27 by scristia      ########   odam.nl         */
+/*   Created: 2022/10/21 03:42:10 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/04 04:00:17 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "free_functions.h"
 
-t_cmd_list	*parser(char *full_cmd)
+void	free_scan_list(t_scan_tok **lst)
 {
-	t_token_list	*tokens;
-	t_cmd_list		*cmd_list;
+	t_scan_tok	*prev;
 
-	tokens = retrieve_word_list(full_cmd);
-	if (tokens == NULL)
-		return (NULL);
-	create_cmd_list(&cmd_list, tokens);
-	if (cmd_list == NULL)
-		return (free_word_list(&tokens), NULL);
-	return (cmd_list);
+	prev = *lst;
+	while (*lst != NULL)
+	{
+		*lst = (*lst)->next;
+		free(prev);
+		prev = *lst;
+	}
+	*lst = NULL;
 }

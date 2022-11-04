@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
+/*   var_expansion.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 10:16:27 by scristia      ########   odam.nl         */
+/*   Created: 2022/11/04 02:34:51 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/04 02:38:17 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#ifndef VAR_EXPANSION_H
+# define VAR_EXPANSION_H
 
-t_cmd_list	*parser(char *full_cmd)
-{
-	t_token_list	*tokens;
-	t_cmd_list		*cmd_list;
+# include "minishell.h"
+# include "msh_types.h"
 
-	tokens = retrieve_word_list(full_cmd);
-	if (tokens == NULL)
-		return (NULL);
-	create_cmd_list(&cmd_list, tokens);
-	if (cmd_list == NULL)
-		return (free_word_list(&tokens), NULL);
-	return (cmd_list);
-}
+void	expand_variables(t_token_list *words, t_table *table);
+
+#endif

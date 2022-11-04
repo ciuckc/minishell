@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_scan_list.c                                   :+:    :+:            */
+/*   free_functions.h                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/21 03:42:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 02:35:56 by scristia      ########   odam.nl         */
+/*   Created: 2022/11/04 03:49:13 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/04 03:54:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#ifndef FREE_FUNCTIONS_H
+# define FREE_FUNCTIONS_H
 
-void	free_scan_list(t_scan_tok **lst)
-{
-	t_scan_tok	*prev;
+# include "minishell.h"
 
-	prev = *lst;
-	while (*lst != NULL)
-	{
-		*lst = (*lst)->next;
-		free(prev);
-		prev = *lst;
-	}
-	*lst = NULL;
-}
+/**
+ * @brief free the built word list with it s assigned types and content
+ * 
+ * @param list 
+ */
+void			free_word_list(t_token_list **list);
+
+/**
+ * @brief free the list in case of error
+ * 
+ * @param list 
+ */
+void			free_scan_list(t_scan_tok **list);
+
+#endif

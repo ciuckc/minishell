@@ -14,20 +14,34 @@
 
 static void	st_cmd_input(t_table *env_table)
 {
-	char	*full_cmd;
+	char		*full_cmd;
+	t_cmd_list	*cmd_list;
 
+	(void)env_table;
+	cmd_list = NULL;
 	full_cmd = NULL;
 	while (true)
 	{
 		full_cmd = readline("\033[1;32mminishell$\033[0m ");
-		parser(full_cmd, env_table);
+		cmd_list = parser(full_cmd);
+		if (cmd_list == NULL)
+		{
+			free(full_cmd);
+			continue ;
+		}
+		//expand_variables(cmd_list->cmd_list, env_table);
 		free(full_cmd);
 	}
 }
 
 static void	st_one_cmd(char *argv, t_table *env_table)
 {
-	parser(argv, env_table);
+	t_cmd_list	*cmd_list;
+
+	(void)env_table;
+	cmd_list = parser(argv);
+	if (cmd_list == NULL)
+		return ;
 }
 
 int32_t	main(int32_t argc, char **argv, char **envp)

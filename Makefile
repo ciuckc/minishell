@@ -2,15 +2,17 @@ include make_include/sources_def.mk make_include/utilities.mk
 
 all: $(NAME)
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
 #	Compile objects into exec
 
-$(NAME): $(OBJ) | $(OBJ_DIR)
+$(OBJ_DIR):
+	mkdir -p $@
+
+$(OBJ) : | $(OBJ_DIR)
+
+$(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS)  -g $(CFLAGS) $(OBJ) -o $(NAME)
 
-#	Create object files
+#	Create object files for libs
 
 $(NAME_LIBFT):
 	$(MAKE) bonus -C $(DIR_LIBFT)
@@ -18,16 +20,21 @@ $(NAME_LIBFT):
 $(NAME_HASH):
 	$(MAKE) -C $(DIR_HASH)
 
-
-$(MAIN_OBJ): $(MAIN_SRC) | $(OBJ_DIR)
-	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
-
 #	Template for adding new object file from src files
 #
 #	$(OBJ_DIR)/%.o: $(EXAMPLE_DIR)/%.c
 #		$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) -c $< -o $@
 
+$(MAIN_OBJ): $(MAIN_SRC)
+	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(EXPANSION_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
 $(OBJ_DIR)/%.o: $(PARSE_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(FREE_DIR)/%.c
 	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 clean:

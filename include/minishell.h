@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/03 05:10:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/04 08:29:34 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "hashmap.h"
+# include "msh_types.h"
+# include "../src/free_functions/free_functions.h"
 
-void	parser(char *full_cmd, t_table *table);
+void		expand_variables(t_token_list *words, t_table *table);
+
+t_cmd_list	*parser(char *full_cmd);
 
 /**
  * @brief Create a env table object. When initialised, we remove the $OLDPWD 
@@ -32,6 +36,6 @@ void	parser(char *full_cmd, t_table *table);
  * @param envp Environment variables.
  * @return t_table* 
  */
-t_table	*create_env_table(char **env);
+t_table		*create_env_table(char **env);
 
 #endif
