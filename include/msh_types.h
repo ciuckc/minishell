@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 10:23:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/08 02:21:21 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ typedef enum e_token_type
 	ASSIGNMENT_WORD = 1 << 1,
 	PIPE = 1 << 2,
 	OR_IF = 1 << 3,
-	LESS = 1 << 4,
-	DLESS = 1 << 5,
-	GREAT = 1 << 6,
-	DGREAT = 1 << 7,
-	AMP = 1 << 8,
-	AND_IF = 1 << 9,
+	AMP = 1 << 4,
+	AND_IF = 1 << 5,
+	LESS = 1 << 6,
+	DLESS = 1 << 7,
+	GREAT = 1 << 8,
+	DGREAT = 1 << 9,
 	S_QUOTE = 1 << 10,
 	D_QUOTE = 1 << 11,
 	DOLLAR = 1 << 12,
@@ -64,7 +64,7 @@ typedef struct s_scan
 
 typedef struct s_token
 {
-	char			*tok;
+	char			*str;
 	t_token_type	type;
 }	t_token;
 

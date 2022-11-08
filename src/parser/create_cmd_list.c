@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 04:44:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 10:29:31 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/08 02:59:19 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,34 @@ static void	st_remove_and_link(t_token_list **words)
 	next = (*words)->next;
 	prev = (*words)->prev;
 	if (prev != NULL)
-		prev->next = next;
+		prev->next = NULL;
 	if (next != NULL)
-		next->prev = prev;
-	free((*words)->tok->tok);
+		next->prev = NULL;
+	free((*words)->tok->str);
 	free((*words)->tok);
 	(*words)->tok = NULL;
 	*words = next;
+}
+
+static void	st_and_or_synthax_check(t_cmd_list **list, size_t len)
+{
+	size_t	i;
+	char	**err_code;
+
+	i = 0;
+	err_code = (char *[]){[OR_IF] = "||", [AND_IF] = "&&"};
+	if ((*list)[len].cmd_list->tok == NULL)
+	{
+		while (i < len)
+		{
+			free_word_list(&(*list)[i].cmd_list);
+			i++;
+		}
+		printf("minishell: parse error near `%s'\n", \
+		err_code[(*list)->cmd_list_type]);
+		free(*list);
+		*list = NULL;
+	}
 }
 
 static void	st_assign_to_list(t_cmd_list **list, t_token_list *words, \
@@ -58,8 +79,9 @@ size_t len)
 			words = words->next;
 		(*list)[i].cmd_list_type = words->tok->type;
 		st_remove_and_link(&words);
-		if ((*list)[i].cmd_list->tok == NULL)
-			printf("Found some unfinished synthx need to free!!\n");
+		st_and_or_synthax_check(list, i);
+		if (*list == NULL)
+			break ;
 		i++;
 	}
 }

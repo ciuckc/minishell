@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 03:13:10 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/08 01:21:42 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static void	st_expand_var_in_str(t_token_list *word, t_table *table)
 	ssize_t	var_len_sum;
 	ssize_t	unexpanded_len;
 
-	var_len_sum = st_get_len_of_expanded_var(word->tok->tok, table);
-	unexpanded_len = st_get_len_unexpanded(word->tok->tok);
+	var_len_sum = st_get_len_of_expanded_var(word->tok->str, table);
+	unexpanded_len = st_get_len_unexpanded(word->tok->str);
 }
 
 void	expand_variables(t_token_list *words, t_table *table)
@@ -85,7 +85,7 @@ void	expand_variables(t_token_list *words, t_table *table)
 	head = words;
 	while (words)
 	{
-		if (ft_strchr(words->tok->tok, '$'))
+		if (ft_strchr(words->tok->str, '$'))
 			st_expand_var_in_str(words, table);
 		if (words->tok == NULL)
 		{
