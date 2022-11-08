@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 10:58:09 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:26:08 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ typedef struct s_input
 	char			**paths;
 	char			*cmd_path;
 	char			**cmd_args;
-	// char			**cmds;
-	// char			**infile;
-	// char			**outfile;
-	int				cmd_count;
-	int				readfd;
-	int				fds[2];
-	int				pipe_fd[2];
 	int				temp_fd[2];
+	int				exit_code;
+	int				cmd_count;
+	int				fds[2];
+	int				readfd;
+	int				pipe_fd[2];
 	struct s_file	*file_lst;
 }	t_input;
 
@@ -104,6 +102,7 @@ int			multiple_commands(t_token *tok, t_input *data);
 void		count_cmds(t_token *tok, t_input *data);
 void		set_fds(t_input *data);
 void		child_process(t_token *tok, t_input *data, int max);
+int			waiting(int id, int max);
 
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);

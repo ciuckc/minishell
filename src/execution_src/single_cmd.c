@@ -6,26 +6,32 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 15:31:12 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:26:53 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	temp_fds(t_input *data)
+int	exec_single(t_token *tok, t_input *data)
 {
-	data->temp_fd[0] = dup(STDIN_FILENO);
-	data->temp_fd[1] = dup(STDOUT_FILENO);
-}
+	pid_t	id;
+	int		exit_code;
 
-void	reset_fds(t_input *data)
-{
-	if (dup2(data->temp_fd[0], STDIN_FILENO) < 0)
-		error_exit("Dup 0 failed", 1);
-	close (data->temp_fd[0]);
-	if (dup2(data->temp_fd[1], STDOUT_FILENO) < 0)
-		error_exit("Dup 1 failed", 1);
-	close (data->temp_fd[1]);
+	exit_code = -1;
+	id = fork();
+	if (id == -1)
+		error_exit("Fork failed", 1);
+	if (id == 0)
+	{
+		access_file(data);
+		open_infiles(tok, data);
+		open_outfiles(tok, data);
+		if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
+			error_exit("command not found", 127);
+	}
+	else
+		exit_code = waiting(id, 1);
+	return (exit_code);
 }
 
 int	single_command(t_token *tok, t_input *data)
@@ -36,12 +42,10 @@ int	single_command(t_token *tok, t_input *data)
 	exit_code = 0;
 	child_pid = -2;
 	(void)tok;
-	// set_fds(data);
 	if (is_built_in(data->cmd_args[0]))
 	{
 		open_outfiles(tok, data);
 		exit_code = check_builtin(data);
-		reset_fds(data);
 	}
 	else
 		child_pid = exec_single(tok, data);

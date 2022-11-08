@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 15:30:31 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:28:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ int	open_outfiles(t_token *tok, t_input *data)
 	return (ret);
 }
 
-// void	set_fds(t_input *data)
-// {
-// 	if (dup2(data->fds[READ], STDIN_FILENO) == -1)
-// 		error_exit("Dup failed", 1);
-// 	close(data->fds[READ]);
-// 	if (dup2(data->fds[WRITE], STDOUT_FILENO) == -1)
-// 		error_exit("Dup failed", 1);
-// 	close(data->fds[WRITE]);
-// }
 
 /*
+	void	set_fds(t_input *data)
+	{
+		if (dup2(data->fds[READ], STDIN_FILENO) == -1)
+			error_exit("Dup failed", 1);
+		close(data->fds[READ]);
+		if (dup2(data->fds[WRITE], STDOUT_FILENO) == -1)
+			error_exit("Dup failed", 1);
+		close(data->fds[WRITE]);
+	}
 	Remember!!! man dup2
 	 In dup2(), the value of the new descriptor fildes2 is specified.  
 	 If fildes and fildes2 are equal, then dup2() just returns fildes2; 
@@ -73,4 +73,4 @@ int	open_outfiles(t_token *tok, t_input *data)
 	 Otherwise, if descriptor fildes2 is already in use, it is first deallocated
 	 as if a close(2) call had
      been done first.
-	*/
+*/

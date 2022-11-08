@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 16:10:49 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:24:24 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static int	waiting(int id)
+int	waiting(int id, int max)
 {
 	int	status;
 	int	exit_code;
@@ -23,6 +23,11 @@ static int	waiting(int id)
 		exit_code = (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 		exit_code = WTERMSIG(status) + 128;
+	while (max > 1)
+	{
+		wait(NULL);
+		max--;
+	}
 	return (exit_code);
 }
 
@@ -59,7 +64,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 			tok = tok->next;
 		tok = tok->next;
 	}
-	exit_code = waiting(id);
+	exit_code = waiting(id, max);
 	system("lsof -c minishell");
 	return (exit_code);
 }
