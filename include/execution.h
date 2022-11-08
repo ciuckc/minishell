@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 16:26:08 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:41:26 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		error_exit(char *text, int exit_code);
 void		get_cmd(t_token *tok, t_input *data);
 void		execution(t_input *data);
 int			access_file(t_input *data);
-void		dupfiles(t_input *data);
+void		dup_pipes(t_token *tok, t_input *data);
 int			check_builtin(t_input *data);
 bool		is_built_in(char *cmd);
 int			single_command(t_token *tok, t_input *data);
@@ -101,7 +101,7 @@ int			exec_single(t_token *tok, t_input *data);
 int			multiple_commands(t_token *tok, t_input *data);
 void		count_cmds(t_token *tok, t_input *data);
 void		set_fds(t_input *data);
-void		child_process(t_token *tok, t_input *data, int max);
+void		child_process(t_token *tok, t_input *data);
 int			waiting(int id, int max);
 
 int			ft_echo(char **arg);
@@ -114,7 +114,7 @@ t_token		*ft_lstnew_t(void *content);
 t_token		*ft_lstlast_t(t_token *lst);
 int			ft_lstsize_t(t_token *lst);
 void		get_files_input(t_token *tok, t_input *data);
-void		get_env_array(char **envi, t_input **data);
+void		get_env_array(char **envi, t_input *data);
 
 /*utils*/
 char		*ft_strjoin_withfree(char *s1, char *s2);

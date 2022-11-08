@@ -18,12 +18,11 @@ PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
 
 EXEC_DIR = $(SRC_DIR)/execution_src
 
-EXEC_SRC = 	access_file.c     exec_single.c     \
-			get_path.c        child_process.c   \
-			execution_start.c multiple_cmd.c    \
-			errors.c          get_cmd.c         \
-			open_dup2.c       single_cmd.c		\
-			run_execution.c	
+EXEC_SRC = 	execution.c		access_file.c   \
+			get_path.c      child_process.c \
+			multiple_cmd.c  get_cmd.c		\
+			open_dup2.c		single_cmd.c	\
+			errors.c		
 
 EXEC_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_SRC:.c=.o))
 

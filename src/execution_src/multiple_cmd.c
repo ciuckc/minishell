@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 16:24:24 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:14:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ int	waiting(int id, int max)
 	return (exit_code);
 }
 
+void	child_process(t_token *tok, t_input *data)
+{
+	close(data->pipe_fd[0]);
+	dup_pipes(tok, data);
+	get_cmd(tok, data);
+	access_file(data);
+	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
+		error_exit("command not found", 127);
+}
+
 void	parent_process(t_input *data)
 {
 	close(data->readfd);
@@ -46,18 +56,18 @@ int	multiple_commands(t_token *tok, t_input *data)
 	int		max;
 	pid_t	id;
 
-	data->readfd = -2;
+	data->readfd = -1;
 	exit_code = 0;
 	max = data->cmd_count;
 	while (tok)
 	{
-		if (pipe(data->pipe_fd) == -1) // if cmds > 1
+		if (pipe(data->pipe_fd) == -1)
 			error_exit("Pipe failed", 1);
 		id = fork();
 		if (id == -1)
 			error_exit("Fork failed", 1);
 		if (id == 0)
-			child_process(tok, data, max);
+			child_process(tok, data);
 		parent_process(data);
 		data->cmd_count--;
 		while (tok->next && tok->token_type != PIPE)

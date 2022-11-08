@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 16:28:07 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:21:36 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,36 @@ int	open_outfiles(t_token *tok, t_input *data)
 	return (ret);
 }
 
+void	dup_pipes(t_token *tok, t_input *data)
+{
+	int	ret;
 
-/*
-	void	set_fds(t_input *data)
+	if (data->readfd > 0)
 	{
-		if (dup2(data->fds[READ], STDIN_FILENO) == -1)
-			error_exit("Dup failed", 1);
+		if (dup2(data->readfd, 0) < 0)
+			error_exit("Dup readfd failed", 1);
+		close(data->readfd);
+	}
+	ret = open_infiles(tok, data);
+	if (ret)
+	{
+		if (dup2(data->fds[READ], STDIN_FILENO) < 0)
+			error_exit("Dup dup_infile failed", 1);
 		close(data->fds[READ]);
-		if (dup2(data->fds[WRITE], STDOUT_FILENO) == -1)
-			error_exit("Dup failed", 1);
+	}
+	if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
+		error_exit("Dup pipe 1 failed", 1);
+	close(data->pipe_fd[1]);
+	ret = open_outfiles(tok, data);
+	if (ret)
+	{
+		if (dup2(data->fds[WRITE], STDOUT_FILENO) < 0)
+			error_exit("Dup outfile failed", 1);
 		close(data->fds[WRITE]);
 	}
+}
+
+/*
 	Remember!!! man dup2
 	 In dup2(), the value of the new descriptor fildes2 is specified.  
 	 If fildes and fildes2 are equal, then dup2() just returns fildes2; 
