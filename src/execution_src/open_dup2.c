@@ -6,45 +6,53 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/04 19:01:46 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:16:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	open_infiles(t_token *tok, t_input *data)
+int	open_infiles(t_token *tok, t_input *data)
 {
+	int	ret;
+
+	ret = 0;
 	while (tok && tok->token_type != PIPE)
 	{
 		if (tok->token_type == LESS)
 		{
+			ret = 1;
+			if (data->fds[READ] != STDIN_FILENO)
+				close(data->fds[READ]);
 			data->fds[READ] = open (tok->next->content, O_RDONLY);
 			if (data->fds[READ] < 0)
 				error_exit(tok->next->content, 1);
-			if (dup2(data->fds[READ], STDIN_FILENO) < 0)
-				error_exit("Dup failed", 1);
 		}
 		tok = tok->next;
 	}
-	close(data->fds[READ]);
+	return (ret);
 }
 
-void	open_outfiles(t_token *tok, t_input *data)
+int	open_outfiles(t_token *tok, t_input *data)
 {
+	int	ret;
+
+	ret = 0;
 	while (tok && tok->token_type != PIPE)
 	{
 		if (tok->token_type == GREAT)
 		{
+			ret = 1;
+			if (data->fds[WRITE] != STDOUT_FILENO)
+				close(data->fds[WRITE]);
 			data->fds[WRITE] = open(tok->next->content, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			if (data->fds[WRITE] < 0)
 				error_exit(tok->next->content, 1);
-			if (dup2(data->fds[WRITE], STDOUT_FILENO) < 0)
-				error_exit("Dup failed", 1);
 		}
 		tok = tok->next;
 	}
-	close(data->fds[WRITE]);
+	return (ret);
 }
 
 void	set_fds(t_input *data)

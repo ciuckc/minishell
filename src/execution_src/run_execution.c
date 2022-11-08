@@ -12,7 +12,6 @@
 
 #include "execution.h"
 
-
 int	data_fetch(t_token **tok, t_input **data)
 {
 	(*data)->fds[0] = 0;

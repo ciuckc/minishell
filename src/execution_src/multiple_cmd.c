@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/04 18:17:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:57:57 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	multiple_commands(t_token *tok, t_input *data)
 	data->readfd = -2;
 	exit_code = 0;
 	max = data->cmd_count;
-	set_fds(data);
 	while (tok)
 	{
 		if (pipe(data->pipe_fd) == -1)

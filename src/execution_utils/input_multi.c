@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   input_multi.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:32:30 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/02 12:29:28 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:10:33 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_token	*get_test_input(void)
 	t_token	*node5;
 	t_token	*node6;
 	t_token	*node7;
-	// t_token_lst	*node8;
-	// t_token_lst	*node9;
-	// t_token_lst	*node10;
-	// t_token_lst	*node11;
+	t_token	*node8;
+	// t_token	*node9;
+	// t_token	*node10;
+	// t_token	*node11;
 
 	/* < Makefile cat | wc -w >> testing/outfile */
 
@@ -46,13 +46,22 @@ t_token	*get_test_input(void)
 	node4->content = ft_substr("|", 0, 1);
 	node5 = malloc(sizeof(t_token));
 	node5->token_type = WORD;
-	node5->content = ft_substr("wc", 0, 2);
+	node5->content = ft_substr("cat", 0, 3);
 	node6 = malloc(sizeof(t_token));
-	node6->token_type = GREAT;
-	node6->content = ft_substr(">", 0, 1);
+	node6->token_type = PIPE;
+	node6->content = ft_substr("|", 0, 1);
 	node7 = malloc(sizeof(t_token));
 	node7->token_type = WORD;
-	node7->content = ft_substr("outfile", 0, 7);
+	node7->content = ft_substr("wc", 0, 2);
+	node8 = malloc(sizeof(t_token));
+	node8->token_type = WORD;
+	node8->content = ft_substr("-l", 0, 2);
+	// node9 = malloc(sizeof(t_token));
+	// node9->token_type = GREAT;
+	// node9->content = ft_substr(">", 0, 1);
+	// node10 = malloc(sizeof(t_token));
+	// node10->token_type = WORD;
+	// node10->content = ft_substr("outfile", 0, 7);
 	// node6 = malloc(sizeof(t_token));
 	// node6->token_type = GRT_TH;
 	// node6->content = ft_substr(">", 0, 2);
@@ -81,10 +90,10 @@ t_token	*get_test_input(void)
 	node4->next = node5;
 	node5->next = node6;
 	node6->next = node7;
-	// node7->next = node8;
+	node7->next = node8;
 	// node8->next = node9;
 	// node9->next = node10;
 	// node10->next = node11;
-	node7->next = NULL;
+	node8->next = NULL;
 	return (top);
 }
