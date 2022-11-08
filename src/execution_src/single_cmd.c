@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/04 19:03:11 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:31:12 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	single_command(t_token *tok, t_input *data)
 	exit_code = 0;
 	child_pid = -2;
 	(void)tok;
-	set_fds(data);
+	// set_fds(data);
 	if (is_built_in(data->cmd_args[0]))
 	{
 		open_outfiles(tok, data);

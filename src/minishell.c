@@ -31,9 +31,14 @@
 // 		free(full_cmd);
 // 	}
 // }
+void	checkleaks(void)
+{
+	system("lsof -c minishell");
+}
 
 int32_t	main(int32_t argc, char **argv, char **envp)
 {
+	// atexit(checkleaks);
 	if (argc > 0)
 	{
 		run_execution(argv, envp);

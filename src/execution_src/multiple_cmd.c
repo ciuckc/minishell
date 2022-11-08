@@ -6,11 +6,25 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 12:57:57 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:10:49 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+static int	waiting(int id)
+{
+	int	status;
+	int	exit_code;
+
+	exit_code = -1;
+	waitpid(id, &status, 0);
+	if (WIFEXITED(status))
+		exit_code = (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		exit_code = WTERMSIG(status) + 128;
+	return (exit_code);
+}
 
 void	parent_process(t_input *data)
 {
@@ -32,7 +46,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 	max = data->cmd_count;
 	while (tok)
 	{
-		if (pipe(data->pipe_fd) == -1)
+		if (pipe(data->pipe_fd) == -1) // if cmds > 1
 			error_exit("Pipe failed", 1);
 		id = fork();
 		if (id == -1)
@@ -45,6 +59,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 			tok = tok->next;
 		tok = tok->next;
 	}
-	// exit_code = waiting(id);
+	exit_code = waiting(id);
+	system("lsof -c minishell");
 	return (exit_code);
 }

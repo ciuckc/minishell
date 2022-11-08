@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 13:16:41 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:30:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,15 @@ int	open_outfiles(t_token *tok, t_input *data)
 	return (ret);
 }
 
-void	set_fds(t_input *data)
-{
-	if (dup2(data->fds[READ], STDIN_FILENO) == -1)
-		error_exit("Dup failed", 1);
-	close(data->fds[READ]);
-	if (dup2(data->fds[WRITE], STDOUT_FILENO) == -1)
-		error_exit("Dup failed", 1);
-	close(data->fds[WRITE]);
-	//check redirection and replace if needed
-}
+// void	set_fds(t_input *data)
+// {
+// 	if (dup2(data->fds[READ], STDIN_FILENO) == -1)
+// 		error_exit("Dup failed", 1);
+// 	close(data->fds[READ]);
+// 	if (dup2(data->fds[WRITE], STDOUT_FILENO) == -1)
+// 		error_exit("Dup failed", 1);
+// 	close(data->fds[WRITE]);
+// }
 
 /*
 	Remember!!! man dup2
