@@ -6,13 +6,14 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 14:12:12 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:38:45 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
+# include "minishell.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -62,12 +63,6 @@ typedef struct s_input
 	struct s_file	*file_lst;
 }	t_input;
 
-typedef struct s_file
-{
-	char			*name;
-	t_token_type	flag;
-	struct s_file	*next;
-}	t_file;
 
 typedef struct s_token
 {
@@ -75,6 +70,13 @@ typedef struct s_token
 	t_token_type	token_type;
 	struct s_token	*next;
 }	t_token;
+
+// typedef struct s_file
+// {
+// 	char			*name;
+// 	t_token_type	flag;
+// 	struct s_file	*next;
+// }	t_file;
 
 // typedef s_token
 // {
@@ -84,31 +86,23 @@ typedef struct s_token
 // 	t_token_type	type;	
 // }
 
-// typedef struct a
-// {
-// 	t_token t;
-// 	t_envi e;
-// 	t_input i;
-// } aa;
-
-int			run_execution(char **argv, char **envp);
-int			data_fetch(t_token **tok, t_input **data);
+// int			data_fetch(t_token **tok, t_input **data);
+int			execution(char **argv, char **envp);
 void		get_path(t_input *data);
 void		error_exit(char *text, int exit_code);
+void		error_print(char *text);
 void		get_cmd(t_token *tok, t_input *data);
-void		execution(t_input *data);
 int			access_file(t_input *data);
-void		dup_pipes(t_token *tok, t_input *data);
 int			check_builtin(t_input *data);
 bool		is_built_in(char *cmd);
-int			single_command(t_token *tok, t_input *data);
-void		execution_start(t_token *tok, t_input *data);
+void		dup_pipes(t_token *tok, t_input *data);
 int			open_infiles(t_token *tok, t_input *data);
 int			open_outfiles(t_token *tok, t_input *data);
+int			dup_and_close(int fd, int in_out);
 int			exec_single(t_token *tok, t_input *data);
+int			single_command(t_token *tok, t_input *data);
 int			multiple_commands(t_token *tok, t_input *data);
 void		count_cmds(t_token *tok, t_input *data);
-void		set_fds(t_input *data);
 void		child_process(t_token *tok, t_input *data);
 int			waiting(int id, int max);
 
@@ -121,21 +115,21 @@ void		ft_lstadd_back_t(t_token **lst, t_token *new);
 t_token		*ft_lstnew_t(void *content);
 t_token		*ft_lstlast_t(t_token *lst);
 int			ft_lstsize_t(t_token *lst);
-void		get_files_input(t_token *tok, t_input *data);
+// void		get_files_input(t_token *tok, t_input *data);
 void		get_env_array(char **envi, t_input *data);
 
 /*utils*/
 char		*ft_strjoin_withfree(char *s1, char *s2);
+// char		*ft_strdup(const char *s1);
 
 /*from libft*/
-char		**ft_split(char const *s, char c);
-int			ft_memcmp(const void *s1, const void *s2, size_t n);
-char		*ft_strdup(const char *s1);
-void		*ft_calloc(size_t count, size_t size);
-size_t		ft_strlen(const char *s);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strdup(const char *s1);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-void		ft_putstr_fd(char *s, int fd);
+// char		**ft_split(char const *s, char c);
+// int			ft_memcmp(const void *s1, const void *s2, size_t n);
+// void		*ft_calloc(size_t count, size_t size);
+// size_t		ft_strlen(const char *s);
+// char		*ft_substr(char const *s, unsigned int start, size_t len);
+// char		*ft_strdup(const char *s1);
+// int			ft_strncmp(const char *s1, const char *s2, size_t n);
+// void		ft_putstr_fd(char *s, int fd);
 
 #endif

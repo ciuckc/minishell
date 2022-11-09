@@ -6,12 +6,19 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 16:11:54 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:43:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+/**
+ * @brief 
+ * 
+ * @param tok 
+ * @param data 
+ * @return int 
+ */
 int	exec_single(t_token *tok, t_input *data)
 {
 	t_token	*token;
@@ -28,11 +35,13 @@ int	exec_single(t_token *tok, t_input *data)
 		//disable sig
 		ret = open_infiles(token, data);
 		if (ret)
-			dup_and_close(data->fds[READ], STDIN_FILENO);
+			if (dup_and_close(data->fds[READ], STDIN_FILENO))
+				return (1);
 		token = tok;
 		ret = open_outfiles(token, data);
 		if (ret)
-			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
+			if (dup_and_close(data->fds[WRITE], STDOUT_FILENO))
+				return (1);
 		access_file(data);
 		if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 			error_exit("command not found", 127);
@@ -43,22 +52,20 @@ int	exec_single(t_token *tok, t_input *data)
 
 int	single_command(t_token *tok, t_input *data)
 {
-	int		exit_code;
 	t_token	*token;
 
-	exit_code = 0;
 	token = tok;
 	get_cmd(token, data);
 	token = tok;
 	if (is_built_in(data->cmd_args[0]))
 	{
 		open_outfiles(token, data);
-		exit_code = check_builtin(data);
+		data->exit_code = check_builtin(data);
 	}
 	else
-		exit_code = exec_single(token, data);
-	printf ("exit_code  %d\n", exit_code);
-	return (exit_code);
+		data->exit_code = exec_single(token, data);
+	printf ("exit_code  %d\n", data->exit_code);
+	return (data->exit_code);
 }
 
 	//return exitcode from waitpid of last child

@@ -41,7 +41,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	// atexit(checkleaks);
 	if (argc > 0)
 	{
-		run_execution(argv, envp);
+		execution(argv, envp);
 		// st_cmd_input(envp);
 	}
 	else if (argc == 0)

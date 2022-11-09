@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 16:12:05 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:37:35 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,17 @@ int	open_outfiles(t_token *tok, t_input *data)
 	return (ret);
 }
 
-void	dup_and_close(int fd, int in_out)
+int	dup_and_close(int fd, int in_out)
 {
 	if (dup2(fd, in_out) < 0)
-		error_exit("Dup dup_and_close failed", 1);
+	{
+		error_print("Dup dup_and_close failed");
+		return (1);
+	}
 	close(fd);
+	return (0);
 }
+		// error_exit("Dup dup_and_close failed", 1);
 
 void	dup_pipes(t_token *tok, t_input *data)
 {
@@ -74,21 +79,13 @@ void	dup_pipes(t_token *tok, t_input *data)
 	}
 	ret = open_infiles(tok, data);
 	if (ret)
-	{
-		if (dup2(data->fds[READ], STDIN_FILENO) < 0)
-			error_exit("Dup dup_infile failed", 1);
-		close(data->fds[READ]);
-	}
+		dup_and_close(data->fds[READ], STDIN_FILENO);
 	if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
 		error_exit("Dup pipe 1 failed", 1);
 	close(data->pipe_fd[1]);
 	ret = open_outfiles(tok, data);
 	if (ret)
-	{
-		if (dup2(data->fds[WRITE], STDOUT_FILENO) < 0)
-			error_exit("Dup outfile failed", 1);
-		close(data->fds[WRITE]);
-	}
+		dup_and_close(data->fds[WRITE], STDOUT_FILENO);
 }
 
 /*

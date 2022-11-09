@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 12:55:42 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:17:32 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_input	*data_init(char **envp)
  * @param envp from main
  * @return some int value
 */
-int	run_execution(char **argv, char **envp)
+int	execution(char **argv, char **envp)
 {
 	t_input		*data;
 	t_token		*tok;
