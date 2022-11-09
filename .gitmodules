@@ -1,0 +1,3 @@
+[submodule "src/utils/libft"]
+	path = src/utils/libft
+	url = https://github.com/ciuckc/libft.git
