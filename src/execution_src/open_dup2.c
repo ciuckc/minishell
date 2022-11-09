@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 18:21:36 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:12:05 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ int	open_outfiles(t_token *tok, t_input *data)
 		tok = tok->next;
 	}
 	return (ret);
+}
+
+void	dup_and_close(int fd, int in_out)
+{
+	if (dup2(fd, in_out) < 0)
+		error_exit("Dup dup_and_close failed", 1);
+	close(fd);
 }
 
 void	dup_pipes(t_token *tok, t_input *data)

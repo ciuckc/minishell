@@ -1,1 +1,5 @@
-      13
+I am the infile text
+
+< infile cat > outfile
+
+

@@ -1,20 +1,5 @@
-I'm the infile text
-adkljgadklfjld
-dsakhadks
-lsdjlkajsf
-lsakdjlkfjs
-ladksjflkj
-lksaflkajsfs
-aslfjadklfjdlf
-adlfjladkgj
+I am the infile text
 
-again 
-again
-
-and again
-
-sadfafas
+< infile cat > outfile
 
 
-
-halloooooooo

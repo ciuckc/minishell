@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   errors.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/26 11:48:37 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 11:39:04 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   errors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/26 11:48:37 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/09 11:52:09 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-// void	error_msg_exit(char *text, int exit_code)
-// {
-// 	ft_putstr_fd("myshell: ", STDERR_FILENO);
-// 	perror(text);
-// 	exit(exit_code);
-// }
-
 void	error_exit(char *text, int exit_code)
 {
-	ft_putstr_fd("myshell: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	perror(text);
 	exit(exit_code);
 }
-
-	//ft_putstr_fd(strerror(errno), 2);

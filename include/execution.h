@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 18:41:26 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:12:12 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ typedef struct s_token
 	t_token_type	token_type;
 	struct s_token	*next;
 }	t_token;
+
+// typedef s_token
+// {
+// 	char			*content;
+// 	struct s_token	*next;
+// 	struct s_token	*prev;
+// 	t_token_type	type;	
+// }
 
 // typedef struct a
 // {

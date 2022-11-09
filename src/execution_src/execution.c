@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/08 18:57:38 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:55:42 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	run_execution(char **argv, char **envp)
 	tok = get_test_input();
 	data = data_init(envp);
 	get_path(data);
-	get_cmd(tok, data);
 	count_cmds(tok, data);
 	if (data->cmd_count == 1)
 		data->exit_code = single_command(tok, data);
