@@ -1,0 +1,10 @@
+./minishell
+.vscode
+*.swp
+*.out
+.DS_Store
+*.o
+obj
+*.a
+main.c
+*.dSYM
