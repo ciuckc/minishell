@@ -3,24 +3,30 @@
 /*                                                        ::::::::            */
 /*   create_token.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/20 08:27:05 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/08 01:19:50 by scristia      ########   odam.nl         */
+/*   Created: 2022/10/06 17:04:19 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/09 18:59:01 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <stdlib.h>
 
-t_token	*create_token(char *tok)
-{
-	t_token	*new;
+// static void	st_skip_spaces(char **cmd)
+// {
+// 	while (**cmd != '\0' && ft_isspace(**cmd))
+// 		(*cmd)++;
+// }
 
-	new = malloc(sizeof(t_token));
-	if (new == NULL)
-		return (NULL);
-	new->str = tok;
-	new->type = 0;
-	return (NULL);
-}
+// t_list	*create_token_list(char *full_cmd)
+// {
+// 	size_t	len;
+
+// 	st_skip_spaces(&full_cmd);
+// 	len = 0;
+// 	while (*full_cmd)
+// 	{
+// 		len = ft_len_to_char_set(full_cmd, TOKENS);
+// 		full_cmd++;
+// 	}
+// 	return (NULL);
+// }

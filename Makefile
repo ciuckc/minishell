@@ -10,20 +10,25 @@ $(OBJ_DIR):
 $(OBJ) : | $(OBJ_DIR)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS)  -g $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) $(OBJ) -o $(NAME)
 
 #	Create object files for libs
 
 $(NAME_LIBFT):
 	$(MAKE) bonus -C $(DIR_LIBFT)
 
-$(NAME_HASH):
-	$(MAKE) -C $(DIR_HASH)
+$(MAIN_OBJ): $(MAIN_SRC)
+	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 #	Template for adding new object file from src files
 #
 #	$(OBJ_DIR)/%.o: $(EXAMPLE_DIR)/%.c
 #		$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(EXEC_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(BUILTINS_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 $(MAIN_OBJ): $(MAIN_SRC)
 	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
