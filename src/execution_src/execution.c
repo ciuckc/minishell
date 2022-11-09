@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 17:58:05 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execution.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/08 18:19:05 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/09 19:20:57 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	execution(t_token *tok, t_table *env_table, char **envp)
 	t_input		*data;
 
 	data = NULL;
+	(void)env_table;
 	data = data_init(envp);
 	get_path(data);
 	count_cmds(tok, data);

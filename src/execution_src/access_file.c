@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   access_file.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/01 19:09:44 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   access_file.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/19 15:57:16 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/09 19:26:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	access_file(t_input *data)
 	}
 	while (data->paths[i])
 	{
-		data->cmd_path = ft_strjoin_withfree(data->paths[i], \
+		data->cmd_path = ft_strjoin(data->paths[i], \
 							data->cmd_args[0]);
 		if (!data->cmd_path)
 			error_exit("Malloc failed", 1);

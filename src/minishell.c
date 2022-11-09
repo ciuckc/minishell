@@ -22,7 +22,7 @@ char **envp)
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
-		g_exit_code = execution((*cmd_list)[i].cmd_list, envp, env_table);
+		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
 		if (g_exit_code > 0)
 			break ;
 		i++;
@@ -45,7 +45,7 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 			free(full_cmd);
 			continue ;
 		}
-		st_execute_loop(cmd_list, env_table, envp);
+		st_execute_loop(&cmd_list, env_table, envp);
 		free(full_cmd);
 	}
 }

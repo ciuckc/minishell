@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 18:02:21 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execution.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/09 19:10:07 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_input
 	int				pipe_fd[2];
 }	t_input;
 
-
-int			execution(char **argv, char **envp);
 void		get_path(t_input *data);
 void		error_exit(char *text, int exit_code);
 void		error_print(char *text);

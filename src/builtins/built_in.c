@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   built_in.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 12:47:09 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/02 19:27:33 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   built_in.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/24 12:47:09 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/09 19:20:18 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-#include "execution.h"
+#include "../execution_src/execution.h"
 
 int	exec_built_in(t_input *data)
 {

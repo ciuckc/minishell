@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 18:12:44 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 19:05:52 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # define IFS " \t\n"
 # define QUOTES "'\""
 # define VAR_ASSIGN "$"
-
-int	i;
 
 /*ENV VALUE STRUCT*/
 

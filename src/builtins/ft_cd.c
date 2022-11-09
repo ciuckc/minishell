@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-<<<<<<< HEAD:src/expansion/expand_var_in_str.c
-/*   expand_var_in_str.c                                :+:    :+:            */
-=======
 /*   ft_cd.c                                            :+:    :+:            */
->>>>>>> execution:src/builtins/ft_cd.c
 /*                                                     +:+                    */
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-<<<<<<< HEAD:src/expansion/expand_var_in_str.c
-/*   Created: 2022/11/08 04:02:53 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 16:04:55 by scristia      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "var_expansion.h"
-
-void	expand_var_in_str(t_token *word, t_table *table)
-{
-	ssize_t	sum_expanded_vars;
-
-	(void)table;
-	sum_expanded_vars = expanded_var_len(word->str, table);
-=======
 /*   Created: 2022/10/25 09:16:35 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/10/30 12:08:57 by emanuela      ########   odam.nl         */
+/*   Updated: 2022/11/09 19:20:25 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../execution_src/execution.h"
 
 int	ft_cd(t_input *data)
 {
@@ -47,5 +28,4 @@ int	ft_cd(t_input *data)
 	//set environ variable(cwd)
 	free (cwd);
 	return (0);
->>>>>>> execution:src/builtins/ft_cd.c
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   multiple_cmd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 12:43:27 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   multiple_cmd.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/27 16:34:34 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/09 19:21:26 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 			child_process(tok, data);
 		parent_process(data);
 		data->cmd_count--;
-		while (tok->next && tok->token_type != PIPE)
+		while (tok->next && tok->type != PIPE)
 			tok = tok->next;
 		tok = tok->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 18:14:29 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 20:06:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include "hashmap.h"
+# include "../src/utils/hashmap/hashmap.h"
 # include "msh_types.h"
 # include "../src/free_functions/free_functions.h"
 

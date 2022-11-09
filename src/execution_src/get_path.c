@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 13:01:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/01 19:17:13 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_path.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/14 13:01:48 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/09 19:26:21 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	get_path(t_input *data)
 		if (!data->paths)
 			error_exit("Malloc failed", 1);
 		while (data->paths[++i])
-			data->paths[i] = ft_strjoin_withfree(data->paths[i], "/");
+			data->paths[i] = ft_strjoin(data->paths[i], "/");
 	}
 }
