@@ -1,9 +1,0 @@
-
-
-node1 content  "DSML_TH"; type "<<"
-node2 content  "WORD"; 	type "END"
-node3 content  "WORD"; 	type "cat"
-node4 content  "PIPE"; 	type "|"
-node4 content  "WORD"; 	type "cat"
-node5 content  "GRT_TH"; type ">"
-node5 content  "WORD"; 	type "testing/newfile"
