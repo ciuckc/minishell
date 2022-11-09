@@ -2,12 +2,14 @@ include make_include/sources_def.mk make_include/utilities.mk
 
 all: $(NAME)
 
+#	Compile objects into exec
+
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-#	Compile objects into exec
+$(OBJ): | $(OBJ_DIR)
 
-$(NAME): $(OBJ) | $(OBJ_DIR)
+$(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) $(OBJ) -o $(NAME)
 
 #	Create object files
@@ -15,7 +17,7 @@ $(NAME): $(OBJ) | $(OBJ_DIR)
 $(NAME_LIBFT):
 	$(MAKE) bonus -C $(DIR_LIBFT)
 
-$(MAIN_OBJ): $(MAIN_SRC) | $(OBJ_DIR)
+$(MAIN_OBJ): $(MAIN_SRC)
 	$(CC) $(FLAGS) $(INCLUDE) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 #	Template for adding new object file from src files

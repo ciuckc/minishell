@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 16:17:32 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:52:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ int	execution(char **argv, char **envp)
 		data->exit_code = single_command(tok, data);
 	else
 		data->exit_code = multiple_commands(tok, data);
-	return (0);
+	return (data->exit_code);
 }
