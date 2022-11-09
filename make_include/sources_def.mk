@@ -16,6 +16,10 @@ PARSE_SRC = parser.c create_token_list.c
 
 PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
 
+$(OBJ) += $(PARSE_OBJ)
+
+#	EXECUTION
+
 EXEC_DIR = $(SRC_DIR)/execution_src
 
 EXEC_SRC = 	execution.c		access_file.c   \
@@ -25,21 +29,18 @@ EXEC_SRC = 	execution.c		access_file.c   \
 
 EXEC_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_SRC:.c=.o))
 
+$(OBJ) += $(EXEC_OBJ)
+
+#	BUILT-INS
+
 BUILTINS_DIR = $(SRC_DIR)/builtins
 
 BUILTINS_SRC = built_in.c	ft_cd.c		ft_echo.c
 
 BUILTINS_OBJ = $(addprefix $(OBJ_DIR)/,$(BUILTINS_SRC:.c=.o))
 
-EXEC_UTILSDIR = $(SRC_DIR)/execution_utils
+$(OBJ) += $(BUILTINS_OBJ)
 
-EXEC_UTILS_SRC = 	split_assist.c	ft_split.c	\
-					lists_token.c 	input.c
-					
-# input.c
-# input_multi.c
-# input_multi_red.c
+#	MAIN OBJ
 
-EXEC_UTILS_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_UTILS_SRC:.c=.o))
-
-OBJ = $(MAIN_OBJ) $(PARSE_OBJ) $(EXEC_OBJ) $(BUILTINS_OBJ) $(EXEC_UTILS_OBJ)
+OBJ += $(MAIN_OBJ)

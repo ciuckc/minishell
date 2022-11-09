@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 16:38:45 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:02:21 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,13 @@
 # define EXECUTION_H
 
 # include "minishell.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include <string.h>
 # include <sys/errno.h>
 
 # define READ 0
 # define WRITE 1
-
-typedef enum e_token_type
-{
-	WORD = 1,
-	ASSIGNMENT_WORD = 1 << 1,
-	PIPE = 1 << 2,
-	LESS = 1 << 3,
-	GREAT = 1 << 4,
-	DLESS = 1 << 5,
-	DGREAT = 1 << 6,
-	AND_IF = 1 << 7,
-	OR_IF = 1 << 8,
-	S_QUOTE = 1 << 9,
-	D_QUOTE = 1 << 10,
-	END = 1 << 11
-}	t_token_type;
-
-typedef struct s_envi
-{
-	char			*envectors;
-	struct s_envi	*next;
-}	t_envi;
 
 typedef struct s_input
 {
@@ -60,33 +34,9 @@ typedef struct s_input
 	int				fds[2];
 	int				readfd;
 	int				pipe_fd[2];
-	struct s_file	*file_lst;
 }	t_input;
 
 
-typedef struct s_token
-{
-	char			*content;
-	t_token_type	token_type;
-	struct s_token	*next;
-}	t_token;
-
-// typedef struct s_file
-// {
-// 	char			*name;
-// 	t_token_type	flag;
-// 	struct s_file	*next;
-// }	t_file;
-
-// typedef s_token
-// {
-// 	char			*content;
-// 	struct s_token	*next;
-// 	struct s_token	*prev;
-// 	t_token_type	type;	
-// }
-
-// int			data_fetch(t_token **tok, t_input **data);
 int			execution(char **argv, char **envp);
 void		get_path(t_input *data);
 void		error_exit(char *text, int exit_code);
@@ -105,31 +55,13 @@ int			multiple_commands(t_token *tok, t_input *data);
 void		count_cmds(t_token *tok, t_input *data);
 void		child_process(t_token *tok, t_input *data);
 int			waiting(int id, int max);
+void		get_env_array(char **envi, t_input *data);
 
+/**built-ins **/
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);
 
-/*for lists - exec_utils*/
-t_token		*get_test_input(void);
-void		ft_lstadd_back_t(t_token **lst, t_token *new);
-t_token		*ft_lstnew_t(void *content);
-t_token		*ft_lstlast_t(t_token *lst);
-int			ft_lstsize_t(t_token *lst);
-// void		get_files_input(t_token *tok, t_input *data);
-void		get_env_array(char **envi, t_input *data);
-
 /*utils*/
 char		*ft_strjoin_withfree(char *s1, char *s2);
-// char		*ft_strdup(const char *s1);
-
-/*from libft*/
-// char		**ft_split(char const *s, char c);
-// int			ft_memcmp(const void *s1, const void *s2, size_t n);
-// void		*ft_calloc(size_t count, size_t size);
-// size_t		ft_strlen(const char *s);
-// char		*ft_substr(char const *s, unsigned int start, size_t len);
-// char		*ft_strdup(const char *s1);
-// int			ft_strncmp(const char *s1, const char *s2, size_t n);
-// void		ft_putstr_fd(char *s, int fd);
 
 #endif

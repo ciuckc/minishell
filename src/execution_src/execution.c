@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 16:52:51 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:58:05 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,11 @@ t_input	*data_init(char **envp)
  * @param envp from main
  * @return some int value
 */
-int	execution(char **argv, char **envp)
+int	execution(t_token *tok, t_table *env_table, char **envp)
 {
 	t_input		*data;
-	t_token		*tok;
 
-	(void)argv;
 	data = NULL;
-	tok = get_test_input();
 	data = data_init(envp);
 	get_path(data);
 	count_cmds(tok, data);
