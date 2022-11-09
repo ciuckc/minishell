@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 16:04:48 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 20:44:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	expand_variables(t_token *words, t_table *table)
 			expand_var_in_str(words, table);
 		if (words == NULL)
 		{
-			//free_word_list(&head);
+			free_word_list(&head);
 			return ;
 		}
 		words = words->next;
