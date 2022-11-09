@@ -12,12 +12,28 @@
 
 #include "minishell.h"
 
-static void	st_cmd_input(t_table *env_table)
+int	g_exit_code = 0;
+
+static void	st_execute_loop(t_cmd_list **cmd_list, t_table *env_table, \
+char **envp)
+{
+	u_int32_t	i;
+
+	i = 0;
+	while ((*cmd_list)[i].cmd_list)
+	{
+		g_exit_code = execution((*cmd_list)[i].cmd_list, envp, env_table);
+		if (g_exit_code > 0)
+			break ;
+		i++;
+	}
+}
+
+static void	st_cmd_input(t_table *env_table, char **envp)
 {
 	char		*full_cmd;
 	t_cmd_list	*cmd_list;
 
-	(void)env_table;
 	cmd_list = NULL;
 	full_cmd = NULL;
 	while (true)
@@ -29,7 +45,7 @@ static void	st_cmd_input(t_table *env_table)
 			free(full_cmd);
 			continue ;
 		}
-		//expand_variables(cmd_list->cmd_list, env_table);
+		st_execute_loop(cmd_list, env_table, envp);
 		free(full_cmd);
 	}
 }
@@ -52,7 +68,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
 	if (argc == 1)
-		st_cmd_input(env_table);
+		st_cmd_input(env_table, envp);
 	else if (argc == 2)
 		st_one_cmd(*(argv + 1), env_table);
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 02:34:51 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 02:38:17 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 16:02:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include "minishell.h"
 # include "msh_types.h"
 
-void	expand_variables(t_token_list *words, t_table *table);
+void	expand_variables(t_token *words, t_table *table);
+
+void	expand_var_in_str(t_token *word, t_table *table);
+
+ssize_t	expanded_var_len(char *str, t_table *table);
 
 #endif

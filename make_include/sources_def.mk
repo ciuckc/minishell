@@ -12,7 +12,7 @@ include make_include/general_def.mk
 
 EXPANSION_DIR = $(SRC_DIR)/expansion
 
-EXPANSION_SRC = expand_variables.c
+EXPANSION_SRC = expand_variables.c expand_var_in_str.c expanded_var_len.c
 
 EXPANSION_OBJ = $(addprefix $(OBJ_DIR)/,$(EXPANSION_SRC:.c=.o))
 

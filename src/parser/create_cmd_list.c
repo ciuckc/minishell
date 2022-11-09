@@ -6,66 +6,68 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 04:44:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/08 02:59:19 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 17:45:01 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static size_t	st_count_cmds(t_token_list *words)
+static size_t	st_count_cmds(t_token *words)
 {
 	size_t	count;
 
 	count = 0;
 	while (words)
 	{
-		if (words->tok->type == AND_IF || words->tok->type == OR_IF || \
-		words->tok->type == END)
+		if (words->type == AND_IF || words->type == OR_IF || \
+		words->type == END)
 			count++;
 		words = words->next;
 	}
 	return (count);
 }
 
-static void	st_remove_and_link(t_token_list **words)
-{
-	t_token_list	*next;
-	t_token_list	*prev;
-
-	next = (*words)->next;
-	prev = (*words)->prev;
-	if (prev != NULL)
-		prev->next = NULL;
-	if (next != NULL)
-		next->prev = NULL;
-	free((*words)->tok->str);
-	free((*words)->tok);
-	(*words)->tok = NULL;
-	*words = next;
-}
-
-static void	st_and_or_synthax_check(t_cmd_list **list, size_t len)
+static void	st_and_or_synthax_check(t_token **words, t_cmd_list **list, \
+size_t len)
 {
 	size_t	i;
-	char	**err_code;
+	char	**err_type;
 
 	i = 0;
-	err_code = (char *[]){[OR_IF] = "||", [AND_IF] = "&&"};
-	if ((*list)[len].cmd_list->tok == NULL)
+	err_type = (char *[]){[OR_IF] = "`||'", [AND_IF] = "`&&'"};
+	if ((*words) == (*list)[len].cmd_list)
 	{
+		printf("minishell: synthax error near unexpected token %s\n", \
+		err_type[(*words)->type]);
 		while (i < len)
 		{
-			free_word_list(&(*list)[i].cmd_list);
+			free_word_list(&((*list)[len].cmd_list));
 			i++;
 		}
-		printf("minishell: parse error near `%s'\n", \
-		err_code[(*list)->cmd_list_type]);
 		free(*list);
 		*list = NULL;
+		return ;
 	}
 }
 
-static void	st_assign_to_list(t_cmd_list **list, t_token_list *words, \
+static void	st_remove_and_link(t_token **words, t_cmd_list **list, size_t len)
+{
+	t_token	*temp;
+
+	temp = (*words)->next;
+	if ((*words)->prev)
+		(*words)->prev->next = NULL;
+	if ((*words)->next)
+		(*words)->next->prev = NULL;
+	free((*words)->str);
+	st_and_or_synthax_check(words, list, len);
+	if (*list == NULL)
+		return ;
+	free(*words);
+	*words = temp;
+}
+
+static void	st_assign_to_list(t_cmd_list **list, t_token *words, \
 size_t len)
 {
 	size_t	i;
@@ -74,19 +76,18 @@ size_t len)
 	while (i < len)
 	{
 		(*list)[i].cmd_list = words;
-		while (words->tok->type != AND_IF && words->tok->type != OR_IF && \
-		words->tok->type != END)
+		while (words->type != AND_IF && words->type != OR_IF && \
+		words->type != END)
 			words = words->next;
-		(*list)[i].cmd_list_type = words->tok->type;
-		st_remove_and_link(&words);
-		st_and_or_synthax_check(list, i);
-		if (*list == NULL)
-			break ;
+		(*list)[i].cmd_list_type = words->type;
+		st_remove_and_link(&words, &(*list), i);
+		if ((*list) == NULL)
+			return ;
 		i++;
 	}
 }
 
-void	create_cmd_list(t_cmd_list **list, t_token_list *words)
+void	create_cmd_list(t_cmd_list **list, t_token *words)
 {
 	size_t	count;
 

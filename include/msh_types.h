@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/08 02:21:21 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 18:12:44 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define IFS " \t\n"
 # define QUOTES "'\""
 # define VAR_ASSIGN "$"
+
+int	i;
 
 /*ENV VALUE STRUCT*/
 
@@ -62,24 +64,25 @@ typedef struct s_scan
 	struct s_scan	*prev;
 }	t_scan_tok;
 
+/*TOKEN LIST*/
+
+/**
+ * @brief 
+ * 
+ */
 typedef struct s_token
 {
 	char			*str;
+	struct s_token	*next;
+	struct s_token	*prev;
 	t_token_type	type;
 }	t_token;
-
-typedef struct s_token_list
-{
-	t_token				*tok;
-	struct s_token_list	*next;
-	struct s_token_list	*prev;
-}	t_token_list;
 
 /*PARSE STRUCT LIST*/
 
 typedef struct s_full_cmd_list
 {
-	t_token_list	*cmd_list;
+	t_token			*cmd_list;
 	t_token_type	cmd_list_type;
 }	t_cmd_list;
 

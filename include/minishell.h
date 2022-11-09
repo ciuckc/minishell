@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/04 08:29:34 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/09 18:14:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@
 # include "msh_types.h"
 # include "../src/free_functions/free_functions.h"
 
-void		expand_variables(t_token_list *words, t_table *table);
+extern int	g_exit_code;
+
+int			execution(t_token *tok, t_table *table, char **envp);
+
+void		expand_variables(t_token *words, t_table *table);
 
 t_cmd_list	*parser(char *full_cmd);
 
