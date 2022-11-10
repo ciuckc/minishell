@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   multiple_cmd.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/27 16:34:34 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:21:26 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   multiple_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/10 14:50:56 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	waiting(int id, int max)
 
 void	child_process(t_token *tok, t_input *data)
 {
-	close(data->pipe_fd[0]);
 	dup_pipes(tok, data);
 	get_cmd(tok, data);
 	access_file(data);
@@ -78,3 +77,9 @@ int	multiple_commands(t_token *tok, t_input *data)
 	// system("lsof -c minishell");
 	return (exit_code);
 }
+
+/*
+	fd->tmpin = dup(STDIN_FILENO);
+	fd->tmpout = dup(STDOUT_FILENO);
+	fd->in = dup(STDIN_FILENO);
+*/

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   open_dup2.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/22 19:11:18 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:25:30 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   open_dup2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/10 15:18:56 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	dup_pipes(t_token *tok, t_input *data)
 {
 	int	ret;
 
+	close(data->pipe_fd[0]);
 	if (data->readfd > 0)
 	{
 		if (dup2(data->readfd, 0) < 0)
@@ -80,9 +81,12 @@ void	dup_pipes(t_token *tok, t_input *data)
 	ret = open_infiles(tok, data);
 	if (ret)
 		dup_and_close(data->fds[READ], STDIN_FILENO);
-	if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
-		error_exit("Dup pipe 1 failed", 1);
-	close(data->pipe_fd[1]);
+	if (data->pipe_fd[1] > 1)
+	{
+		if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
+			error_exit("Dup pipe 1 failed", 1);
+		close(data->pipe_fd[1]);
+	}
 	ret = open_outfiles(tok, data);
 	if (ret)
 		dup_and_close(data->fds[WRITE], STDOUT_FILENO);
@@ -96,4 +100,12 @@ void	dup_pipes(t_token *tok, t_input *data)
 	 Otherwise, if descriptor fildes2 is already in use, it is first deallocated
 	 as if a close(2) call had
      been done first.
+*/
+/*
+	if (data->pipe_fd[1] > 1)
+	{
+		if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
+			error_exit("Dup pipe 1 failed", 1);
+		close(data->pipe_fd[1]);
+	}
 */
