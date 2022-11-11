@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_cmd.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/19 14:02:46 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:24:24 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/10 16:12:19 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	count_cmds(t_token *tok, t_input *data)
 		tok = tok->next;
 	}
 	data->cmd_count = count + 1;
-	dprintf (2, "how many cmd? %d\n", data->cmd_count);
 }

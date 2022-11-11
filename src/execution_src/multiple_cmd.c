@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/10 14:50:56 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:07:49 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,12 @@ int	waiting(int id, int max)
 		exit_code = (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 		exit_code = WTERMSIG(status) + 128;
-	while (max > 1)
+	while (max > 0)
 	{
 		wait(NULL);
 		max--;
 	}
 	return (exit_code);
-}
-
-void	child_process(t_token *tok, t_input *data)
-{
-	dup_pipes(tok, data);
-	get_cmd(tok, data);
-	access_file(data);
-	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
-		error_exit("command not found", 127);
 }
 
 void	parent_process(t_input *data)
@@ -66,7 +57,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 		if (id == -1)
 			error_exit("Fork failed", 1);
 		if (id == 0)
-			child_process(tok, data);
+			child_process(tok, data, max);
 		parent_process(data);
 		data->cmd_count--;
 		while (tok->next && tok->type != PIPE)
@@ -74,7 +65,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 		tok = tok->next;
 	}
 	exit_code = waiting(id, max);
-	// system("lsof -c minishell");
+	system("lsof -c minishell");
 	return (exit_code);
 }
 
