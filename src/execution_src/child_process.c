@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 13:03:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/11 17:15:54 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:04:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	dup_outfile(t_token *tok, t_input *data)
 void	dup_pipes(t_token *tok, t_input *data)
 {
 	int	ret;
-	
+
 	close(data->pipe_fd[0]);
 	if (dup2(data->readfd, 0) < 0)
 		error_exit("Dup readfd failed", 1);
@@ -69,6 +69,9 @@ void	dup_pipes(t_token *tok, t_input *data)
 
 void	child_process(t_token *tok, t_input *data, int max)
 {
+	t_token	*token;
+
+	token = tok;
 	if (data->cmd_count == max)
 	{
 		dup_infile(tok, data);
@@ -77,6 +80,11 @@ void	child_process(t_token *tok, t_input *data, int max)
 		dup_outfile(tok, data);
 	else
 		dup_pipes(tok, data);
+	if (is_built_in(data->cmd_args[0]))
+	{
+		data->exit_code = check_builtin(data);
+		exit (data->exit_code);
+	}
 	get_cmd(tok, data);
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
