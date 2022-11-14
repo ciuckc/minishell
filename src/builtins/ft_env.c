@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 11:48:37 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/13 17:02:30 by emlicame         ###   ########.fr       */
+/*   Created: 2022/11/11 19:00:11 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/11 19:06:22 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../execution_src/execution.h"
 
-void	error_exit(char *text, int exit_code)
+int	ft_env(t_input *data)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	perror(text);
-	exit(exit_code);
-}
+	int	i;
 
-void	error_print(char *text)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	perror(text);
+	i = 0;
+	while (data->environ[i])
+	{
+		ft_putstr_fd(data->environ[i], STDOUT_FILENO);
+		i++;
+	}
+	return (0);
 }

@@ -43,10 +43,8 @@ $(OBJ_DIR)/%.o: $(PARSE_DIR)/%.c
 $(OBJ_DIR)/%.o: $(FREE_DIR)/%.c
 	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
-test:
-	@echo $(EXEC_DIR)
-	@echo $(EXEC_OBJ)
-	@echo $(EXEC_SRC)
+test: $(NAME)
+	gcc -Wall -Wextra -Werror $(NAME_LIBFT) test.c
 
 clean:
 	$(RM) -r $(OBJ_DIR)

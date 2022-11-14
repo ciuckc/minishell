@@ -52,7 +52,7 @@ OBJ += $(FREE_OBJ)
 
 BUILTINS_DIR = $(SRC_DIR)/builtins
 
-BUILTINS_SRC = built_in.c ft_cd.c ft_echo.c
+BUILTINS_SRC = built_in.c ft_cd.c ft_echo.c ft_exit.c ft_pwd.c
 
 BUILTINS_OBJ = $(addprefix $(OBJ_DIR)/,$(BUILTINS_SRC:.c=.o))
 
@@ -63,7 +63,7 @@ OBJ += $(BUILTINS_OBJ)
 EXEC_DIR = $(SRC_DIR)/execution_src
 
 EXEC_SRC = execution.c access_file.c single_cmd.c multiple_cmd.c get_cmd.c \
-get_path.c open_dup2.c errors.c
+get_path.c open_dup2.c errors.c child_process.c
 
 EXEC_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_SRC:.c=.o))
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   multiple_cmd.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/27 16:34:34 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:21:26 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   multiple_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/13 17:58:15 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,12 @@ int	waiting(int id, int max)
 		exit_code = (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 		exit_code = WTERMSIG(status) + 128;
-	while (max > 1)
+	while (max > 0)
 	{
 		wait(NULL);
 		max--;
 	}
 	return (exit_code);
-}
-
-void	child_process(t_token *tok, t_input *data)
-{
-	close(data->pipe_fd[0]);
-	dup_pipes(tok, data);
-	get_cmd(tok, data);
-	access_file(data);
-	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
-		error_exit("command not found", 127);
 }
 
 void	parent_process(t_input *data)
@@ -67,7 +57,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 		if (id == -1)
 			error_exit("Fork failed", 1);
 		if (id == 0)
-			child_process(tok, data);
+			child_process(tok, data, max);
 		parent_process(data);
 		data->cmd_count--;
 		while (tok->next && tok->type != PIPE)
@@ -78,3 +68,9 @@ int	multiple_commands(t_token *tok, t_input *data)
 	// system("lsof -c minishell");
 	return (exit_code);
 }
+
+/*
+	fd->tmpin = dup(STDIN_FILENO);
+	fd->tmpout = dup(STDOUT_FILENO);
+	fd->in = dup(STDIN_FILENO);
+*/

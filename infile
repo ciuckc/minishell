@@ -1,0 +1,16 @@
+1 - strjoin_withfree
+2 "exit code "
+
+git checkout execution
+git merge develop
+git add .
+git commit -m " "
+git push 
+
+git checkout develop
+git merge execution
+
+if needed
+	git add .
+	git commit -m " "
+	git push

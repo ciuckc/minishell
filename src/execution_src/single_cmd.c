@@ -6,11 +6,22 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/09 17:34:50 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:16:45 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+int	dup_and_close(int fd, int in_out)
+{
+	if (dup2(fd, in_out) < 0)
+	{
+		error_print("Dup dup_and_close failed");
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
 
 /**
  * @brief 
@@ -62,7 +73,6 @@ int	single_command(t_token *tok, t_input *data)
 	if (id == 0)
 		data->exit_code = exec_single(token, data);
 	data->exit_code = waiting(id, 1);
-	printf ("data->exit_code %d\n", data->exit_code);
 	return (data->exit_code);
 }
 
