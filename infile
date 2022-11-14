@@ -7,3 +7,10 @@ git add .
 git commit -m " "
 git push 
 
+git checkout develop
+git merge execution
+
+if needed
+	git add .
+	git commit -m " "
+	git push
