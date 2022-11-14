@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/11 13:12:17 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:16:45 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	single_command(t_token *tok, t_input *data)
 	if (id == 0)
 		data->exit_code = exec_single(token, data);
 	data->exit_code = waiting(id, 1);
-	printf ("data->exit_code %d\n", data->exit_code);
 	return (data->exit_code);
 }
 

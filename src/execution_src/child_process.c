@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 13:03:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/13 19:04:18 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/14 12:50:28 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	child_process(t_token *tok, t_input *data, int max)
 		dup_outfile(tok, data);
 	else
 		dup_pipes(tok, data);
+	get_cmd(tok, data);
 	if (is_built_in(data->cmd_args[0]))
 	{
 		data->exit_code = check_builtin(data);
 		exit (data->exit_code);
 	}
-	get_cmd(tok, data);
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		error_exit("command not found", 127);

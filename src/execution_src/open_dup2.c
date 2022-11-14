@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/11 13:05:42 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:58:10 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,59 +54,3 @@ int	open_outfiles(t_token *tok, t_input *data)
 	}
 	return (ret);
 }
-
-// int	dup_and_close(int fd, int in_out)
-// {
-// 	if (dup2(fd, in_out) < 0)
-// 	{
-// 		error_print("Dup dup_and_close failed");
-// 		return (1);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
-// 		// error_exit("Dup dup_and_close failed", 1);
-
-// void	dup_pipes(t_token *tok, t_input *data)
-// {
-// 	int	ret;
-
-// 	close(data->pipe_fd[0]);
-// 	dprintf (2, "data->readfd %d\n", data->readfd);
-// 	if (data->readfd > 0)
-// 	{
-// 		if (dup2(data->readfd, 0) < 0)
-// 			error_exit("Dup readfd failed", 1);
-// 		close(data->readfd);
-// 	}
-// 	ret = open_infiles(tok, data);
-// 	if (ret)
-// 		dup_and_close(data->fds[READ], STDIN_FILENO);
-// 	if (data->pipe_fd[1] > 1)
-// 	{
-// 		if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
-// 			error_exit("Dup pipe 1 failed", 1);
-// 		close(data->pipe_fd[1]);
-// 	}
-// 	ret = open_outfiles(tok, data);
-// 	if (ret)
-// 		dup_and_close(data->fds[WRITE], STDOUT_FILENO);
-// }
-
-/*
-	Remember!!! man dup2
-	 In dup2(), the value of the new descriptor fildes2 is specified.  
-	 If fildes and fildes2 are equal, then dup2() just returns fildes2; 
-	 no other changes are made to the existing descriptor.  
-	 Otherwise, if descriptor fildes2 is already in use, it is first deallocated
-	 as if a close(2) call had
-     been done first.
-*/
-/*
-	if (data->pipe_fd[1] > 1)
-	{
-		if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
-			error_exit("Dup pipe 1 failed", 1);
-		close(data->pipe_fd[1]);
-	}
-*/

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/13 18:19:59 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:10:01 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_if_valid(char **arg)
 	int	i;
 
 	i = 0;
-	if (arg[1][0] == '-')
+	if (arg[1][0] == '-' || arg[1][0] == '+')
 		i++;
 	while (arg[1][i])
 	{
@@ -45,7 +45,7 @@ int	ft_exit(char **arg)
 		ft_putendl_fd("exit", STDERR_FILENO);
 		if (arg[2])
 		{
-			error_exit("exit: too many arguments\n", 1);
+			ft_putendl_fd("minishell: exit: too many arguments", 2);
 			return (1);
 		}
 	}

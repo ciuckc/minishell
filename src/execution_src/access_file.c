@@ -6,11 +6,19 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/13 18:46:34 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:25:57 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+static	void	not_x_ok(t_input *data)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(data->cmd_args[0], 2);
+	ft_putendl_fd(": command not found", 2);
+	exit (127);
+}
 
 int	access_file(t_input *data)
 {
@@ -33,6 +41,6 @@ int	access_file(t_input *data)
 		i++;
 	}
 	if (access(data->cmd_path, X_OK) < 0)
-		error_exit(data->cmd_args[0], errno);
+		not_x_ok(data);
 	return (0);
 }
