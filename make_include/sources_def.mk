@@ -8,12 +8,19 @@ include make_include/general_def.mk
 #	EXAMPLE_OBJ = $(addprefix $(OBJ_DIR)/,$(EXAMPLE_SRC:.c=.o))
 #	OBJ += $(EXAMPLE_OBJ)
 
-#	EXPANSION
+#	ENV_INIT
+
+	ENV_INIT_DIR = $(SRC_DIR)/example
+	ENV_INIT_SRC = source1.c source2.c source3.c ...
+	ENV_INIT_OBJ = $(addprefix $(OBJ_DIR)/,$(EXAMPLE_SRC:.c=.o))
+	OBJ += $(EXAMPLE_OBJ)
+
+	EXPANSION
 
 EXPANSION_DIR = $(SRC_DIR)/expansion
 
 EXPANSION_SRC = expand_var_in_str.c expanded_var_len.c dolar_is_unquoted.c \
-expand_words.c
+expand_words.c get_pid_len.c
 
 EXPANSION_OBJ = $(addprefix $(OBJ_DIR)/,$(EXPANSION_SRC:.c=.o))
 

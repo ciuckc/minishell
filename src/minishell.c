@@ -24,9 +24,9 @@ char **envp)
 	while ((*cmd_list)[i].cmd_list)
 	{
 		expand_words(cmd_list[i]->cmd_list, env_table);
-		//g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
-		//if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
-			//break ;
+		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
+		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
+			break ;
 		i++;
 	}
 }
