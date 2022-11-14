@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   var_expansion.h                                    :+:    :+:            */
+/*   expand_words.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/04 02:34:51 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/14 14:06:24 by scristia      ########   odam.nl         */
+/*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/14 14:12:24 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VAR_EXPANSION_H
-# define VAR_EXPANSION_H
+#include "var_expansion.h"
 
-# include "minishell.h"
-# include "msh_types.h"
-
-typedef struct s_expanded_str_len
+void	expand_words(t_token *words, t_table *table)
 {
-	u_int32_t	env_var_len;
-	u_int32_t	unexp_len;
-}	t_expand_len;
+	u_int32_t	i;
+	t_token		*head;
 
-bool	dolar_is_unquoted(char *str);
-
-void	expand_variables(t_token *words, t_table *table);
-
-void	expand_var_in_str(t_token *word, t_table *table);
-
-ssize_t	expanded_var_len(char *str, t_table *table);
-
-#endif
+	i = 0;
+	(void)table;
+	head = words;
+	while (words)
+	{
+		if (dolar_is_unquoted(words->str))
+		{
+			printf("WILL BE EXPANDED\n");
+			expand_var_in_str(words, table);
+		}
+		words = words->next;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 20:06:28 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/14 14:11:56 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # include "../src/utils/hashmap/hashmap.h"
 # include "msh_types.h"
 # include "../src/free_functions/free_functions.h"
+# include "signal.h"
 
-extern int	g_exit_code;
+extern u_int64_t	g_exit_code;
 
 int			execution(t_token *tok, t_table *table, char **envp);
 
-void		expand_variables(t_token *words, t_table *table);
+void		expand_words(t_token *words, t_table *table);
 
 t_cmd_list	*parser(char *full_cmd);
 
