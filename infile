@@ -7,3 +7,25 @@ git add .
 git commit -m " "
 git push 
 
+
+inishell$ cat infile |
+minishell$ cat infile | cat |
+minishell$ 
+
+bash-3.2$ cat infile |
+> hello
+bash: hello: command not found
+bash-3.2$ cat infle | cat | 
+> hello
+
+minishell$ exit | exit
+exit
+exit
+
+pwd > outfile2
+<src/execution_src/errors.c cat > outfile1| grep a |nl |cat >outfile2 >outfile3
+<src/execution_src/errors.c cat > outfile1| grep a |nl |cat >outfile2 >outfile3
+src/execution_src/errors.c cat > outfile1| grep a |nl |cat >outfile2 >outfile3
+<src/execution_src/errors.c cat| grep a > outfile1 |nl |cat >outfile2 >outfile3
+<src/execution_src/errors.c cat| grep a > outfile1 |nl |cat >outfile2 >outfile3
+if !pwd??

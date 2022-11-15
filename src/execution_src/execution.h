@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/11 19:03:11 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/15 19:30:09 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			waiting(int id, int max);
 void		get_env_array(char **envi, t_input *data);
 
 /**built-ins **/
-int			check_builtin(t_input *data);
+int			run_builtin(t_input *data);
 bool		is_built_in(char *cmd);
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);

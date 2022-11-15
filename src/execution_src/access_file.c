@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 16:25:57 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:35:05 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static	void	not_x_ok(t_input *data)
+static	void	command_not_found(t_input *data)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(data->cmd_args[0], 2);
@@ -20,6 +20,21 @@ static	void	not_x_ok(t_input *data)
 	exit (127);
 }
 
+static int	if_path(t_input *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->cmd_args[0])
+	{
+		if (data->cmd_args[0][i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+// if (data->cmd_args[0][0] == '/' || data->cmd_args[0][1] == '/')
 int	access_file(t_input *data)
 {
 	int		i;
@@ -27,7 +42,10 @@ int	access_file(t_input *data)
 	i = 0;
 	if (access(data->cmd_args[0], X_OK) == 0)
 	{
-		data->cmd_path = ft_strdup(data->cmd_args[0]);
+		if (if_path(data))
+			data->cmd_path = ft_strdup(data->cmd_args[0]);
+		else
+			command_not_found(data);
 		return (1);
 	}
 	while (data->paths[i])
@@ -41,6 +59,6 @@ int	access_file(t_input *data)
 		i++;
 	}
 	if (access(data->cmd_path, X_OK) < 0)
-		not_x_ok(data);
+		command_not_found(data);
 	return (0);
 }

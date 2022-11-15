@@ -19,15 +19,17 @@ int	is_flag_n(char *str)
 
 	i = 0;
 	nl = 0;
-	while (str[i])
+	if (str[i] == '-' && str[i + 1] == 'n')
 	{
-		if (str[i] == '-')
+		i++;
+		while (str[i])
 		{
-			i++;
 			if (str[i] == 'n')
 				nl = 1;
+			else
+				nl = 0;
+			i++;
 		}
-		i++;
 	}
 	return (nl);
 }

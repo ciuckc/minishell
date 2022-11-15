@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 13:03:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 12:50:28 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/15 19:36:33 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ void	dup_pipes(t_token *tok, t_input *data)
 	if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
 		error_exit("Dup readfd failed", 1);
 	close(data->pipe_fd[1]);
+	ret = open_outfiles(tok, data);
+	if (ret)
+	{
+		if (dup2(data->fds[WRITE], STDOUT_FILENO) < 0)
+			error_exit("Dup outfile failed", 1);
+		close(data->fds[WRITE]);
+	}
 }
 
 void	child_process(t_token *tok, t_input *data, int max)
@@ -83,7 +90,13 @@ void	child_process(t_token *tok, t_input *data, int max)
 	get_cmd(tok, data);
 	if (is_built_in(data->cmd_args[0]))
 	{
-		data->exit_code = check_builtin(data);
+		if (open_outfiles(token, data))
+		{
+			if (dup2(data->fds[WRITE], STDOUT_FILENO) < 0)
+				error_exit("Dup outfile failed", 1);
+			close(data->fds[WRITE]);
+		}
+		data->exit_code = run_builtin(data);
 		exit (data->exit_code);
 	}
 	access_file(data);
