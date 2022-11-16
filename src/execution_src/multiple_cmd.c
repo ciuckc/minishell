@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/13 17:58:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:16:30 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,3 @@ int	multiple_commands(t_token *tok, t_input *data)
 	// system("lsof -c minishell");
 	return (exit_code);
 }
-
-/*
-	fd->tmpin = dup(STDIN_FILENO);
-	fd->tmpout = dup(STDOUT_FILENO);
-	fd->in = dup(STDIN_FILENO);
-*/

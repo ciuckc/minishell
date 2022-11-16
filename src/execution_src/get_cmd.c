@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 18:45:34 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:03:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	get_cmd(t_token *tok, t_input *data)
 	data->cmd_args = (char **)ft_calloc(len, sizeof (char *));
 	while (token && token->type != PIPE)
 	{
-		if (token->type == WORD || token->type == DOLLAR)
+		if (token->type == WORD || token->type == DOLLAR || \
+		token->type == S_QUOTE || token->type == D_QUOTE)
 		{
 			data->cmd_args[i] = ft_strdup(token->str);
 			i++;

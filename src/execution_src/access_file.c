@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/15 15:35:05 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:09:26 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	if_path(t_input *data)
 	int	i;
 
 	i = 0;
-	while (data->cmd_args[0])
+	while (data->cmd_args[0][i])
 	{
 		if (data->cmd_args[0][i] == '/')
 			return (1);

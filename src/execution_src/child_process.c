@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_process.c                                    :+:      :+:    :+:   */
+/*   test_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 13:03:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/15 19:36:33 by emlicame         ###   ########.fr       */
+/*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/16 15:29:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,6 @@ void	dup_infile(t_token *tok, t_input *data)
 	}
 	if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
 		error_exit("Dup failed", 1);
-	close(data->pipe_fd[1]);
-}
-
-void	dup_outfile(t_token *tok, t_input *data)
-{
-	int	ret;
-
-	close(data->pipe_fd[0]);
-	if (dup2(data->readfd, 0) < 0)
-		error_exit("Dup failed", 1);
-	close(data->readfd);
 	close(data->pipe_fd[1]);
 	ret = open_outfiles(tok, data);
 	if (ret)
@@ -63,7 +52,7 @@ void	dup_pipes(t_token *tok, t_input *data)
 		close(data->fds[READ]);
 	}
 	if (dup2(data->pipe_fd[1], STDOUT_FILENO) < 0)
-		error_exit("Dup readfd failed", 1);
+		error_exit("Dup pipe_fd[1]", 1);
 	close(data->pipe_fd[1]);
 	ret = open_outfiles(tok, data);
 	if (ret)
@@ -80,11 +69,7 @@ void	child_process(t_token *tok, t_input *data, int max)
 
 	token = tok;
 	if (data->cmd_count == max)
-	{
 		dup_infile(tok, data);
-	}
-	else if (data->cmd_count == 1)
-		dup_outfile(tok, data);
 	else
 		dup_pipes(tok, data);
 	get_cmd(tok, data);

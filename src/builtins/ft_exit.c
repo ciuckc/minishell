@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 16:10:01 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:51:27 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_exit(char **arg)
 		}
 	}
 	else
+	{
 		ft_putendl_fd("exit", STDERR_FILENO);
+	}
 	exit (num % 256);
 }
