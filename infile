@@ -1,0 +1,40 @@
+1 - strjoin_withfree
+2 "exit code "
+
+git checkout execution
+git merge develop
+git add .
+git commit -m " "
+git push 
+
+
+inishell$ cat infile |
+minishell$ cat infile | cat |
+minishell$ 
+
+bash-3.2$ cat infile |
+> hello
+bash: hello: command not found
+bash-3.2$ cat infle | cat | 
+> hello
+
+minishell$ exit | exit
+exit
+exit
+
+if (errno == EACCES)
+exit(126);
+
+
+if !pwd??
+
+bash-3.2$ echo hi "" hi
+hi  hi
+bash-3.2$ echo hi ""hi
+hi hi
+bash-3.2$ echo hi "" hi      lol
+hi  hi lol
+bash-3.2$ echo hi  hi
+hi hi
+bash-3.2$ echo hi "" hi
+hi  hi

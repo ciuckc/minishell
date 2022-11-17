@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 12:55:00 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:04:42 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	check_if_valid(char **arg)
 		if (!ft_isdigit(arg[1][i]))
 		{
 			ft_putendl_fd("exit", STDERR_FILENO);
-			ft_putstr_fd("minishell: exit ", STDERR_FILENO);
+			ft_putstr_fd("minishell: line 0: exit ", STDERR_FILENO);
 			ft_putstr_fd(arg[1], STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			exit (255);
@@ -33,23 +33,27 @@ static void	check_if_valid(char **arg)
 	}
 }
 
-int	ft_exit(char **arg)
+int	ft_exit(t_input *data)
 {
-	int	num;
+	int	value;
 
-	num = 0;
-	if (arg[1])
+	value = 0;
+	if (data->cmd_args[1])
 	{
-		check_if_valid(arg);
-		num = ft_atoi(arg[1]);
+		check_if_valid(data->cmd_args);
+		value = ft_atoi(data->cmd_args[1]);
 		ft_putendl_fd("exit", STDERR_FILENO);
-		if (arg[2])
+		if (data->cmd_args[2])
 		{
-			ft_putendl_fd("minishell: exit: too many arguments", 2);
+			ft_putendl_fd("minishell: line 0: exit: too many arguments", 2);
 			return (1);
 		}
 	}
 	else
-		ft_putendl_fd("exit", STDERR_FILENO);
-	exit (num % 256);
+	{
+		if (!data->exit_for_pipe)
+			ft_putendl_fd("exit", STDERR_FILENO);
+		exit (g_exit_code);
+	}
+	exit (value % 256);
 }
