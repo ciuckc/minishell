@@ -12,19 +12,21 @@
 
 #include "minishell.h"
 
-int	g_exit_code = 0;
+u_int64_t	g_exit_code = 0;
 
 static void	st_execute_loop(t_cmd_list **cmd_list, t_table *env_table, \
 char **envp)
 {
 	u_int32_t	i;
 
+	(void)envp;
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
-		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
-		if (g_exit_code > 0)
-			break ;
+		expand_words(cmd_list[i]->cmd_list, env_table);
+		//g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
+		//if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
+			//break ;
 		i++;
 	}
 }
@@ -50,7 +52,7 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 	}
 }
 
-static void	st_one_cmd(char *argv, t_table *env_table, char **envp)
+static void	st_one_cmd(char *argv, t_table *env_table)
 {
 	t_cmd_list	*cmd_list;
 
@@ -58,7 +60,6 @@ static void	st_one_cmd(char *argv, t_table *env_table, char **envp)
 	cmd_list = parser(argv);
 	if (cmd_list == NULL)
 		return ;
-	st_execute_loop(&cmd_list, env_table, envp);
 }
 
 int32_t	main(int32_t argc, char **argv, char **envp)
@@ -72,6 +73,5 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 		st_cmd_input(env_table, envp);
 	else if (argc == 2)
 		st_one_cmd(*(argv + 1), env_table, envp);
-	dprintf (2, "g_exit_code %d\n", g_exit_code);
 	return (g_exit_code);
 }
