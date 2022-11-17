@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/17 05:16:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/17 07:03:48 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "signal.h"
 
 extern u_int64_t	g_exit_code;
+
+void		init_sig_handle(void);
 
 int			execution(t_token *tok, t_table *table, char **envp);
 

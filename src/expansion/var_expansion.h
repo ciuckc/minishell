@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 02:34:51 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/17 02:54:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/17 05:36:51 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ typedef struct s_expanded_str_len
 	u_int32_t	env_var_len;
 	u_int32_t	unexp_len;
 }	t_expand_len;
-
-bool		needs_expansion(char *str);
 
 void		expand_variables(t_token *words, t_table *table);
 

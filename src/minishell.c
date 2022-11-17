@@ -69,6 +69,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	t_table	*env_table;
 
 	env_table = create_env_table(envp);
+	init_sig_handle();
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
 	if (argc == 1)
