@@ -6,22 +6,11 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 16:16:45 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:43:54 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-int	dup_and_close(int fd, int in_out)
-{
-	if (dup2(fd, in_out) < 0)
-	{
-		error_print("Dup dup_and_close failed");
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
 
 /**
  * @brief 
@@ -53,6 +42,33 @@ int	exec_single(t_token *tok, t_input *data)
 	return (0);
 }
 
+int32_t	dup_and_close(int fd, int in_out)
+{
+	if (dup2(fd, in_out) < 0)
+	{
+		error_print("Dup dup_and_close failed");
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
+
+void	init_fd(t_input *data)
+{
+	data->temp_fd[READ] = dup(STDIN_FILENO);
+	data->temp_fd[WRITE] = dup(STDOUT_FILENO);
+}
+
+void	reset_fd(t_input *data)
+{
+	if (dup2(data->temp_fd[READ], STDIN_FILENO) == -1)
+		error_exit("Dup infile failed", 1);
+	if (dup2(data->temp_fd[WRITE], STDOUT_FILENO) == -1)
+		error_exit("Dup outfile failed", 1);
+	close(data->temp_fd[READ]);
+	close(data->temp_fd[WRITE]);
+}
+
 int	single_command(t_token *tok, t_input *data)
 {
 	t_token	*token;
@@ -61,10 +77,14 @@ int	single_command(t_token *tok, t_input *data)
 	token = tok;
 	get_cmd(token, data);
 	token = tok;
+	init_fd(data);
+	data->exit_single = 0;
 	if (is_built_in(data->cmd_args[0]))
 	{
-		open_outfiles(token, data);
-		data->exit_code = check_builtin(data);
+		if (open_outfiles(token, data))
+			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
+		data->exit_code = run_builtin(data);
+		reset_fd(data);
 		return (data->exit_code);
 	}
 	id = fork();
@@ -75,5 +95,3 @@ int	single_command(t_token *tok, t_input *data)
 	data->exit_code = waiting(id, 1);
 	return (data->exit_code);
 }
-
-	//return exitcode from waitpid of last child

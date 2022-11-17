@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/11 19:03:11 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:52:33 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ typedef struct s_input
 	char			**paths;
 	char			*cmd_path;
 	char			**cmd_args;
-	int				temp_fd[2];
 	int				exit_code;
 	int				cmd_count;
+	int				exit_single;
+	int				temp_fd[2];
 	int				fds[2];
 	int				readfd;
 	int				pipe_fd[2];
@@ -44,6 +45,7 @@ void		count_cmds(t_token *tok, t_input *data);
 int			access_file(t_input *data);
 int			open_infiles(t_token *tok, t_input *data);
 int			open_outfiles(t_token *tok, t_input *data);
+int32_t		dup_and_close(int fd, int in_out);
 int			exec_single(t_token *tok, t_input *data);
 int			single_command(t_token *tok, t_input *data);
 int			multiple_commands(t_token *tok, t_input *data);
@@ -53,7 +55,7 @@ int			waiting(int id, int max);
 void		get_env_array(char **envi, t_input *data);
 
 /**built-ins **/
-int			check_builtin(t_input *data);
+int			run_builtin(t_input *data);
 bool		is_built_in(char *cmd);
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);

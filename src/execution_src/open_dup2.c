@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 16:58:10 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/15 19:18:29 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int	open_infiles(t_token *tok, t_input *data)
 	return (ret);
 }
 
+static int	redirection_dgreat(t_token *tok, t_input *data)
+{
+	if (data->fds[WRITE] != STDOUT_FILENO)
+		close(data->fds[WRITE]);
+	data->fds[WRITE] = open(tok->next->str, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (data->fds[WRITE] < 0)
+		return (1);
+	return (0);
+}
+
 int	open_outfiles(t_token *tok, t_input *data)
 {
 	int	ret;
@@ -48,6 +58,12 @@ int	open_outfiles(t_token *tok, t_input *data)
 			data->fds[WRITE] = open(tok->next->str, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			if (data->fds[WRITE] < 0)
+				error_exit(tok->next->str, 1);
+		}
+		else if (tok->type == DGREAT)
+		{
+			ret = 1;
+			if (redirection_dgreat(tok, data))
 				error_exit(tok->next->str, 1);
 		}
 		tok = tok->next;

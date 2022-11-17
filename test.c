@@ -26,14 +26,15 @@ int	main(void)
 	"\"exit -4\"", "\" exit 2a dfg\"", \
 	"\"exit 2.2 3 3\"", "\"exit 222,03\"", \
 	"\"exit wrong\"", "\" exit wrong_command\"", \
-	"\"exit cat\"", "\"|\"", \
 	"\"exit --5\"", "\"exit ++5\"", NULL};
 	while (*tests)
 	{
 		if (!st_test(*tests))
-			printf("error: where test is %s\n", *tests);
+			dprintf(2, "error: where test is %s\n", *tests);
 		else
 			printf("ok: where test is %s\n", *tests);
 		tests++;
 	}
 }
+
+	// "\"exit cat\"", "\"|\"", \

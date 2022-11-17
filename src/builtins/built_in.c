@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:47:09 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/14 16:44:48 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:51:52 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	is_built_in(char *cmd)
 	return (false);
 }
 
-int	check_builtin(t_input *data)
+int	run_builtin(t_input *data)
 {
 	if (is_built_in(data->cmd_args[0]))
 	{
