@@ -74,6 +74,5 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 		st_cmd_input(env_table, envp);
 	else if (argc == 2)
 		st_one_cmd(*(argv + 1), env_table, envp);
-	dprintf (2, "g_exit_code %d\n", g_exit_code);
 	return (g_exit_code);
 }
