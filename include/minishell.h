@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/14 14:11:56 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/17 05:16:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,13 @@ t_cmd_list	*parser(char *full_cmd);
  * @return t_table* 
  */
 t_table		*create_env_table(char **env);
+
+/**
+ * @brief Create a new envp array of arrays
+ * 
+ * @param env_table refference hash table to update to latest changes
+ * @param table converted from export and unset
+ */
+void		create_new_envp(t_table *env_table, char ***table);
 
 #endif

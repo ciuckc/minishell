@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   expand_variables.c                                 :+:    :+:            */
+/*   create_new_envp.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/16 20:27:31 by scristia      ########   odam.nl         */
+/*   Created: 2022/11/17 05:12:52 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/17 05:30:45 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "var_expansion.h"
+#include "minishell.h"
 
-void	expand_variables(t_token *words, t_table *table)
+static void	st_create_strings(char **new, t_table *table)
 {
 	u_int32_t	i;
-	t_token		*head;
 
-	i = 0;
-	(void)table;
-	head = words;
-	while (words)
+	while (i < table->entries)
 	{
-		expand_var_in_str(words, table);
-		if (words == NULL)
-		{
-			free_word_list(&head);
-			return ;
-		}
-		words = words->next;
+		new[i] = st_build_str(table);
+		if (new[i] == NULL)
+			free_new_envp()
 	}
+}
+
+void	create_new_envp(t_table *table, char ***envp)
+{
+	char	**new_envp;
+
+	new_envp = ft_calloc(table->entries + 1, sizeof(char *));
+	if (new_envp == NULL)
+		return ;
+	st_create_strings(new_envp, table);
 }
