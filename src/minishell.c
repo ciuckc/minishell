@@ -23,10 +23,11 @@ char **envp)
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
+		create_new_envp(env_table, &envp);
 		expand_words(cmd_list[i]->cmd_list, env_table);
-		//g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
-		//if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
-			//break ;
+		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
+		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
+			break ;
 		i++;
 	}
 }
@@ -52,7 +53,7 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 	}
 }
 
-static void	st_one_cmd(char *argv, t_table *env_table)
+static void	st_one_cmd(char *argv, t_table *env_table, char **envp)
 {
 	t_cmd_list	*cmd_list;
 
@@ -60,6 +61,7 @@ static void	st_one_cmd(char *argv, t_table *env_table)
 	cmd_list = parser(argv);
 	if (cmd_list == NULL)
 		return ;
+	st_execute_loop(&cmd_list, env_table, envp);
 }
 
 int32_t	main(int32_t argc, char **argv, char **envp)
@@ -67,6 +69,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	t_table	*env_table;
 
 	env_table = create_env_table(envp);
+	init_sig_handle();
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
 	if (argc == 1)

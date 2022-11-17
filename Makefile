@@ -28,6 +28,12 @@ $(MAIN_OBJ): $(MAIN_SRC)
 #	$(OBJ_DIR)/%.o: $(EXAMPLE_DIR)/%.c
 #		$(CC) $(FLAGS) $(INCLUDE) $(LDFLAGS) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: $(SIG_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(ENV_INIT_DIR)/%.c
+	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
 $(OBJ_DIR)/%.o: $(EXEC_DIR)/%.c
 	$(CC) $(FLAGS) $(INCLUDE) $(CFLAGS) -c $< -o $@
 

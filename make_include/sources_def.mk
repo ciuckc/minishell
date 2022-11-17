@@ -8,12 +8,33 @@ include make_include/general_def.mk
 #	EXAMPLE_OBJ = $(addprefix $(OBJ_DIR)/,$(EXAMPLE_SRC:.c=.o))
 #	OBJ += $(EXAMPLE_OBJ)
 
+#	SIG
+
+SIG_DIR = $(SRC_DIR)/signals
+
+SIG_SRC = init_sig_handle.c
+
+SIG_OBJ = $(addprefix $(OBJ_DIR)/,$(SIG_SRC:.c=.o))
+
+OBJ += $(SIG_OBJ)
+
+#	ENV_INIT
+
+ENV_INIT_DIR = $(SRC_DIR)/env_init
+
+ENV_INIT_SRC =	create_env_table.c create_new_envp.c
+
+ENV_INIT_OBJ = $(addprefix $(OBJ_DIR)/,$(ENV_INIT_SRC:.c=.o))
+
+OBJ += $(ENV_INIT_OBJ)
+
 #	EXPANSION
 
 EXPANSION_DIR = $(SRC_DIR)/expansion
 
-EXPANSION_SRC = expand_var_in_str.c expanded_var_len.c dolar_is_unquoted.c \
-expand_words.c
+EXPANSION_SRC = expand_var_in_str.c expanded_var_len.c  expand_words.c \
+get_pid_len.c count_data_len.c str_append_pid.c str_append_exit_code.c \
+remove_quotes.c
 
 EXPANSION_OBJ = $(addprefix $(OBJ_DIR)/,$(EXPANSION_SRC:.c=.o))
 
@@ -24,7 +45,7 @@ OBJ += $(EXPANSION_OBJ)
 
 PARSE_DIR = $(SRC_DIR)/parser
 
-PARSE_SRC = parser.c retrieve_word_list.c create_env_table.c create_token.c tok_len_scan_list.c \
+PARSE_SRC = parser.c retrieve_word_list.c create_token.c tok_len_scan_list.c \
 add_boundry_to_list.c build_word.c create_cmd_list.c
 
 PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
@@ -35,7 +56,7 @@ OBJ += $(PARSE_OBJ)
 
 FREE_DIR = $(SRC_DIR)/free_functions
 
-FREE_SRC = free_scan_list.c free_word_list.c
+FREE_SRC = free_scan_list.c free_word_list.c free_new_envp.c
 
 FREE_OBJ = $(addprefix $(OBJ_DIR)/,$(FREE_SRC:.c=.o))
 

@@ -6,9 +6,9 @@ OBJ_DIR := obj
 
 CC := gcc
 
-FLAGS := -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS := -Wall -Wextra -Werror -g
 
-INCLUDE := -Iinclude -Isrc/utils/hashmap
+INCLUDE := -I include -I src/utils/hashmap
 
 LDFLAGS = -L $(shell brew --prefix readline)/lib -lreadline
 

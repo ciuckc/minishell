@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 03:49:13 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:31:07 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/17 05:41:07 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ void			free_word_list(t_token **list);
  * @param list 
  */
 void			free_scan_list(t_scan_tok **list);
+
+/**
+ * @brief free the envp in case of an error. It will set the whole list to NULL
+ * 
+ * @param envp 
+ * @param i 
+ */
+void			free_new_envp(char ***envp, u_int32_t i);
 
 #endif

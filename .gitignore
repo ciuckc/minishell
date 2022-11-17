@@ -9,3 +9,4 @@ obj
 *.a
 main.c
 *.dSYM
+.nfs*

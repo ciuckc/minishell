@@ -1,0 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   remove_quotes.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 02:51:04 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/17 03:18:43 by scristia      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "var_expansion.h"
+
+static void	st_dec_quote_len(char *str, ssize_t *len)
+{
+	char	the_quote;
+
+	the_quote = '\0';
+	while (*str)
+	{
+		if (*str == '\'' || *str == '\"')
+		{
+			*len -= 2;
+			the_quote = *str;
+			str++;
+			while (*str != the_quote && *str)
+				str++;
+			str++;
+			continue ;
+		}
+		str++;
+	}
+}
+
+static void	st_assign_str(char *src, char *dst)
+{
+	char	*dst_cpy;
+	char	the_quote;
+
+	the_quote = '\0';
+	dst_cpy = dst;
+	while (*src)
+	{
+		if (*src == '\'' || *src == '\"')
+		{
+			the_quote = *src;
+			src++;
+			while (*src != the_quote && *src)
+				*dst++ = *src++;
+			src++;
+		}
+		else
+			*dst++ = *src++;
+	}
+}
+
+void	remove_quotes(t_token *word)
+{
+	ssize_t	len;
+	char	*new_str;
+
+	len = ft_strlen(word->str);
+	st_dec_quote_len(word->str, &len);
+	if (len == 0)
+	{
+		free(word->str);
+		word->str = ft_strdup("");
+		return ;
+	}
+	new_str = ft_calloc(len + 1, sizeof(char));
+	if (new_str == NULL)
+		return ;
+	st_assign_str(word->str, new_str);
+	free(word->str);
+	word->str = new_str;
+}

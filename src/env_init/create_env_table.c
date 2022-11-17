@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   create_env_table.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 05:38:11 by scristia          #+#    #+#             */
-/*   Updated: 2022/11/14 15:00:11 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   create_env_table.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/14 05:38:11 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/14 18:27:31 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 
 static void	st_free_all(t_env *env_data, u_int32_t len)
 {

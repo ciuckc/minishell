@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 01:21:01 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 08:45:04 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/16 17:52:46 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ t_container	*item_search(char *key, t_table *map)
 	key_idx = hash_string(key) % map->containers;
 	container = map->table[key_idx];
 	if (container == NULL)
+	{
 		return (NULL);
+	}
 	while (container != NULL)
 	{
 		if (st_strcmp(key, container->key_str) == 0)
