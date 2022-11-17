@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/10 19:02:00 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/14 14:06:29 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/17 01:13:47 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	st_skip_d_quote_if_no_dol(char **str)
 		(*str)++;
 }
 
-bool	dolar_is_unquoted(char *str)
+bool	needs_expansion(char *str)
 {
 	while (*str)
 	{

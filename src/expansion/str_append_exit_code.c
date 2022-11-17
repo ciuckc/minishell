@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   expand_variables.c                                 :+:    :+:            */
+/*   str_append_exit_code.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/16 20:27:31 by scristia      ########   odam.nl         */
+/*   Created: 2022/11/16 23:31:50 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/17 00:49:58 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "var_expansion.h"
 
-void	expand_variables(t_token *words, t_table *table)
+void	str_append_exit_code(char **dst)
 {
-	u_int32_t	i;
-	t_token		*head;
+	char	*str_exit_code;
 
-	i = 0;
-	(void)table;
-	head = words;
-	while (words)
-	{
-		expand_var_in_str(words, table);
-		if (words == NULL)
-		{
-			free_word_list(&head);
-			return ;
-		}
-		words = words->next;
-	}
+	str_exit_code = ft_itoa(g_exit_code);
+	if (str_exit_code == NULL)
+		return ;
+	ft_memcpy((*dst), str_exit_code, ft_strlen(str_exit_code));
+	(*dst) += ft_strlen(str_exit_code);
 }

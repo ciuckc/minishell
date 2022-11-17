@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 05:06:45 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/08 01:20:40 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/17 02:13:02 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	st_assign_type(t_token *word)
 	u_int32_t	*types;
 
 	types = (u_int32_t [128]){['|'] = PIPE, ['<'] = LESS, ['>'] = GREAT, ['&'] \
-	= AMP, ['\''] = S_QUOTE, ['\"'] = D_QUOTE, ['\0'] = END, ['$'] = DOLLAR};
+	= AMP, ['\0'] = END, ['$'] = DOLLAR};
 	word->type = types[(u_int32_t) *(word->str)];
 	if ((word->type == PIPE || word->type == LESS || word->type == GREAT || \
 	word->type == AMP) && (types[(u_int32_t) *(word->str + 1)] == \

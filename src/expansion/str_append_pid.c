@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_pid_len.c                                      :+:    :+:            */
+/*   str_append_pid.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/14 17:36:40 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/14 18:50:50 by scristia      ########   odam.nl         */
+/*   Created: 2022/11/16 23:09:00 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/16 23:23:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "signal.h"
+#include "var_expansion.h"
 
-static void	self_pid(int signum, siginfo_t *info, void *context)
+static void	get_pid(int signum, siginfo_t *info, void *context)
 {
 	(void)signum;
 	(void)context;
 	g_exit_code = info->si_pid;
 }
 
-u_int32_t	get_pid_len(void)
+void	str_append_pid(char **dst)
 {
-	u_int64_t			exit_temp;
 	struct sigaction	sig_act;
-	pid_t				my_pid;
+	u_int64_t			exit_temp;
+	char				*str_pid;
 
 	exit_temp = g_exit_code;
 	sig_act.sa_flags = SA_SIGINFO;
-	sig_act.__sigaction_u.__sa_sigaction = self_pid;
+	sig_act.sa_sigaction = get_pid;
 	sigaction(SIGUSR1, &sig_act, NULL);
 	kill(0, SIGUSR1);
-	my_pid = g_exit_code;
+	str_pid = ft_itoa(g_exit_code);
 	g_exit_code = exit_temp;
-	return (ft_digit_len(my_pid));
+	if (str_pid == NULL)
+		return ;
+	ft_memmove((*dst), str_pid, ft_strlen(str_pid));
+	(*dst) += ft_strlen(str_pid);
+	free(str_pid);
 }

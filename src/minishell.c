@@ -52,7 +52,7 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 	}
 }
 
-static void	st_one_cmd(char *argv, t_table *env_table)
+static void	st_one_cmd(char *argv, t_table *env_table, char **envp)
 {
 	t_cmd_list	*cmd_list;
 
@@ -60,6 +60,7 @@ static void	st_one_cmd(char *argv, t_table *env_table)
 	cmd_list = parser(argv);
 	if (cmd_list == NULL)
 		return ;
+	st_execute_loop(&cmd_list, env_table, envp);
 }
 
 int32_t	main(int32_t argc, char **argv, char **envp)
@@ -72,6 +73,6 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	if (argc == 1)
 		st_cmd_input(env_table, envp);
 	else if (argc == 2)
-		st_one_cmd(*(argv + 1), env_table);
-	return (EXIT_SUCCESS);
+		st_one_cmd(*(argv + 1), env_table, envp);
+	return (g_exit_code);
 }

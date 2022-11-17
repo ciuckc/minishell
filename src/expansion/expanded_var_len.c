@@ -6,66 +6,45 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 04:17:43 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/14 17:54:45 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/16 22:03:44 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "var_expansion.h"
 
-static void	st_count_data_len(char **str, t_expand_len *len, t_table *table)
-{
-	t_env	param;
-
-	param = (t_env){0};
-	param.name = ft_substr(*str, 0, ft_len_to_char_set(*str, "\"\'$"));
-	if (param.name == NULL)
-		return ;
-	param.value = item_search(param.name, table)->data;
-	if (param.value == NULL)
-		return (free(param.name));
-	(*str) += ft_strlen(param.name);
-	len->env_var_len += ft_strlen(param.value);
-	free(param.name);
-}
-
-static void	st_count_exp_var(char **str, t_expand_len *len, t_table *table)
+static void	st_count_exp_var(char **str, t_expand_len *len, t_table *table, \
+bool d_quoted)
 {
 	t_env		param;
 
 	param = (t_env){0};
-	if (**str == '\0')
-	{
-		len->unexp_len++;
-		return ;
-	}
-	else if (**str == '$')
+	if (**str == '$')
 	{
 		len->env_var_len += get_pid_len();
 		(*str)++;
 	}
+	else if (((**str == '\'' || **str == '\"') && d_quoted) || **str == '\0')
+		len->unexp_len++;
 	else if (**str == '?')
 	{
 		len->env_var_len += ft_digit_len(g_exit_code);
 		(*str)++;
 	}
 	else
-		st_count_data_len(str, len, table);
+		count_data_len(str, len, table, d_quoted);
 }
 
-static void	st_count_in_d_quote(char **str, t_expand_len *len, t_table *table)
+static void	st_count_in_d_quote(char **str, t_expand_len *len, t_table *table, \
+bool d_quoted)
 {
+	(void)d_quoted;
 	len->unexp_len++;
 	while (**str != '\"' && **str)
 	{
 		if (**str == '$')
 		{
 			(*str)++;
-			if (**str == '\'' || **str == '\"' || **str == ' ')
-			{
-				len->unexp_len++;
-				continue ;
-			}
-			st_count_exp_var(str, len, table);
+			st_count_exp_var(str, len, table, true);
 			continue ;
 		}
 		(*str)++;
@@ -73,8 +52,10 @@ static void	st_count_in_d_quote(char **str, t_expand_len *len, t_table *table)
 	}
 }
 
-static void	st_count_in_s_quote(char **str, t_expand_len *len, t_table *table)
+static void	st_count_in_s_quote(char **str, t_expand_len *len, t_table *table, \
+bool d_quoted)
 {
+	(void)d_quoted;
 	(void)table;
 	len->unexp_len++;
 	while (**str != '\'' && **str)
@@ -89,18 +70,18 @@ static void	st_count_in_s_quote(char **str, t_expand_len *len, t_table *table)
 ssize_t	expanded_var_len(char *str, t_table *table)
 {
 	t_expand_len	full_len;
-	void			(**func_table)(char **, t_expand_len *, t_table *);
+	void			(**func_table)(char **, t_expand_len *, t_table *, bool);
 
 	full_len = (t_expand_len){0};
 	func_table = (void (*[128])(char **, t_expand_len *, \
-	t_table *)){[(int) '\''] = st_count_in_s_quote, [(int) '\"'] = \
+	t_table *, bool)){[(int) '\''] = st_count_in_s_quote, [(int) '\"'] = \
 	st_count_in_d_quote, [(int) '$'] = st_count_exp_var};
 	while (*str)
 	{
 		if (*str == '\'' || *str == '\"' || *str == '$')
 		{
 			str++;
-			(*func_table[(int) *(str - 1)])(&str, &full_len, table);
+			(*func_table[(int) *(str - 1)])(&str, &full_len, table, false);
 		}
 		else
 		{
