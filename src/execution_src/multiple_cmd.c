@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/16 17:16:30 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/17 20:02:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ void	parent_process(t_input *data)
 
 int	multiple_commands(t_token *tok, t_input *data)
 {
-	int		exit_code;
 	int		max;
 	pid_t	id;
 
 	data->readfd = -1;
-	exit_code = 0;
 	max = data->cmd_count;
 	while (tok)
 	{
@@ -64,7 +62,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 			tok = tok->next;
 		tok = tok->next;
 	}
-	exit_code = waiting(id, max);
-	// system("lsof -c minishell");
-	return (exit_code);
+	data->exit_code = waiting(id, max);
+	system("lsof -c minishell");
+	return (data->exit_code);
 }

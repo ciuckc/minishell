@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/16 18:52:33 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/17 19:49:28 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ typedef struct s_input
 	char			**paths;
 	char			*cmd_path;
 	char			**cmd_args;
-	int				exit_code;
+	int				exit_for_pipe;
 	int				cmd_count;
-	int				exit_single;
+	int				exit_code;
 	int				temp_fd[2];
 	int				fds[2];
 	int				readfd;
@@ -39,7 +39,10 @@ typedef struct s_input
 
 void		get_path(t_input *data);
 void		error_exit(char *text, int exit_code);
-void		error_print(char *text);
+// void		error_print(char *text);
+void		command_not_found(t_input *data);
+void		permission_denied(t_input *data);
+void		no_such_file(t_input *data);
 void		get_cmd(t_token *tok, t_input *data);
 void		count_cmds(t_token *tok, t_input *data);
 int			access_file(t_input *data);
@@ -60,7 +63,8 @@ bool		is_built_in(char *cmd);
 int			ft_echo(char **arg);
 int			ft_cd(t_input *data);
 int			ft_pwd(t_input *data);
-int			ft_exit(char **arg);
+// int			ft_exit(char **arg);
+int			ft_exit(t_input *data);
 
 /*utils*/
 char		*ft_strjoin_withfree(char *s1, char *s2);

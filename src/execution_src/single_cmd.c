@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/16 18:43:54 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/17 19:18:25 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ int	exec_single(t_token *tok, t_input *data)
 	return (0);
 }
 
-int32_t	dup_and_close(int fd, int in_out)
-{
-	if (dup2(fd, in_out) < 0)
-	{
-		error_print("Dup dup_and_close failed");
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
-
 void	init_fd(t_input *data)
 {
 	data->temp_fd[READ] = dup(STDIN_FILENO);
@@ -78,7 +67,6 @@ int	single_command(t_token *tok, t_input *data)
 	get_cmd(token, data);
 	token = tok;
 	init_fd(data);
-	data->exit_single = 0;
 	if (is_built_in(data->cmd_args[0]))
 	{
 		if (open_outfiles(token, data))
