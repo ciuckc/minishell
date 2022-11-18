@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/16 18:29:17 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:07:35 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ t_input	*data_init(char **envp)
 	data_in->paths = (char **)malloc(sizeof (char *) * 1);
 	if (!data_in->paths)
 		error_exit("Malloc failed", 1);
-	data_in->exit_single = 0;
+	data_in->exit_code = 0;
 	data_in->fds[READ] = STDIN_FILENO;
 	data_in->fds[WRITE] = STDOUT_FILENO;
-	data_in->exit_code = 0;
+	data_in->exit_for_pipe = 0;
 	get_env_array(envp, data_in);
 	return (data_in);
 }

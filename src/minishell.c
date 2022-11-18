@@ -18,14 +18,15 @@ static void	st_execute_loop(t_cmd_list **cmd_list, t_table *env_table, \
 char **envp)
 {
 	u_int32_t	i;
+	char		**envp_head;
 
-	(void)envp;
+	envp_head = envp;
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
 		create_new_envp(env_table, &envp);
 		expand_words(cmd_list[i]->cmd_list, env_table);
-		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
+		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp_head);
 		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
 			break ;
 		i++;
