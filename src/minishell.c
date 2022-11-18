@@ -42,7 +42,9 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 	full_cmd = NULL;
 	while (true)
 	{
-		full_cmd = readline("\033[1;32mminishell$\033[0m ");
+		full_cmd = readline("\001\033[1;32m\002minishell$\001\033[0m\002 ");
+		if (!full_cmd)
+			exit(g_exit_code);
 		cmd_list = parser(full_cmd);
 		if (cmd_list == NULL)
 		{
@@ -71,6 +73,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 
 	env_table = create_env_table(envp);
 	init_sig_handle();
+	rl_outstream = stderr;
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
 	if (argc == 1)

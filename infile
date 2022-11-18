@@ -8,25 +8,6 @@ git commit -m " "
 git push 
 
 
-inishell$ cat infile |
-minishell$ cat infile | cat |
-minishell$ 
-
-bash-3.2$ cat infile |
-> hello
-bash: hello: command not found
-bash-3.2$ cat infle | cat | 
-> hello
-
-minishell$ exit | exit
-exit
-exit
-
-if (errno == EACCES)
-exit(126);
-
-
-if !pwd??
 
 bash-3.2$ echo hi "" hi
 hi  hi
@@ -38,3 +19,19 @@ bash-3.2$ echo hi  hi
 hi hi
 bash-3.2$ echo hi "" hi
 hi  hi
+
+echo $USER
+Line 10: cd .. ; pwd Fail
+Line 11: cd /Users ; pwd Fail
+Line 12: cd ; pwd Fail - Wrong exit code
+Line 13: mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd .. ; pwd Fail
+Line 20: echo "test Fail - Wrong exit code
+Line 25: echo "$TEST$TEST=lol$TEST" Fail
+Line 30: echo "$=TEST" Fail
+Line 34: echo "$1TEST" Fail
+Line 42: echo testing multi ; echo "test 1 ; | and 2" ; cat tests/lorem.txt | grep Lorem Fail
+Line 43: | test Success! - Wrong exit code
+Line 44: echo > < Success! - Wrong exit code
+Line 45: echo | | Success! - Wrong exit code
+Line 46: < Success! - Wrong exit code
+Line 55: cd gdhahahad Fail

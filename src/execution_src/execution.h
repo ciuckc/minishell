@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/18 11:38:38 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:45:48 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int			open_infiles(t_token *tok, t_input *data);
 int			open_outfiles(t_token *tok, t_input *data);
 int32_t		dup_and_close(int fd, int in_out);
 int			exec_single(t_token *tok, t_input *data);
-int			single_command(t_token *tok, t_input *data);
-int			multiple_commands(t_token *tok, t_input *data);
+int			single_command(t_token *tok, t_input *data, t_table *env_table);
+int			multiple_commands(t_token *tok, t_input *data, t_table *env_table);
 void		child_process(t_token *tok, t_input *data, int max);
 int			waiting(int id, int max);
 

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:34:40 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/16 18:20:22 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:52:38 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 int	ft_pwd(t_input *data)
 {
-	char	cwd[256];
+	char	*cwd;
 
 	(void)data;
-	getcwd(cwd, sizeof(cwd));
+	cwd = getcwd(0, 0);
+	if (!cwd)
+	{
+		ft_putendl_fd("minishell: pwd", 2);
+		return (1);
+	}
 	ft_putendl_fd(cwd, STDOUT_FILENO);
+	free (cwd);
 	return (0);
 }

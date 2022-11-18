@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 18:07:35 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:10:30 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	execution(t_token *tok, t_table *env_table, char **envp)
 	get_path(data);
 	count_cmds(tok, data);
 	if (data->cmd_count == 1)
-		data->exit_code = single_command(tok, data);
+		g_exit_code = single_command(tok, data, env_table);
 	else
-		data->exit_code = multiple_commands(tok, data);
-	return (data->exit_code);
+		g_exit_code = multiple_commands(tok, data, env_table);
+	return (g_exit_code);
 }

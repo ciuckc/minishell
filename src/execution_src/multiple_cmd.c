@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/18 12:48:17 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:29:08 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ void	parent_process(t_input *data)
 		close(data->pipe_fd[0]);
 }
 
-int	multiple_commands(t_token *tok, t_input *data)
+int	multiple_commands(t_token *tok, t_input *data, t_table *env_table)
 {
 	int		max;
 	pid_t	id;
 
+	(void) env_table;
 	data->readfd = -1;
 	max = data->cmd_count;
 	while (tok)
@@ -53,7 +54,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 			error_exit("Pipe failed", 1);
 		id = fork();
 		if (id == -1)
-			error_exit("Fork failed", 1);
+			error_exit("Fork failed", 128);
 		if (id == 0)
 			child_process(tok, data, max);
 		parent_process(data);
@@ -62,7 +63,7 @@ int	multiple_commands(t_token *tok, t_input *data)
 			tok = tok->next;
 		tok = tok->next;
 	}
-	data->exit_code = waiting(id, max);
+	g_exit_code = waiting(id, max);
 	// system("lsof -c minishell");
-	return (data->exit_code);
+	return (g_exit_code);
 }
