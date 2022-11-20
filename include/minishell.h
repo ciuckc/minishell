@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/17 07:03:48 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/18 17:28:18 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		init_sig_handle(void);
 
 int			execution(t_token *tok, t_table *table, char **envp);
 
-void		expand_words(t_token *words, t_table *table);
+void		expand_words(t_token **words, t_table *table);
 
 t_cmd_list	*parser(char *full_cmd);
 

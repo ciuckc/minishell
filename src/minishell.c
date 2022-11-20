@@ -18,17 +18,21 @@ static void	st_execute_loop(t_cmd_list **cmd_list, t_table *env_table, \
 char **envp)
 {
 	u_int32_t	i;
-	char		**envp_head;
 
-	envp_head = envp;
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
 		create_new_envp(env_table, &envp);
-		expand_words(cmd_list[i]->cmd_list, env_table);
-		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp_head);
+		expand_words(&cmd_list[i]->cmd_list, env_table);
+		if (cmd_list[i]->cmd_list == NULL)
+		{
+			i++;
+			continue ;
+		}
+		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
 		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
 			break ;
+		free_new_envp(&envp, env_table->entries);
 		i++;
 	}
 }
@@ -42,9 +46,9 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 	full_cmd = NULL;
 	while (true)
 	{
-		full_cmd = readline("\001\033[1;32m\002minishell$\001\033[0m\002 ");
+		full_cmd = readline("\033[1;32mminishell$\033[0m ");
 		if (!full_cmd)
-			exit(g_exit_code);
+			return ;
 		cmd_list = parser(full_cmd);
 		if (cmd_list == NULL)
 		{
