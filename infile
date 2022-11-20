@@ -7,6 +7,15 @@ git add .
 git commit -m " "
 git push 
 
+Greedy baby push:
+
+git checkout sig
+git brench -b new
+git merge execution
+git add .
+git commit -m " "
+git push 
+
 
 
 bash-3.2$ echo hi "" hi
