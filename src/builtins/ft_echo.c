@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 03:58:47 by scristia          #+#    #+#             */
-/*   Updated: 2022/11/17 15:43:22 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:34:26 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_flag_n(char *str)
 	return (nl);
 }
 
-int	ft_echo(char **arg)
+int32_t	ft_echo(char **arg)
 {
 	int		i;
 	int		is_n;

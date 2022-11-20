@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 16:35:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:34:54 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int			waiting(int id, int max);
 void		get_env_array(char **envi, t_input *data);
 
 /**built-ins **/
-int			run_builtin(t_input *data);
 bool		is_built_in(char *cmd);
-int			ft_echo(char **arg);
-int			ft_cd(t_input *data);
-int			ft_pwd(t_input *data);
-// int			ft_exit(char **arg);
-int			ft_exit(t_input *data);
+int32_t		run_builtin(t_input *data, t_table *env_table);
+int32_t		ft_cd(t_input *data, t_table *env_table);
+int32_t		ft_unset(t_input *data, t_table *env_table);
+int32_t		ft_echo(char **arg);
+int32_t		ft_pwd(t_input *data);
+int32_t		ft_exit(t_input *data);
 
 /*utils*/
 char		*ft_strjoin_withfree(char *s1, char *s2);

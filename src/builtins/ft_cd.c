@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/18 19:43:42 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:43:11 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,39 @@ char	*seeking_home(t_input *data)
 		{
 			path = ft_strdup(data->environ[i] + 5);
 			if (!path)
-				exit(0);
+				error_exit("Malloc failed", 1);
 		}
 		i++;
 	}
 	return (path);
 }
 
-int	ft_cd(t_input *data)
+int32_t	ft_cd(t_input *data, t_table *env_table)
 {
-	char	*path;
+	char		*newpath;
+	char		*cwd;
 
-	path = seeking_home(data);
+	cwd = getcwd(0, 0);
+	newpath = seeking_home(data);
 	if (!data->cmd_args[1])
-		data->cmd_args[1] = path;
+		data->cmd_args[1] = newpath;
 	if (chdir(data->cmd_args[1]) == -1)
 	{
 		not_a_directory(data);
 		return (1);
 	}
-	//set environ PWD variable(cwd)
-	free (path);
+	// dprintf (2, "cwd %s\n", cwd);
+	// insert_in_table("OLDPWD", cwd, &env_table);
+	// dprintf (2, "cwd %s\n", cwd);
+	cwd = getcwd(0, 0);
+	// remove_item("PWD", &env_table);
+	dprintf(2, "cwd %s\n", cwd);
+	insert_in_table("PWD", (char *)cwd, &env_table);
+	free (cwd);
+	free (newpath);
 	return (0);
 }
+
+	// if (item_search("OLDPWD", env_table != NULL))
+	// 		remove_item("OLDPWD", &env_table);
+	// insert_in_table("OLDPWD", cwd, &env_table);

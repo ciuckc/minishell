@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/18 17:05:02 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:12:53 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 	{
 		if (open_outfiles(token, data))
 			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
-		g_exit_code = run_builtin(data);
+		g_exit_code = run_builtin(data, env_table);
 		reset_fd(data);
 		return (g_exit_code);
 	}
