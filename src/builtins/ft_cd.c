@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/21 13:40:58 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:11:06 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,36 +45,37 @@ char	*seeking_home(t_input *data)
 int32_t	ft_cd(t_input *data, t_table *env_table)
 {
 	char		*dir;
-	char		*oldcwd;
-	char		*newcwd;
-	t_env		variable;
+	char		*new_cwd;
+	char		*old_cwd;
+	t_env		old_var;
+	t_env		new_var;
 
-	oldcwd = getcwd(0, 0);
-	variable.name = malloc (sizeof (char *) * 7);
-	variable.name = ft_strdup("OLDPWD");
-	variable.value = malloc (sizeof (char *) * ft_strlen(oldcwd) + 1);
-	variable.value = ft_strdup(oldcwd);
+	new_cwd = NULL;
+	old_cwd = getcwd(0, 0);
 	dir = seeking_home(data);
 	if (!data->cmd_args[1])
 		data->cmd_args[1] = dir;
 	if (chdir(data->cmd_args[1]) == -1)
 	{
+		free (new_cwd);
+		free (old_cwd);
+		free (dir);
 		not_a_directory(data);
 		return (1);
 	}
-	// dprintf (2, "cwd %s\n", cwd);
-	// insert_in_table("OLDPWD", cwd, &env_table);
-	// dprintf (2, "cwd %s\n", cwd);
-	newcwd = getcwd(0, 0);
-	// if (item_search("PWD", env_table) != NULL)
-	// remove_item("PWD", &env_table);
-	insert_in_table("PWD", (char *)newcwd, &env_table);
-	free (oldcwd);
-	free (newcwd);
+	old_var.name = malloc(sizeof(char *) * 7);
+	old_var.name = ft_strdup("OLDPWD");
+	old_var.value = malloc (sizeof (char *) * ft_strlen(old_cwd) + 1);
+	old_var.value = ft_strdup(old_cwd);
+	insert_in_table(old_var.name, old_var.value, &env_table);
+	free (old_cwd);
+	new_cwd = getcwd(0, 0);
+	new_var.name = malloc(sizeof(char *) * 4);
+	new_var.name = ft_strdup("PWD");
+	new_var.value = malloc (sizeof (char *) * ft_strlen(new_cwd) + 1);
+	new_var.value = ft_strdup(new_cwd);
+	insert_in_table(new_var.name, new_var.value, &env_table);
+	free (new_cwd);
 	free (dir);
 	return (0);
 }
-
-	// if (item_search("OLDPWD", env_table != NULL))
-	// 		remove_item("OLDPWD", &env_table);
-	// insert_in_table("OLDPWD", cwd, &env_table);
