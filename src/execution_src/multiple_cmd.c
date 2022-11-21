@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 16:33:36 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:36:30 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	multiple_commands(t_token *tok, t_input *data, t_table *env_table)
 		if (id == -1)
 			error_exit("Fork failed", 128);
 		if (id == 0)
-			child_process(tok, data, max);
+			child_process(tok, data, max, env_table);
 		parent_process(data);
 		data->cmd_count--;
 		while (tok->next && tok->type != PIPE)

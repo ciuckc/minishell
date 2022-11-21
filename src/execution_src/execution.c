@@ -6,34 +6,28 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/18 17:10:30 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:39:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-/// @brief 
-/// @param envi 
-/// @param data 
-void	get_env_array(char **envi, t_input *data)
+int32_t	ft_free_mem(char ***str)
 {
-	int		i;
-	char	**en;
+	int	c;
 
-	i = 0;
-	while (envi[i])
-		i++;
-	en = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!en)
-		error_exit("Malloc failed", 1);
-	i = 0;
-	while (envi[i])
+	c = 0;
+	if (!*str)
+		return (0);
+	while ((*str)[c])
 	{
-		en[i] = ft_strdup(envi[i]);
-		i++;
+		free((*str)[c]);
+		(*str)[c] = NULL;
+		c++;
 	}
-	en[i] = NULL;
-	data->environ = en;
+	free(*str);
+	*str = NULL;
+	return (1);
 }
 
 t_input	*data_init(char **envp)
@@ -50,7 +44,7 @@ t_input	*data_init(char **envp)
 	data_in->fds[READ] = STDIN_FILENO;
 	data_in->fds[WRITE] = STDOUT_FILENO;
 	data_in->exit_for_pipe = 0;
-	get_env_array(envp, data_in);
+	data_in->environ = envp;
 	return (data_in);
 }
 
@@ -60,7 +54,7 @@ t_input	*data_init(char **envp)
  * @param envp from main
  * @return some int value
 */
-int	execution(t_token *tok, t_table *env_table, char **envp)
+int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 {
 	t_input		*data;
 
@@ -73,5 +67,9 @@ int	execution(t_token *tok, t_table *env_table, char **envp)
 		g_exit_code = single_command(tok, data, env_table);
 	else
 		g_exit_code = multiple_commands(tok, data, env_table);
+	ft_free_mem(&data->paths);
+	// ft_free_mem(&data->cmd_args);
+	free (data);
+	data = NULL;
 	return (g_exit_code);
 }

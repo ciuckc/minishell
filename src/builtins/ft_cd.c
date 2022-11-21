@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 17:43:11 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:40:58 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,19 @@ char	*seeking_home(t_input *data)
 
 int32_t	ft_cd(t_input *data, t_table *env_table)
 {
-	char		*newpath;
-	char		*cwd;
+	char		*dir;
+	char		*oldcwd;
+	char		*newcwd;
+	t_env		variable;
 
-	cwd = getcwd(0, 0);
-	newpath = seeking_home(data);
+	oldcwd = getcwd(0, 0);
+	variable.name = malloc (sizeof (char *) * 7);
+	variable.name = ft_strdup("OLDPWD");
+	variable.value = malloc (sizeof (char *) * ft_strlen(oldcwd) + 1);
+	variable.value = ft_strdup(oldcwd);
+	dir = seeking_home(data);
 	if (!data->cmd_args[1])
-		data->cmd_args[1] = newpath;
+		data->cmd_args[1] = dir;
 	if (chdir(data->cmd_args[1]) == -1)
 	{
 		not_a_directory(data);
@@ -59,12 +65,13 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 	// dprintf (2, "cwd %s\n", cwd);
 	// insert_in_table("OLDPWD", cwd, &env_table);
 	// dprintf (2, "cwd %s\n", cwd);
-	cwd = getcwd(0, 0);
+	newcwd = getcwd(0, 0);
+	// if (item_search("PWD", env_table) != NULL)
 	// remove_item("PWD", &env_table);
-	dprintf(2, "cwd %s\n", cwd);
-	insert_in_table("PWD", (char *)cwd, &env_table);
-	free (cwd);
-	free (newpath);
+	insert_in_table("PWD", (char *)newcwd, &env_table);
+	free (oldcwd);
+	free (newcwd);
+	free (dir);
 	return (0);
 }
 

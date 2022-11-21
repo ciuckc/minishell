@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   free_functions.h                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/04 03:49:13 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/17 05:41:07 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   free_functions.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/04 03:49:13 by scristia          #+#    #+#             */
+/*   Updated: 2022/11/21 15:40:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,13 @@ void			free_scan_list(t_scan_tok **list);
  * @param i 
  */
 void			free_new_envp(char ***envp, u_int32_t i);
+
+/**
+ * @brief 
+ * 
+ * @param str 
+ * @return int32_t 
+ */
+int32_t			ft_free_mem(char ***str);
 
 #endif

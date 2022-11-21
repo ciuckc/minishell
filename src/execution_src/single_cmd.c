@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 17:12:53 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 14:45:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	exec_single(t_token *tok, t_input *data)
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		error_exit("command not found", 127);
+	free (data->cmd_path);
+	data->cmd_path = NULL;
 	return (0);
 }
 
