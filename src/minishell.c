@@ -15,30 +15,29 @@
 u_int64_t	g_exit_code = 0;
 
 static void	st_execute_loop(t_cmd_list **cmd_list, t_table *env_table, \
-char **envp)
+char ***envp)
 {
 	u_int32_t	i;
 
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
-		printf("ONCE\n");
-		create_new_envp(env_table, &envp);
+		create_new_envp(env_table, envp);
 		expand_words(&cmd_list[i]->cmd_list, env_table);
 		if (cmd_list[i]->cmd_list == NULL)
 		{
 			i++;
 			continue ;
 		}
-		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, envp);
+		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, *envp);
 		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
 			break ;
-		free_new_envp(&envp, env_table->entries);
+		free_new_envp(envp, env_table->entries);
 		i++;
 	}
 }
 
-static void	st_cmd_input(t_table *env_table, char **envp)
+static void	st_cmd_input(t_table *env_table, char ***envp)
 {
 	char		*full_cmd;
 	t_cmd_list	*cmd_list;
@@ -64,7 +63,7 @@ static void	st_cmd_input(t_table *env_table, char **envp)
 	}
 }
 
-static void	st_one_cmd(char *argv, t_table *env_table, char **envp)
+static void	st_one_cmd(char *argv, t_table *env_table, char ***envp)
 {
 	t_cmd_list	*cmd_list;
 
@@ -85,8 +84,8 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
 	if (argc == 1)
-		st_cmd_input(env_table, envp);
+		st_cmd_input(env_table, &envp);
 	else if (argc == 2)
-		st_one_cmd(*(argv + 1), env_table, envp);
+		st_one_cmd(*(argv + 1), env_table, &envp);
 	return (g_exit_code);
 }

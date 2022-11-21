@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 05:12:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/18 20:45:54 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/21 18:09:53 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	st_create_strings(char **new, t_table *table)
 	u_int32_t	i;
 
 	i = 0;
-	while (i < table->entries - 1)
+	while (i < table->entries)
 	{
 		new[i] = st_build_str(table);
 		if (new[i] == NULL)
@@ -89,6 +89,7 @@ void	create_new_envp(t_table *table, char ***envp)
 	new_envp = ft_calloc(table->entries + 1, sizeof(char *));
 	if (new_envp == NULL)
 		return ;
+	printf("%u\n", table->entries);
 	st_create_strings(new_envp, table);
 	*envp = new_envp;
 }
