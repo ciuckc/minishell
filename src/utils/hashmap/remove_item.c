@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:48:25 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/21 18:11:55 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/21 20:47:10 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*remove_item(char *key, t_table **map)
 	idx = key_item->hash % (*map)->containers;
 	data_cpy = key_item->data;
 	(*map)->entries = (*map)->entries - 1;
-	if (key_item->next == NULL)
+	if (key_item->next == NULL && key_item->prev == NULL)
 	{
 		(*map)->table[idx] = NULL;
 		return (free(key_item), data_cpy);
