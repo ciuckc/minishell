@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 17:43:11 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/20 18:45:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 	char		*newpath;
 	char		*cwd;
 
+	(void)env_table;
 	cwd = getcwd(0, 0);
 	newpath = seeking_home(data);
 	if (!data->cmd_args[1])
@@ -62,7 +63,7 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 	cwd = getcwd(0, 0);
 	// remove_item("PWD", &env_table);
 	dprintf(2, "cwd %s\n", cwd);
-	insert_in_table("PWD", (char *)cwd, &env_table);
+	// insert_in_table("PWD", (char *)cwd, &env_table);
 	free (cwd);
 	free (newpath);
 	return (0);

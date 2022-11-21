@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 13:01:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 17:35:46 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:19:12 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ char	*seeking_path(t_input *data)
 	return (path);
 }
 
+static void	st_complete_path(t_input *data)
+{
+	int		i;
+	char	*temp;
+
+	i = -1;
+	temp = NULL;
+	while (data->paths[++i])
+	{
+		temp = data->paths[i];
+		data->paths[i] = ft_strjoin(data->paths[i], "/");
+		free (temp);
+	}		
+}
+
 void	get_path(t_input *data)
 {
 	int		i;
@@ -55,7 +70,6 @@ void	get_path(t_input *data)
 		free (my_path);
 		if (!data->paths)
 			error_exit("Malloc failed", 1);
-		while (data->paths[++i])
-			data->paths[i] = ft_strjoin(data->paths[i], "/");
+		st_complete_path(data);
 	}
 }

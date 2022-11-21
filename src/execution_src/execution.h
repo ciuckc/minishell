@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 17:34:54 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 11:55:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ int32_t		dup_and_close(int fd, int in_out);
 int			exec_single(t_token *tok, t_input *data);
 int			single_command(t_token *tok, t_input *data, t_table *env_table);
 int			multiple_commands(t_token *tok, t_input *data, t_table *env_table);
-void		child_process(t_token *tok, t_input *data, int max);
+void		child_process(t_token *tok, t_input *data, int max, \
+			t_table *env_table);
 int			waiting(int id, int max);
-
+int			ft_free_mem(char **str);
 void		get_env_array(char **envi, t_input *data);
 
 /**built-ins **/
