@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 16:04:42 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:35:27 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution_src/execution.h"
 
-static void	check_if_valid(char **arg)
+static void	st_check_if_valid(char **arg)
 {
 	int	i;
 
@@ -33,14 +33,14 @@ static void	check_if_valid(char **arg)
 	}
 }
 
-int	ft_exit(t_input *data)
+int32_t	ft_exit(t_input *data)
 {
 	int	value;
 
 	value = 0;
 	if (data->cmd_args[1])
 	{
-		check_if_valid(data->cmd_args);
+		st_check_if_valid(data->cmd_args);
 		value = ft_atoi(data->cmd_args[1]);
 		ft_putendl_fd("exit", STDERR_FILENO);
 		if (data->cmd_args[2])

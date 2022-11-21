@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 19:18:25 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 14:45:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	exec_single(t_token *tok, t_input *data)
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		error_exit("command not found", 127);
+	free (data->cmd_path);
+	data->cmd_path = NULL;
 	return (0);
 }
 
@@ -58,11 +60,12 @@ void	reset_fd(t_input *data)
 	close(data->temp_fd[WRITE]);
 }
 
-int	single_command(t_token *tok, t_input *data)
+int	single_command(t_token *tok, t_input *data, t_table *env_table)
 {
 	t_token	*token;
 	pid_t	id;
 
+	(void) env_table;
 	token = tok;
 	get_cmd(token, data);
 	token = tok;
@@ -71,15 +74,15 @@ int	single_command(t_token *tok, t_input *data)
 	{
 		if (open_outfiles(token, data))
 			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
-		data->exit_code = run_builtin(data);
+		g_exit_code = run_builtin(data, env_table);
 		reset_fd(data);
-		return (data->exit_code);
+		return (g_exit_code);
 	}
 	id = fork();
 	if (id == -1)
 		error_exit("Fork failed", 1);
 	if (id == 0)
-		data->exit_code = exec_single(token, data);
-	data->exit_code = waiting(id, 1);
-	return (data->exit_code);
+		g_exit_code = exec_single(token, data);
+	g_exit_code = waiting(id, 1);
+	return (g_exit_code);
 }

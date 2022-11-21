@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/20 16:28:32 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:21:05 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,21 @@ int			open_infiles(t_token *tok, t_input *data);
 int			open_outfiles(t_token *tok, t_input *data);
 int32_t		dup_and_close(int fd, int in_out);
 int			exec_single(t_token *tok, t_input *data);
-int			single_command(t_token *tok, t_input *data);
-int			multiple_commands(t_token *tok, t_input *data);
-void		child_process(t_token *tok, t_input *data, int max);
+int			single_command(t_token *tok, t_input *data, t_table *env_table);
+int			multiple_commands(t_token *tok, t_input *data, t_table *env_table);
+void		child_process(t_token *tok, t_input *data, int max, \
+			t_table *env_table);
 int			waiting(int id, int max);
 
-void		get_env_array(char **envi, t_input *data);
+// void		get_env_array(char **envi, t_input *data);
 
 /**built-ins **/
-int			run_builtin(t_input *data);
 bool		is_built_in(char *cmd);
-int			ft_echo(char **arg);
-int			ft_cd(t_input *data);
-int			ft_pwd(t_input *data);
-// int			ft_exit(char **arg);
-int			ft_exit(t_input *data);
-
-/*utils*/
-char		*ft_strjoin_withfree(char *s1, char *s2);
+int32_t		run_builtin(t_input *data, t_table *env_table);
+int32_t		ft_cd(t_input *data, t_table *env_table);
+int32_t		ft_unset(t_input *data, t_table *env_table);
+int32_t		ft_echo(t_input *data);
+int32_t		ft_pwd(t_input *data);
+int32_t		ft_exit(t_input *data);
 
 #endif

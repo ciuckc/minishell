@@ -22,6 +22,7 @@ char **envp)
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
+		printf("ONCE\n");
 		create_new_envp(env_table, &envp);
 		expand_words(&cmd_list[i]->cmd_list, env_table);
 		if (cmd_list[i]->cmd_list == NULL)
@@ -80,6 +81,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 
 	env_table = create_env_table(envp);
 	init_sig_handle();
+	rl_outstream = stderr;
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
 	if (argc == 1)

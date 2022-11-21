@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   item_search.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/14 01:21:01 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/16 17:52:46 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   item_search.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/14 01:21:01 by scristia          #+#    #+#             */
+/*   Updated: 2022/11/21 15:43:11 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_container	*item_search(char *key, t_table *map)
 	u_int32_t	key_idx;
 	t_container	*container;
 
+	if (!key)
+		return (NULL);
 	key_idx = hash_string(key) % map->containers;
 	container = map->table[key_idx];
 	if (container == NULL)

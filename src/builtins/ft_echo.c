@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 03:58:47 by scristia          #+#    #+#             */
-/*   Updated: 2022/11/17 15:43:22 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:18:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,26 @@ int	is_flag_n(char *str)
 	return (nl);
 }
 
-int	ft_echo(char **arg)
+int32_t	ft_echo(t_input *data)
 {
 	int		i;
-	int		is_n;
 
 	i = 1;
-	is_n = 0;
-	if (!arg[i])
+	if (!data->cmd_args[i])
 	{
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		return (0);
 	}
-	while (arg[i] && is_flag_n(arg[i]))
+	while (data->cmd_args[i] && is_flag_n(data->cmd_args[i]))
 		i++;
-	while (arg[i])
+	while (data->cmd_args[i])
 	{
-		ft_putstr_fd(arg[i], STDOUT_FILENO);
-		if (arg[i + 1])
+		ft_putstr_fd(data->cmd_args[i], STDOUT_FILENO);
+		if (data->cmd_args[i + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
-	if (arg[1] && is_flag_n(arg[1]) == 0)
+	if (data->cmd_args[1] && is_flag_n(data->cmd_args[1]) == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }

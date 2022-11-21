@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 19:23:13 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:35:37 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	dup_pipes(t_token *tok, t_input *data)
 		dup_and_close(data->fds[WRITE], STDOUT_FILENO);
 }
 
-void	child_process(t_token *tok, t_input *data, int max)
+void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 {
 	t_token	*token;
 
@@ -79,7 +79,7 @@ void	child_process(t_token *tok, t_input *data, int max)
 		if (open_outfiles(token, data))
 			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
 		data->exit_for_pipe = 1;
-		exit (run_builtin(data));
+		exit (run_builtin(data, env_table));
 	}
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
