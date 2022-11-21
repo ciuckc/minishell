@@ -22,7 +22,6 @@ char **envp)
 	i = 0;
 	while ((*cmd_list)[i].cmd_list)
 	{
-		printf("ONCE\n");
 		create_new_envp(env_table, &envp);
 		expand_words(&cmd_list[i]->cmd_list, env_table);
 		if (cmd_list[i]->cmd_list == NULL)
