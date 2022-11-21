@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 05:12:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/21 18:09:53 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/21 18:30:25 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	create_new_envp(t_table *table, char ***envp)
 	new_envp = ft_calloc(table->entries + 1, sizeof(char *));
 	if (new_envp == NULL)
 		return ;
-	printf("%u\n", table->entries);
 	st_create_strings(new_envp, table);
 	*envp = new_envp;
 }
