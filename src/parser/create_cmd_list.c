@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 04:44:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 17:45:01 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/21 21:15:55 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,23 @@ static void	st_and_or_synthax_check(t_token **words, t_cmd_list **list, \
 size_t len)
 {
 	size_t	i;
-	char	**err_type;
 
 	i = 0;
-	err_type = (char *[]){[OR_IF] = "`||'", [AND_IF] = "`&&'"};
 	if ((*words) == (*list)[len].cmd_list)
 	{
-		printf("minishell: synthax error near unexpected token %s\n", \
-		err_type[(*words)->type]);
+		if ((*words)->type == OR_IF)
+			printf("minishell: synthax error near `||'.\n");
+		else if ((*words)->type == AND_IF)
+			printf("minishell: synthax error near `&&'.\n");
+		else if ((*words)->type == END)
+			printf("minishell: synthax error near `END'.\n");
 		while (i < len)
 		{
-			free_word_list(&((*list)[len].cmd_list));
+			free_word_list(&((*list)[i].cmd_list));
 			i++;
 		}
 		free(*list);
 		*list = NULL;
-		return ;
 	}
 }
 
@@ -80,7 +81,7 @@ size_t len)
 		words->type != END)
 			words = words->next;
 		(*list)[i].cmd_list_type = words->type;
-		st_remove_and_link(&words, &(*list), i);
+		st_remove_and_link(&words, list, i);
 		if ((*list) == NULL)
 			return ;
 		i++;

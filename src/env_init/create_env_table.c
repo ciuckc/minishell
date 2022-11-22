@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   create_env_table.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 05:38:11 by scristia          #+#    #+#             */
-/*   Updated: 2022/11/21 16:52:25 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   create_env_table.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/14 05:38:11 by scristia      #+#    #+#                 */
+/*   Updated: 2022/11/21 19:53:21 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_table	*create_env_table(char **envp)
 	if (env_data == NULL)
 		return (NULL);
 	st_assign_env_vars(envp, &env_data, n_vars);
-	env_table = init_table(HASH_TABLE_512);
+	env_table = init_table(HASH_TABLE_1024);
 	if (env_table == NULL)
 	{
 		st_free_all(env_data, n_vars);

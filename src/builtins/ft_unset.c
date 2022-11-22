@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/20 17:32:42 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/21 15:51:00 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_unset.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/20 17:32:42 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/21 19:39:51 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,20 @@ int32_t	ft_unset(t_input *data, t_table *env_table)
 {
 	int		i;
 	char	*temp;
+	void	*value;
 
 	i = 1;
 	temp = NULL;
+	value = NULL;
 	if (!data->cmd_args[i])
 		return (0);
 	dprintf (2, "cmd arg %s\n", data->cmd_args[1]);
-	dprintf (2, "cmd arg %s\n", data->cmd_args[2]);
 	while (data->cmd_args[i])
 	{
-		temp = ft_strdup(data->cmd_args[i]);
-		if (item_search(temp, env_table) != NULL)
-		{
-			dprintf (2, "unset %p\n", data->cmd_args[i]);
-			dprintf (2, "unset %s\n", data->cmd_args[i]);
-			free (remove_item(data->cmd_args[i], &env_table));
-		}
+		value = remove_item(data->cmd_args[i], &env_table);
+		if (value != NULL)
+			free(value);
+		value = NULL;
 		i++;
 	}
 	return (0);
