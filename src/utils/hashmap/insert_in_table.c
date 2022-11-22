@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 04:21:27 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 04:38:32 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/22 19:22:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_container	*insert_in_table(char *key, void *data, t_table **hash_table)
 	u_int32_t	hash_index;
 	t_container	*item;
 
-	if (key == NULL || data == NULL)
+	if (key == NULL)
 		return (NULL);
 	if (*hash_table == NULL)
 		*hash_table = init_table(DEFAULT_HASH_TABLE_SIZE);
