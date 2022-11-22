@@ -16,7 +16,10 @@ git add .
 git commit -m " "
 git push 
 
-
+git checkout sig
+git pull
+git merge execution
+git checkout execution
 
 bash-3.2$ echo hi "" hi
 hi  hi
