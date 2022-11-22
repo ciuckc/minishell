@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/21 15:21:05 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:28:02 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_input
 	int				exit_for_pipe;
 	int				cmd_count;
 	int				exit_code;
+	t_env			old_var;
+	t_env			new_var;
 	int				temp_fd[2];
 	int				fds[2];
 	int				readfd;
@@ -56,13 +58,12 @@ void		child_process(t_token *tok, t_input *data, int max, \
 			t_table *env_table);
 int			waiting(int id, int max);
 
-// void		get_env_array(char **envi, t_input *data);
-
 /**built-ins **/
 bool		is_built_in(char *cmd);
 int32_t		run_builtin(t_input *data, t_table *env_table);
-int32_t		ft_cd(t_input *data, t_table *env_table);
+int32_t		ft_export(t_input *data, t_table *env_table);
 int32_t		ft_unset(t_input *data, t_table *env_table);
+int32_t		ft_cd(t_input *data, t_table *env_table);
 int32_t		ft_echo(t_input *data);
 int32_t		ft_pwd(t_input *data);
 int32_t		ft_exit(t_input *data);

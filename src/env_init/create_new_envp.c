@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   create_new_envp.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 05:12:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/21 20:01:34 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   create_new_envp.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 05:12:52 by scristia          #+#    #+#             */
+/*   Updated: 2022/11/22 16:00:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static t_container	*st_get_container(t_table *env, bool reset_static)
 			last_cont = last_cont->next;
 			if (last_cont == NULL)
 				i++;
+			if (return_cont->data == NULL)
+				return (NULL);
 			return (return_cont);
 		}
 		i++;
