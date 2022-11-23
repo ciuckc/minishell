@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 04:44:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/21 21:15:55 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/23 13:58:27 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t len)
 			printf("minishell: synthax error near `END'.\n");
 		while (i < len)
 		{
-			free_word_list(&((*list)[i].cmd_list));
+			free_word_list(&(*list)[i].cmd_list);
 			i++;
 		}
 		free(*list);
