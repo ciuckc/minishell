@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/23 18:01:59 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:12:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_input
 	int				exit_for_pipe;
 	int				cmd_count;
 	int				exit_code;
+	t_env			expo_var;
 	t_env			old_var;
 	t_env			new_var;
 	int				temp_fd[2];
@@ -63,7 +64,7 @@ bool		is_built_in(char *cmd);
 int32_t		run_builtin(t_input *data, t_table *env_table);
 int32_t		ft_export(t_input *data, t_table *env_table);
 char		**make_table(t_table *table);
-void		replace_var(char *var, t_input *data, t_table *env_table);
+void		replace_var(t_input *data, t_table *env_table, int pos);
 int32_t		ft_unset(t_input *data, t_table *env_table);
 int32_t		ft_cd(t_input *data, t_table *env_table);
 int32_t		ft_echo(t_input *data);

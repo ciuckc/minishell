@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/23 17:49:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:21:08 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int32_t	st_if_valid(char *var)
 	int			i;
 
 	i = 0;
-	while (var[i])
+	while (var[i] && var[i] != '=')
 	{
 		if (ft_isdigit(var[0])
 			|| (!ft_isalpha(var[i]) && !ft_isdigit(var[i]) && var[i] != '_'))
@@ -52,19 +52,24 @@ int32_t	ft_export(t_input *data, t_table *env_table)
 	int32_t		i;
 	char		**new_var_table;
 
-	if (!data->cmd_args[1])
+	i = 1;
+	printf ("cmd%s\n", data->cmd_args[1]);
+	if (data->cmd_args[1] == NULL)
 	{
 		new_var_table = make_table(env_table);
 		st_print_table(new_var_table);
 		ft_free_mem(&new_var_table);
 		return (0);
 	}
-	i = 1;
-	while (data->cmd_args[i])
+	else
 	{
-		if (st_if_valid(data->cmd_args[i]))
-			return (0);
-		i++;
+		while (data->cmd_args[i])
+		{
+			if (st_if_valid(data->cmd_args[i]))
+				return (0);
+			replace_var(data, env_table, i);
+			i++;
+		}
 	}
 	return (0);
 }

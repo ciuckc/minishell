@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/23 17:26:53 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 13:42:44 by scristia          #+#    #+#             */
+/*   Updated: 2022/11/23 19:07:06 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static bool	st_check_single_cmd(t_token *words, t_token_type cmd_type)
 	{
 		while (words)
 		{
-			if (words->type != DOLLAR && words->type != WORD)
+			if (words->type != DOLLAR && words->type != WORD && words->type \
+			!= ASSIGNMENT_WORD)
 				break ;
 			words = words->next;
 		}
@@ -56,7 +57,8 @@ static bool	st_check_single_cmd(t_token *words, t_token_type cmd_type)
 			words = words->next;
 		if (words == NULL)
 			return (st_print_error(words, cmd_type), true);
-		else if (words->type != WORD && words->type != DOLLAR)
+		else if (words->type != WORD && words->type != DOLLAR && words->type != \
+		ASSIGNMENT_WORD)
 			return (st_print_error(words, cmd_type), true);
 	}
 	return (false);

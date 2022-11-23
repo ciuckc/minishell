@@ -1,9 +1,3 @@
-=adaad
-
-alpha
-digits (only from second position)
-underscores
-
 declare -x Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.Yq0UAWhaah/Render
 declare -x COLORTERM=truecolor
 declare -x GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
