@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/23 17:50:04 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:14:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ char	**make_table(t_table *table)
 	head = table->table[0];
 	while (i < table->containers)
 	{
+		head = table->table[i];
 		while (table->table[i])
 		{
-			head = table->table[i];
 			current_table[j] = ft_strdup(table->table[i]->key_str);
 			current_table[j] = ft_strjoin(current_table[j], "=");
 			current_table[j] = ft_strjoin(current_table[j], \
