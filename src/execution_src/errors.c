@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:48:37 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 19:48:32 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:26:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ void	error_print(char *text)
 
 void	command_not_found(t_input *data)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(data->cmd_args[0], 2);
-	ft_putendl_fd(": command not found", 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(data->cmd_args[0], STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 	exit (127);
 }
 
 void	permission_denied(t_input *data)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(data->cmd_args[0], 2);
-	ft_putendl_fd(": Permission denied", 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(data->cmd_args[0], STDERR_FILENO);
+	ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	exit (126);
 }
 
 void	no_such_file(t_input *data)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(data->cmd_args[0], 2);
-	ft_putendl_fd(": No such file or directory", 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(data->cmd_args[0], STDERR_FILENO);
+	ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	exit (127);
 }

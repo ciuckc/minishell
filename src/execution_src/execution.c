@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/21 15:39:41 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/22 12:53:53 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ t_input	*data_init(char **envp)
 	data_in->fds[WRITE] = STDOUT_FILENO;
 	data_in->exit_for_pipe = 0;
 	data_in->environ = envp;
+	data_in->new_var.name = NULL;
+	data_in->new_var.value = NULL;
+	data_in->old_var.name = NULL;
+	data_in->old_var.value = NULL;
 	return (data_in);
 }
 
@@ -68,7 +72,6 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	else
 		g_exit_code = multiple_commands(tok, data, env_table);
 	ft_free_mem(&data->paths);
-	// ft_free_mem(&data->cmd_args);
 	free (data);
 	data = NULL;
 	return (g_exit_code);
