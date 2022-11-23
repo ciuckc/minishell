@@ -32,7 +32,7 @@ char ***envp)
 		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, *envp);
 		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
 			break ;
-		free_new_envp(envp, env_table->entries);
+		free_new_envp(envp, 0);
 		i++;
 	}
 }
