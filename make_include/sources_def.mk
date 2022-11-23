@@ -67,7 +67,7 @@ OBJ += $(FREE_OBJ)
 BUILTINS_DIR = $(SRC_DIR)/builtins
 
 BUILTINS_SRC = built_in.c ft_cd.c ft_echo.c ft_exit.c ft_pwd.c ft_unset.c \
-ft_export.c
+ft_export.c ft_export_utils.c
 
 BUILTINS_OBJ = $(addprefix $(OBJ_DIR)/,$(BUILTINS_SRC:.c=.o))
 

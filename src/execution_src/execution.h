@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/22 14:28:02 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:47:14 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ int			waiting(int id, int max);
 bool		is_built_in(char *cmd);
 int32_t		run_builtin(t_input *data, t_table *env_table);
 int32_t		ft_export(t_input *data, t_table *env_table);
+char		**make_table(t_table *table);
+void		replace_var(char *var, t_input *data, t_table *env_table);
 int32_t		ft_unset(t_input *data, t_table *env_table);
 int32_t		ft_cd(t_input *data, t_table *env_table);
 int32_t		ft_echo(t_input *data);
 int32_t		ft_pwd(t_input *data);
 int32_t		ft_exit(t_input *data);
+
+int32_t		ft_strcmp(const char *s1, const char *s2);
 
 #endif
