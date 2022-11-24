@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/23 21:17:27 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_export_utils.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/24 12:11:13 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution_src/execution.h"
 
-int	st_ft_strchr(const char *s, int c)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*string;
-	int		len;
+	unsigned int	i;
 
-	len = 0;
-	string = (char *)s;
-	while (*string != c)
-	{
-		if (*string == '\0')
-			return (0);
-		string++;
-		len++;
-	}
-	return (len);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0')
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 void	replace_var(t_input *data, t_table *env_table, int pos)
@@ -35,9 +28,10 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 	u_int32_t	key_len;
 	u_int32_t	data_len;
 
-	(void)env_table;
 	value = NULL;
-	key_len = st_ft_strchr(data->cmd_args[pos], '=');
+	printf ("data->cmd_args[pos] %s\n", data->cmd_args[pos]);
+	key_len = mini_ft_strchr(data->cmd_args[pos], '=');
+	printf ("key_len %d\n", key_len);
 	data->expo_var.name = malloc(sizeof(char *) * key_len + 1);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
 	printf ("key %s\n", data->expo_var.name);
@@ -54,6 +48,26 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 	data_len - 1);
 	printf ("data->expo_var.value %s\n", data->expo_var.value);
 	insert_in_table(data->expo_var.name, data->expo_var.value, &env_table);
+}
+
+void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
+{
+	char		*value;
+	u_int32_t	key_len;
+
+	value = NULL;
+	key_len = ft_strlen(data->cmd_args[pos]);
+	data->expo_var.name = malloc(sizeof(char *) * key_len + 1);
+	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
+	printf ("key %s\n", data->expo_var.name);
+	if (item_search(data->expo_var.name, env_table) != NULL)
+	{
+		value = remove_item(data->expo_var.name, &env_table);
+		if (value != NULL)
+			free(value);
+		value = NULL;
+	}
+	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
 
 char	**get_table(t_table *table, char **new_table)
@@ -98,7 +112,6 @@ char	**make_table(t_table *table)
 {
 	u_int32_t	i;
 	u_int32_t	j;
-	char		*swap;
 	char		**current_table;
 
 	i = 0;
@@ -107,7 +120,6 @@ char	**make_table(t_table *table)
 	if (!current_table)
 		error_exit("Malloc failed", 1);
 	current_table = get_table(table, current_table);
-	swap = NULL;
 	while (i < table->entries - 1)
 	{
 		j = 0;

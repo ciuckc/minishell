@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/23 21:21:08 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_export.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/22 14:25:33 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/24 11:47:53 by emanuela      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution_src/execution.h"
+
+int32_t	mini_ft_strchr(const char *s, int c)
+{
+	char	*string;
+	int		len;
+
+	len = 0;
+	string = (char *)s;
+	while (*string != c)
+	{
+		if (*string == '\0')
+			return (0);
+		string++;
+		len++;
+	}
+	return (len);
+}
 
 static int32_t	st_if_valid(char *var)
 {
@@ -67,7 +84,10 @@ int32_t	ft_export(t_input *data, t_table *env_table)
 		{
 			if (st_if_valid(data->cmd_args[i]))
 				return (0);
-			replace_var(data, env_table, i);
+			if (mini_ft_strchr(data->cmd_args[i], '='))
+				replace_var(data, env_table, i);
+			else
+				replace_var_no_eq(data, env_table, i);
 			i++;
 		}
 	}
