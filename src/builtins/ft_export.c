@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_export.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/22 14:25:33 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/24 11:47:53 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/25 13:14:10 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,22 @@ int32_t	ft_export(t_input *data, t_table *env_table)
 	char		**new_var_table;
 
 	i = 1;
-	printf ("cmd%s\n", data->cmd_args[1]);
 	if (data->cmd_args[1] == NULL)
 	{
-		new_var_table = make_table(env_table);
+		new_var_table = sort_table(env_table);
 		st_print_table(new_var_table);
 		ft_free_mem(&new_var_table);
 		return (0);
 	}
-	else
+	while (data->cmd_args[i])
 	{
-		while (data->cmd_args[i])
-		{
-			if (st_if_valid(data->cmd_args[i]))
-				return (0);
-			if (mini_ft_strchr(data->cmd_args[i], '='))
-				replace_var(data, env_table, i);
-			else
-				replace_var_no_eq(data, env_table, i);
-			i++;
-		}
+		if (st_if_valid(data->cmd_args[i]))
+			return (1);
+		if (mini_ft_strchr(data->cmd_args[i], '='))
+			replace_var(data, env_table, i);
+		else
+			replace_var_no_eq(data, env_table, i);
+		i++;
 	}
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execution.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/24 11:32:01 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/25 14:45:50 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_input
 	char			**paths;
 	char			*cmd_path;
 	char			**cmd_args;
+	u_int32_t		i;
+	u_int32_t		j;
 	int				exit_for_pipe;
 	int				cmd_count;
 	int				exit_code;
@@ -63,8 +65,8 @@ int			waiting(int id, int max);
 bool		is_built_in(char *cmd);
 int32_t		run_builtin(t_input *data, t_table *env_table);
 int32_t		ft_export(t_input *data, t_table *env_table);
+char		**sort_table(t_table *table);
 int32_t		mini_ft_strchr(const char *s, int c);
-char		**make_table(t_table *table);
 void		replace_var(t_input *data, t_table *env_table, int pos);
 void		replace_var_no_eq(t_input *data, t_table *env_table, int pos);
 int32_t		ft_unset(t_input *data, t_table *env_table);

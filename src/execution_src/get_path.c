@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_path.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/14 13:01:48 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/24 11:07:00 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/14 13:01:48 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/25 12:50:34 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	st_complete_path(t_input *data)
 void	get_path(t_input *data)
 {
 	char	*my_path;
-	
+
 	my_path = NULL;
 	data->paths = NULL;
 	my_path = seeking_path(data);

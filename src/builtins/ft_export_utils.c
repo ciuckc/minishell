@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_export_utils.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/24 12:11:13 by emanuela      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/25 14:52:53 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution_src/execution.h"
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0')
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
 
 void	replace_var(t_input *data, t_table *env_table, int pos)
 {
@@ -29,12 +19,9 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 	u_int32_t	data_len;
 
 	value = NULL;
-	printf ("data->cmd_args[pos] %s\n", data->cmd_args[pos]);
 	key_len = mini_ft_strchr(data->cmd_args[pos], '=');
-	printf ("key_len %d\n", key_len);
 	data->expo_var.name = malloc(sizeof(char *) * key_len + 1);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
-	printf ("key %s\n", data->expo_var.name);
 	if (item_search(data->expo_var.name, env_table) != NULL)
 	{
 		value = remove_item(data->expo_var.name, &env_table);
@@ -46,7 +33,6 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 	data->expo_var.value = malloc(sizeof(char *) * data_len);
 	data->expo_var.value = ft_substr(data->cmd_args[pos], key_len + 1, \
 	data_len - 1);
-	printf ("data->expo_var.value %s\n", data->expo_var.value);
 	insert_in_table(data->expo_var.name, data->expo_var.value, &env_table);
 }
 
@@ -59,7 +45,6 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	key_len = ft_strlen(data->cmd_args[pos]);
 	data->expo_var.name = malloc(sizeof(char *) * key_len + 1);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
-	printf ("key %s\n", data->expo_var.name);
 	if (item_search(data->expo_var.name, env_table) != NULL)
 	{
 		value = remove_item(data->expo_var.name, &env_table);
@@ -67,8 +52,22 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 			free(value);
 		value = NULL;
 	}
+	data->expo_var.value = malloc(sizeof(char *) * 1);
+	data->expo_var.value = ft_strdup("");
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
+
+// static char	*build_line()
+// {
+// 	{
+// 		new_table[j] = ft_strjoin(new_table[j], "=");
+// 		new_table[j] = ft_strjoin(new_table[j], table->table[i]->data);
+// 	}
+// 	{
+// 		new_table[j] = ft_strjoin(new_table[j], "=");
+// 		new_table[j] = ft_strjoin(new_table[j], " ");
+// 	}
+// }
 
 char	**get_table(t_table *table, char **new_table)
 {
@@ -85,9 +84,16 @@ char	**get_table(t_table *table, char **new_table)
 		while (table->table[i])
 		{
 			new_table[j] = ft_strdup(table->table[i]->key_str);
-			new_table[j] = ft_strjoin(new_table[j], "=");
-			new_table[j] = ft_strjoin(new_table[j], \
-			table->table[i]->data);
+			if (table->table[i]->data && ft_strlen(table->table[i]->data))
+			{
+				new_table[j] = ft_strjoin(new_table[j], "=");
+				new_table[j] = ft_strjoin(new_table[j], table->table[i]->data);
+			}
+			else if (table->table[i]->data && ft_strlen(table->table[i]->data) == 0)
+			{
+				new_table[j] = ft_strjoin(new_table[j], "=");
+				new_table[j] = ft_strjoin(new_table[j], " ");
+			}
 			j++;
 			table->table[i] = table->table[i]->next;
 		}
@@ -108,7 +114,7 @@ static void	st_swap(char **str_j, char **str_j1)
 	*str_j1 = swap;
 }
 
-char	**make_table(t_table *table)
+char	**sort_table(t_table *table)
 {
 	u_int32_t	i;
 	u_int32_t	j;
