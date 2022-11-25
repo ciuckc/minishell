@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:41:42 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/24 14:22:10 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "minishell.h"
 # include "msh_types.h"
+
+/**
+ * @brief remove the DLESS and it s delim. 
+ * 
+ * @param cmd the list of commands
+ */
+void			here_doc_expansion(t_cmd_list **cmd);
 
 /**
  * @brief get word list

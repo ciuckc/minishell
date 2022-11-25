@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 02:51:04 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/17 03:18:43 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/23 20:14:54 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,20 @@ static void	st_assign_str(char *src, char *dst)
 void	remove_quotes(t_token *word)
 {
 	ssize_t	len;
+	ssize_t	len_after_dec;
 	char	*new_str;
 
 	len = ft_strlen(word->str);
 	st_dec_quote_len(word->str, &len);
+	len_after_dec = ft_strlen(word->str);
 	if (len == 0)
 	{
 		free(word->str);
 		word->str = ft_strdup("");
 		return ;
 	}
+	if (len == len_after_dec)
+		return ;
 	new_str = ft_calloc(len + 1, sizeof(char));
 	if (new_str == NULL)
 		return ;

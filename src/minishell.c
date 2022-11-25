@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/05 18:41:29by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/25 20:17:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	st_one_cmd(char *argv, t_table *env_table, char ***envp)
 {
 	t_cmd_list	*cmd_list;
 
-	(void)env_table;
 	cmd_list = parser(argv);
 	if (cmd_list == NULL)
 		return ;

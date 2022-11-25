@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 04:02:53 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/17 01:22:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/25 19:59:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ static void	st_append_to_new_str(char *src, char *dst, t_table *env)
 			st_copy_d_quote(&src, &dst, env);
 		else if (*src == '$')
 			st_extend_var(&src, &dst, env, false);
+		else
+			*dst++ = *src++;
 	}
 	dst = dst_head;
 }

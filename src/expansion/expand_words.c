@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/18 18:07:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/25 20:15:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	st_skip_d_quote_if_no_dol(char **str)
 		(*str)++;
 }
 
-bool	st_needs_expansion(char *str)
+static bool	st_needs_expansion(char *str)
 {
 	while (*str)
 	{
@@ -64,6 +64,9 @@ void	expand_words(t_token **words, t_table *table)
 	t_token	*head;
 
 	head = *words;
+	if (head)
+		if (head->type == DLESS && head->next == NULL && head->prev == NULL)
+			return (st_remove_node(&head));
 	while (*words)
 	{
 		if (st_needs_expansion((*words)->str))
@@ -75,7 +78,8 @@ void	expand_words(t_token **words, t_table *table)
 				return ;
 			continue ;
 		}
-		if (ft_strchr((*words)->str, '\'') || ft_strchr((*words)->str, '\"'))
+		if ((ft_strchr((*words)->str, '\'') || ft_strchr((*words)->str, '\"')) \
+		&& (*words)->type != DLESS)
 			remove_quotes(*words);
 		(*words) = (*words)->next;
 	}

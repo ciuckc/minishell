@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 05:38:11 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/21 19:53:21 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/25 18:26:42 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	st_assign_env_vars(char **envp, t_env **env_data, u_int32_t n)
 		{
 			st_free_all(*env_data, i);
 			free(*env_data);
+			*env_data = NULL;
 			return ;
 		}
 		(*env_data)[i].name = var[0];
@@ -62,28 +63,8 @@ static void	st_add_env_var_to_table(t_table **table, t_env *data, u_int32_t len)
 		{
 			remove_all(*table);
 			*table = NULL;
-			st_free_all(data, len);
-			free(data);
-			return ;
+			return (free(data));
 		}
-		i++;
-	}
-}
-
-static void	st_remove_old_pwd(t_table *table, t_env *data, u_int32_t n)
-{
-	t_container	*item;
-	u_int32_t	i;
-
-	i = 0;
-	item = item_search("OLDPWD", table);
-	if (item == NULL)
-		return ;
-	while (i < n)
-	{
-		if (data[i].name == item->key_str)
-			return (free(remove_item(data[i].name, &table)), \
-			free(data[i].name));
 		i++;
 	}
 }
@@ -101,15 +82,14 @@ t_table	*create_env_table(char **envp)
 	if (env_data == NULL)
 		return (NULL);
 	st_assign_env_vars(envp, &env_data, n_vars);
+	if (env_data == NULL)
+		return (NULL);
 	env_table = init_table(HASH_TABLE_1024);
 	if (env_table == NULL)
-	{
-		st_free_all(env_data, n_vars);
-		free(env_data);
-		return (NULL);
-	}
+		return (st_free_all(env_data, n_vars), free(env_data), NULL);
 	st_add_env_var_to_table(&env_table, env_data, n_vars);
-	st_remove_old_pwd(env_table, env_data, n_vars);
-	free(env_data);
-	return (env_table);
+	if (env_table == NULL)
+		return (NULL);
+	remove_item("OLDPWD", &env_table);
+	return (free(env_data), env_table);
 }

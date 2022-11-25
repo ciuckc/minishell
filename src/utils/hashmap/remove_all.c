@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 03:56:36 by scristia      #+#    #+#                 */
-/*   Updated: 2022/10/14 04:34:03 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/25 17:47:06 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	remove_all(t_table *map)
 		{
 			prev = map->table[i];
 			map->table[i] = map->table[i]->next;
+			free(prev->data);
+			free(prev->key_str);
 			free(prev);
 		}
 		i++;
