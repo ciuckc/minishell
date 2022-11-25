@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:00:11 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 13:09:47 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:56:27 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	ft_env(t_input *data)
 	i = 0;
 	while (data->environ[i])
 	{
-		if (mini_ft_strchr(data->environ[i], '='))
-			ft_putstr_fd(data->environ[i], STDOUT_FILENO);
+		ft_putstr_fd(data->environ[i], STDOUT_FILENO);
 		i++;
 	}
 	return (0);
