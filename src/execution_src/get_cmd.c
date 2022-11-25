@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_cmd.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/19 14:02:46 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/17 03:49:47 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/23 20:51:04 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	get_cmd(t_token *tok, t_input *data)
 	while (token && token->type != PIPE)
 	{
 		if (token->type == WORD || token->type == DOLLAR || \
-		token->type == S_QUOTE || token->type == D_QUOTE)
+		token->type == S_QUOTE || token->type == D_QUOTE || \
+		token->type == ASSIGNMENT_WORD)
 		{
 			data->cmd_args[i] = ft_strdup(token->str);
 			i++;
