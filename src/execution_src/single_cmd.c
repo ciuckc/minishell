@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/21 14:45:41 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/25 18:34:19 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	exec_single(t_token *tok, t_input *data)
 
 	ret = 0;
 	token = tok;
-		//disable sig
 	ret = open_infiles(token, data);
 	if (ret)
 		if (dup_and_close(data->fds[READ], STDIN_FILENO))
@@ -69,6 +68,8 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 	token = tok;
 	get_cmd(token, data);
 	token = tok;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	init_fd(data);
 	if (is_built_in(data->cmd_args[0]))
 	{

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 14:46:57 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/25 19:03:03 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ t_input	*data_init(char **envp)
 	if (!data_in->paths)
 		error_exit("Malloc failed", 1);
 	data_in->exit_code = 0;
-	data_in->i = 0;
-	data_in->j = 0;
 	data_in->fds[READ] = STDIN_FILENO;
 	data_in->fds[WRITE] = STDOUT_FILENO;
 	data_in->exit_for_pipe = 0;
@@ -54,12 +52,6 @@ t_input	*data_init(char **envp)
 	return (data_in);
 }
 
-/**
- * @brief this is test
- * @param argv from main
- * @param envp from main
- * @return some int value
-*/
 int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 {
 	t_input		*data;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_dup2.c                                        :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 19:11:18 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/17 19:18:19 by emlicame         ###   ########.fr       */
+/*   Created: 2022/11/26 15:43:31 by emlicame          #+#    #+#             */
+/*   Updated: 2022/11/26 15:50:28 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,24 @@ int32_t	dup_and_close(int fd, int in_out)
 	return (0);
 }
 
-int	open_infiles(t_token *tok, t_input *data)
+static int32_t	redirection_heredoc(t_token *tok, t_input *data)
+{
+	int	fd_hd;
+
+	//sigignore?
+	fd_hd = open ("file.txt", O_CREAT | O_WRONLY, 0644);
+	if (fd_hd < 0)
+		return (1);
+	write(fd_hd, tok->next->str, ft_strlen(tok->next->str));
+	write(fd_hd, "\n", 1);
+	if (data->fds[READ] != STDIN_FILENO)
+		close(data->fds[READ]);
+	data->fds[WRITE] = fd_hd;
+	//free (tok->next->str);
+	return (0);
+}
+
+int32_t	open_infiles(t_token *tok, t_input *data)
 {
 	int	ret;
 
@@ -39,12 +56,18 @@ int	open_infiles(t_token *tok, t_input *data)
 			if (data->fds[READ] < 0)
 				error_exit(tok->next->str, 1);
 		}
+		else if (tok->type == DLESS)
+		{
+			ret = 2;
+			if (redirection_heredoc(tok, data))
+				error_exit("heredoc file error", 1);
+		}
 		tok = tok->next;
 	}
 	return (ret);
 }
 
-static int	redirection_dgreat(t_token *tok, t_input *data)
+static int32_t	redirection_dgreat(t_token *tok, t_input *data)
 {
 	if (data->fds[WRITE] != STDOUT_FILENO)
 		close(data->fds[WRITE]);
@@ -54,7 +77,7 @@ static int	redirection_dgreat(t_token *tok, t_input *data)
 	return (0);
 }
 
-int	open_outfiles(t_token *tok, t_input *data)
+int32_t	open_outfiles(t_token *tok, t_input *data)
 {
 	int	ret;
 

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/21 12:36:30 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/25 18:31:29 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	multiple_commands(t_token *tok, t_input *data, t_table *env_table)
 		tok = tok->next;
 	}
 	g_exit_code = waiting(id, max);
-	// system("lsof -c minishell");
 	return (g_exit_code);
 }
+
+	// system("lsof -c minishell");

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 14:52:53 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/25 18:24:32 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,10 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
 
-// static char	*build_line()
-// {
-// 	{
-// 		new_table[j] = ft_strjoin(new_table[j], "=");
-// 		new_table[j] = ft_strjoin(new_table[j], table->table[i]->data);
-// 	}
-// 	{
-// 		new_table[j] = ft_strjoin(new_table[j], "=");
-// 		new_table[j] = ft_strjoin(new_table[j], " ");
-// 	}
-// }
-
-char	**get_table(t_table *table, char **new_table)
+char	**get_table(t_table *table, char **new_table, u_int32_t i, u_int32_t j)
 {
-	u_int32_t	i;
-	u_int32_t	j;
 	t_container	*head;
 
-	i = 0;
-	j = 0;
 	head = table->table[0];
 	while (i < table->containers)
 	{
@@ -85,15 +69,10 @@ char	**get_table(t_table *table, char **new_table)
 		{
 			new_table[j] = ft_strdup(table->table[i]->key_str);
 			if (table->table[i]->data && ft_strlen(table->table[i]->data))
-			{
-				new_table[j] = ft_strjoin(new_table[j], "=");
-				new_table[j] = ft_strjoin(new_table[j], table->table[i]->data);
-			}
-			else if (table->table[i]->data && ft_strlen(table->table[i]->data) == 0)
-			{
-				new_table[j] = ft_strjoin(new_table[j], "=");
-				new_table[j] = ft_strjoin(new_table[j], " ");
-			}
+				new_table[j] = ft_strjoin_va(3, new_table[j], "=", \
+				table->table[i]->data);
+			else if (table->table[i]->data && !ft_strlen(table->table[i]->data))
+				new_table[j] = ft_strjoin_va(3, new_table[j], "=", "\"\"");
 			j++;
 			table->table[i] = table->table[i]->next;
 		}
@@ -125,7 +104,7 @@ char	**sort_table(t_table *table)
 	current_table = (char **)malloc(sizeof(char *) * (table->containers + 1));
 	if (!current_table)
 		error_exit("Malloc failed", 1);
-	current_table = get_table(table, current_table);
+	current_table = get_table(table, current_table, 0, 0);
 	while (i < table->entries - 1)
 	{
 		j = 0;

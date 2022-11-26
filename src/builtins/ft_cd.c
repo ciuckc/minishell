@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/22 14:30:21 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:51:36 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ static void	st_old_pwd(t_input *data, t_table *env_table, char *old_cwd)
 	data->old_var.value = malloc (sizeof (char *) * ft_strlen(old_cwd) + 1);
 	data->old_var.value = ft_strdup(old_cwd);
 	insert_in_table(data->old_var.name, data->old_var.value, &env_table);
-	// free (data->old_var.name);
-	// data->old_var.name = NULL;
-	// free (data->old_var.value);
-	// data->old_var.value = NULL;
 }
 
 static int32_t	st_not_a_directory(t_input *data)
@@ -105,8 +101,7 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 		free (old_cwd);
 		free (dir);
 		dir = NULL;
-		st_not_a_directory(data);
-		return (1);
+		return (st_not_a_directory(data));
 	}
 	free (dir);
 	st_old_pwd(data, env_table, old_cwd);

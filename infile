@@ -37,7 +37,7 @@ Line 46: < Success! - Wrong exit code
 Line 55: cd gdhahahad Fail
 
 
-minishell$ unset PWD
-minishell$ echo $?
-0
-minishell$ 
+value = remove_item(data->expo_var.name, &env_table);
+		if (value != NULL)
+			free(value);
+		value = NULL;
