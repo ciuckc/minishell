@@ -6,12 +6,11 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/28 18:26:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:57:56 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
 
 int	exec_single(t_token *tok, t_input *data)
 {
@@ -21,7 +20,7 @@ int	exec_single(t_token *tok, t_input *data)
 	ret = 0;
 	token = tok;
 	ret = open_infiles(token, data);
-	if (ret)
+	if (ret == 1)
 		if (dup_and_close(data->fds[READ], STDIN_FILENO))
 			return (1);
 	token = tok;
