@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:47:09 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/22 14:54:19 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:55:32 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,28 @@ int	exec_built_in(t_input *data, t_table *env_table)
 
 bool	is_built_in(char *cmd)
 {
-	if (ft_strncmp(cmd, "echo", 5) == 0)
+	if (!cmd)
+		return (false);
+	else if (ft_strncmp(cmd, "echo", 5) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "cd", 3) == 0)
+	else if (ft_strncmp(cmd, "cd", 3) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "pwd", 4) == 0)
+	else if (ft_strncmp(cmd, "pwd", 4) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "exit", 5) == 0)
+	else if (ft_strncmp(cmd, "exit", 5) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "unset", 6) == 0)
+	else if (ft_strncmp(cmd, "unset", 6) == 0)
 		return (true);
-	if (ft_strncmp(cmd, "export", 7) == 0)
+	else if (ft_strncmp(cmd, "export", 7) == 0)
 		return (true);
-	return (false);
+	else
+		return (false);
 }
 
 int32_t	run_builtin(t_input *data, t_table *env_table)
 {
 	if (is_built_in(data->cmd_args[0]))
 		g_exit_code = exec_built_in(data, env_table);
-	// ft_free_mem(&data->cmd_args);
+		// ft_free_mem(&data->cmd_args);
 	return (g_exit_code);
 }

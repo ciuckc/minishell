@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/23 20:51:04 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:09:29 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void	get_cmd(t_token *tok, t_input *data)
 			data->cmd_args[i] = ft_strdup(token->str);
 			i++;
 		}
-		if (token->type == LESS || \
-			token->type == GREAT || \
-			token->type == DLESS || \
-			token->type == DGREAT)
+		if (token->type == LESS || token->type == GREAT || \
+		token->type == DGREAT)
 		token = token->next->next;
 		else
 			token = token->next;
