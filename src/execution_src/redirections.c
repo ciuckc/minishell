@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:43:31 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/26 15:50:28 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:52:21 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,21 @@ int32_t	dup_and_close(int fd, int in_out)
 static int32_t	redirection_heredoc(t_token *tok, t_input *data)
 {
 	int	fd_hd;
+	int	bites;
 
-	//sigignore?
-	fd_hd = open ("file.txt", O_CREAT | O_WRONLY, 0644);
-	if (fd_hd < 0)
-		return (1);
-	write(fd_hd, tok->next->str, ft_strlen(tok->next->str));
-	write(fd_hd, "\n", 1);
 	if (data->fds[READ] != STDIN_FILENO)
 		close(data->fds[READ]);
-	data->fds[WRITE] = fd_hd;
-	//free (tok->next->str);
+	fd_hd = open ("file.txt", O_RDWR | O_CREAT, 0777);
+	if (fd_hd < 0)
+		return (1);
+	bites = write(fd_hd, tok->str, ft_strlen(tok->str));
+	if (bites < 0)
+		return (1);
+	data->fds[READ] = fd_hd;
+	bites = dup_and_close(data->fds[READ], STDIN_FILENO);
+	unlink("file.txt");
+	if (bites < 0)
+		return (1);
 	return (0);
 }
 

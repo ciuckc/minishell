@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/26 15:53:33 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:24:00 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	dup_infile(t_token *tok, t_input *data)
 	ret = open_infiles(tok, data);
 	if (ret == 1)
 		dup_and_close(data->fds[READ], STDIN_FILENO);
-	else if (ret == 2)
-	{
-		dup_and_close(data->fds[READ], STDIN_FILENO);
-		unlink("file.txt");
-	}
 	dup_and_close(data->pipe_fd[1], STDOUT_FILENO);
 	ret = open_outfiles(tok, data);
 	if (ret)
@@ -40,7 +35,7 @@ void	dup_outfile(t_token *tok, t_input *data)
 		error_exit("Dup failed", 1);
 	close(data->readfd);
 	ret = open_infiles(tok, data);
-	if (ret)
+	if (ret == 1)
 		dup_and_close(data->fds[READ], STDIN_FILENO);
 	close(data->pipe_fd[1]);
 	ret = open_outfiles(tok, data);
@@ -57,7 +52,7 @@ void	dup_pipes(t_token *tok, t_input *data)
 		error_exit("Dup readfd failed", 1);
 	close(data->readfd);
 	ret = open_infiles(tok, data);
-	if (ret)
+	if (ret == 1)
 		dup_and_close(data->fds[READ], STDIN_FILENO);
 	dup_and_close(data->pipe_fd[1], STDOUT_FILENO);
 	ret = open_outfiles(tok, data);
@@ -73,9 +68,7 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	if (data->cmd_count == max)
-	{
 		dup_infile(tok, data);
-	}
 	else if (data->cmd_count == 1)
 		dup_outfile(tok, data);
 	else
@@ -88,6 +81,8 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 		data->exit_for_pipe = 1;
 		exit (run_builtin(data, env_table));
 	}
+	if (!data->cmd_args[0])
+		exit (0);
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		error_exit("command not found", 127);

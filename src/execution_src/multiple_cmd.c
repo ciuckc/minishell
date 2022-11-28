@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 18:31:29 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:10:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	multiple_commands(t_token *tok, t_input *data, t_table *env_table)
 	int		max;
 	pid_t	id;
 
-	(void) env_table;
 	data->readfd = -1;
 	max = data->cmd_count;
 	while (tok)
