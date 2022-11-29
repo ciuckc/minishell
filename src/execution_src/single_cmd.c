@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/28 18:57:56 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:15:54 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 int	exec_single(t_token *tok, t_input *data)
 {
 	t_token	*token;
-	int		ret;
 
-	ret = 0;
 	token = tok;
-	ret = open_infiles(token, data);
-	if (ret == 1)
+	if (open_infiles(token, data))
+	{
 		if (dup_and_close(data->fds[READ], STDIN_FILENO))
 			return (1);
+	}
 	token = tok;
-	ret = open_outfiles(token, data);
-	if (ret)
+	if (open_outfiles(token, data))
+	{
 		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO))
 			return (1);
+	}
 	if (!data->cmd_args[0])
 		exit (0);
 	access_file(data);

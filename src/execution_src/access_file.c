@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/28 18:05:34 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:28:42 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	access_file(t_input *data)
 		if (!data->cmd_path)
 			error_exit("Malloc failed", 1);
 		if (access(data->cmd_path, X_OK) >= 0)
-			error_exit("command not found", 127);
+			return (1);
 		i++;
 	}
 	return (0);
