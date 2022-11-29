@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/29 15:31:32 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:31:24 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ void	dup_outfile(t_token *tok, t_input *data)
 void	dup_pipes(t_token *tok, t_input *data)
 {
 	close(data->pipe_fd[0]);
+	dprintf (2, "child data->pipe_fd[0] %d\n", data->pipe_fd[0]);
 	if (dup2(data->readfd, 0) < 0)
-		error_exit("Dup readfd failed", 1);
+		error_exit("Dup failed", 1);
+	dprintf (2, "child data->readfd %d\n", data->readfd);
 	close(data->readfd);
 	if (open_infiles(tok, data))
 	{
 		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			error_exit("Dup readfd failed", 1);
+			error_exit("Dup failed", 1);
 	}
+	dprintf (2, "child data->pipe_fd[1] %d\n", data->pipe_fd[1]);
 	if (dup_and_close(data->pipe_fd[1], STDOUT_FILENO) < 0)
 		error_exit("Dup failed", 1);
 	if (open_outfiles(tok, data))
@@ -92,5 +95,5 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 		exit (0);
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
-		error_exit("command not found", 127);
+		command_not_found(data);
 }

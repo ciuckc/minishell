@@ -20,11 +20,6 @@ git merge execution
 git checkout execution
 
 
-echo $USER
-Line 10: cd .. ; pwd Fail
-Line 11: cd /Users ; pwd Fail
-Line 12: cd ; pwd Fail - Wrong exit code
-Line 13: mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd .. ; pwd Fail
 Line 20: echo "test Fail - Wrong exit code
 Line 25: echo "$TEST$TEST=lol$TEST" Fail
 Line 30: echo "$=TEST" Fail
