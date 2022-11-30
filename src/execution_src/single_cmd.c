@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_cmd.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/28 18:57:56 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_cmd.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/11/28 19:29:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_single(t_token *tok, t_input *data)
 		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO))
 			return (1);
 	if (!data->cmd_args[0])
-		exit (0);
+		return (0);
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		error_exit("command not found", 127);
@@ -62,8 +62,6 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 	token = tok;
 	get_cmd(token, data);
 	token = tok;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 	if (is_built_in(data->cmd_args[0]))
 	{
 		init_fd(data);
@@ -73,6 +71,8 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 		reset_fd(data);
 		return (g_exit_code);
 	}
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == -1)
 		error_exit("Fork failed", 1);

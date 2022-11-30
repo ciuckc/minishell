@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/25 20:15:04 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/30 18:25:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,10 @@ void	expand_words(t_token **words, t_table *table)
 	t_token	*head;
 
 	head = *words;
-	if (head)
-		if (head->type == DLESS && head->next == NULL && head->prev == NULL)
-			return (st_remove_node(&head));
 	while (*words)
 	{
 		if (st_needs_expansion((*words)->str))
-			expand_var_in_str(*words, table);
+			(*words)->str = expand_var_in_str(*words, table);
 		if ((*words)->str == NULL)
 		{
 			st_remove_node(words);

@@ -34,7 +34,7 @@ EXPANSION_DIR = $(SRC_DIR)/expansion
 
 EXPANSION_SRC = expand_var_in_str.c expanded_var_len.c  expand_words.c \
 get_pid_len.c count_data_len.c str_append_pid.c str_append_exit_code.c \
-remove_quotes.c
+remove_quotes.c str_append_var_data.c
 
 EXPANSION_OBJ = $(addprefix $(OBJ_DIR)/,$(EXPANSION_SRC:.c=.o))
 
