@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/29 19:49:30 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:05:57 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	st_new_pwd(t_input *data, t_table *env_table, char *new_cwd)
 	char	*value;
 
 	value = NULL;
+	if (!new_cwd)
+		return ;
 	if (item_search("PWD", env_table) != NULL)
 	{
 		value = remove_item("PWD", &env_table);
@@ -24,8 +26,6 @@ static void	st_new_pwd(t_input *data, t_table *env_table, char *new_cwd)
 			free(value);
 		value = NULL;
 	}
-	if (!new_cwd)
-		return ;
 	data->new_var.name = malloc(sizeof(char *) * 4);
 	data->new_var.name = ft_strdup("PWD");
 	data->new_var.value = malloc (sizeof (char *) * ft_strlen(new_cwd) + 1);
@@ -114,10 +114,12 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 		return (st_not_a_directory(data));
 	}
 	free (dir);
-	if (st_old_pwd(data, env_table, old_cwd))
-		return (0);
+	st_old_pwd(data, env_table, old_cwd);
 	free (old_cwd);
 	new_cwd = getcwd(0, 0);
+	if (!new_cwd)
+		return (0);
+		// ft_putendl_fd("No such file or directory", 2);;
 	st_new_pwd(data, env_table, new_cwd);
 	free (new_cwd);
 	return (0);

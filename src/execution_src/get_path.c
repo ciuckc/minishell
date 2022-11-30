@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 13:01:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 12:50:34 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:04:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*seeking_path(t_input *data)
 		{
 			path = ft_strdup(data->environ[i] + 5);
 			if (!path)
-				exit(0);
+				error_exit("Malloc failed", 1);
 		}
 		i++;
 	}
