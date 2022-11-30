@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/28 19:29:40 by scristia      ########   odam.nl         */
+/*   Updated: 2022/11/30 19:13:13 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 int	exec_single(t_token *tok, t_input *data)
 {
 	t_token	*token;
-	int		ret;
 
-	ret = 0;
 	token = tok;
-	ret = open_infiles(token, data);
-	if (ret == 1)
+	if (open_infiles(token, data))
+	{
 		if (dup_and_close(data->fds[READ], STDIN_FILENO))
 			return (1);
+	}
 	token = tok;
-	ret = open_outfiles(token, data);
-	if (ret)
+	if (open_outfiles(token, data))
+	{
 		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO))
 			return (1);
+	}
 	if (!data->cmd_args[0])
 		return (0);
 	access_file(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
-		error_exit("command not found", 127);
+		command_not_found(data);
 	free (data->cmd_path);
 	data->cmd_path = NULL;
 	return (0);

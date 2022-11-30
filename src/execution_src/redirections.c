@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:43:31 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/28 17:52:21 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:09:02 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,26 @@ int32_t	dup_and_close(int fd, int in_out)
 
 static int32_t	redirection_heredoc(t_token *tok, t_input *data)
 {
-	int	fd_hd;
 	int	bites;
+	int	fd_hd;
 
 	if (data->fds[READ] != STDIN_FILENO)
 		close(data->fds[READ]);
-	fd_hd = open ("file.txt", O_RDWR | O_CREAT, 0777);
+	fd_hd = open ("file.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (fd_hd < 0)
+	{
+		dprintf (2, "errno %d\n", errno);
+		strerror(errno);
 		return (1);
+	}
 	bites = write(fd_hd, tok->str, ft_strlen(tok->str));
 	if (bites < 0)
 		return (1);
-	data->fds[READ] = fd_hd;
-	bites = dup_and_close(data->fds[READ], STDIN_FILENO);
+	close (fd_hd);
+	data->fds[READ] = open ("file.txt", O_RDONLY);
+	if (data->fds[READ] < 0)
+		error_exit("file.txt", 1);
 	unlink("file.txt");
-	if (bites < 0)
-		return (1);
 	return (0);
 }
 
@@ -62,7 +66,7 @@ int32_t	open_infiles(t_token *tok, t_input *data)
 		}
 		else if (tok->type == DLESS)
 		{
-			ret = 2;
+			ret = 1;
 			if (redirection_heredoc(tok, data))
 				error_exit("heredoc file error", 1);
 		}
@@ -108,3 +112,43 @@ int32_t	open_outfiles(t_token *tok, t_input *data)
 	}
 	return (ret);
 }
+
+/*
+static int32_t	redirection_heredoc(t_token *tok, t_input *data)
+{
+	int	fd_hd;
+	int	bites;
+	char *read_buff;
+	char *ret_line;
+	
+	ret_line = (char *)malloc(1 * sizeof(char));
+	ret_line[0] = '\0';
+	read_buff = malloc (sizeof(char ) * 1);
+	read_buff[0] = '\0';
+	if (data->fds[READ] != STDIN_FILENO)
+		close(data->fds[READ]);
+	fd_hd = open ("file.txt", O_RDWR | O_CREAT, 0777);
+	if (fd_hd < 0)
+		return (1);
+	bites = write(fd_hd, tok->str, ft_strlen(tok->str));
+	if (bites < 0)
+		return (1);
+	dprintf (2, "bites prima %d\n", bites);
+	bites = 1;
+	while (bites)
+	{
+		bites = read(fd_hd, read_buff, 10);
+		dprintf (2, "arriva qui\n");
+		dprintf (2, "bites dopo %d\n", bites);
+		read_buff[bites] = '\0';
+		ret_line = ft_strjoin(ret_line, read_buff);
+	}
+	ft_putstr_fd(ret_line, 2);
+	data->fds[READ] = fd_hd;
+	bites = dup_and_close(data->fds[READ], STDIN_FILENO);
+	unlink("file.txt");
+	if (bites < 0)
+		return (1);
+	return (0);
+}
+*/
