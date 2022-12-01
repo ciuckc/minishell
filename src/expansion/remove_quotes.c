@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 02:51:04 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/23 20:14:54 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/01 19:04:55 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ void	remove_quotes(t_token *word)
 		return ;
 	new_str = ft_calloc(len + 1, sizeof(char));
 	if (new_str == NULL)
+	{
+		free(word->str);
+		word->str = NULL;
 		return ;
+	}
 	st_assign_str(word->str, new_str);
 	free(word->str);
 	word->str = new_str;

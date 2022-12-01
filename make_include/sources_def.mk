@@ -34,7 +34,7 @@ EXPANSION_DIR = $(SRC_DIR)/expansion
 
 EXPANSION_SRC = expand_var_in_str.c expanded_var_len.c  expand_words.c \
 get_pid_len.c count_data_len.c str_append_pid.c str_append_exit_code.c \
-remove_quotes.c str_append_var_data.c
+remove_quotes.c str_append_var_data.c needs_expansion.c
 
 EXPANSION_OBJ = $(addprefix $(OBJ_DIR)/,$(EXPANSION_SRC:.c=.o))
 
@@ -46,7 +46,8 @@ OBJ += $(EXPANSION_OBJ)
 PARSE_DIR = $(SRC_DIR)/parser
 
 PARSE_SRC = parser.c retrieve_word_list.c create_token.c tok_len_scan_list.c \
-add_boundry_to_list.c build_word.c create_cmd_list.c here_doc_expansion.c
+add_boundry_to_list.c build_word.c create_cmd_list.c here_doc_expansion.c \
+here_doc_node_remove.c
 
 PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
 
@@ -80,11 +81,16 @@ EXEC_DIR = $(SRC_DIR)/execution_src
 EXEC_SRC = execution.c access_file.c single_cmd.c multiple_cmd.c get_cmd.c \
 get_path.c redirections.c errors.c child_process.c
 
-
 EXEC_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_SRC:.c=.o))
 
 OBJ += $(EXEC_OBJ)
 
-#	MAIN OBJ
+#	MAIN
+
+MAIN_DIR = $(SRC_DIR)/main
+
+MAIN_SRC = minishell.c remove_null_str.c remove_quotes_list.c synthax_check.c
+
+MAIN_OBJ = $(addprefix $(OBJ_DIR)/,$(MAIN_SRC:.c=.o))
 
 OBJ += $(MAIN_OBJ)

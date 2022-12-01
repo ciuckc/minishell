@@ -6,11 +6,12 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/28 20:18:30 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/01 23:38:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "main.h"
 
 u_int64_t	g_exit_code = 0;
 
@@ -24,6 +25,10 @@ char ***envp)
 	{
 		create_new_envp(env_table, envp);
 		expand_words(&(*cmd_list)[i].cmd_list, env_table);
+		remove_quotes_list((*cmd_list)[i].cmd_list);
+		if (synthax_check((*cmd_list)[i].cmd_list))
+			return (free_new_envp(envp, 0));
+		remove_null_str(&(*cmd_list)[i].cmd_list);
 		if ((*cmd_list)[i].cmd_list == NULL)
 		{
 			i++;

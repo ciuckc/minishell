@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/25 21:05:27 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/01 23:30:57 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@
 # include "msh_types.h"
 
 /**
- * @brief remove the DLESS and it s delim. 
+ * @brief remove the delim and put it into dless. 
  * 
  * @param cmd the list of commands
  */
 void			here_doc_expansion(t_cmd_list **cmd);
+
+/**
+ * @brief remove extra DLESS nodes and keep only the last one
+ * 
+ * @param cmd 
+ */
+void			here_doc_node_remove(t_cmd_list **cmd);
 
 /**
  * @brief get word list

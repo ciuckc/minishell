@@ -1,30 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   expand_words.c                                     :+:    :+:            */
+/*   remove_null_str.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/03 02:23:42 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 23:36:01 by scristia      ########   odam.nl         */
+/*   Created: 2022/12/01 18:41:21 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/01 20:24:37 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "var_expansion.h"
+#include "minishell.h"
 
-void	expand_words(t_token **words, t_table *table)
+static void	st_remove_node(t_token **word, t_token **head)
+{
+	t_token	*prev;
+	t_token	*curr;
+	t_token	*next;
+
+	prev = (*word)->prev;
+	curr = *word;
+	next = (*word)->next;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+	if (*head == *word)
+		*head = next;
+	*word = next;
+	free(curr);
+}
+
+void	remove_null_str(t_token **words)
 {
 	t_token	*head;
 
-	if ((*words))
-		if ((*words)->str == NULL)
-			return ;
 	head = *words;
 	while (*words)
 	{
-		if (needs_expansion((*words)->str))
-			(*words)->str = expand_var_in_str(*words, table);
-		(*words) = (*words)->next;
+		if ((*words)->str == NULL)
+		{
+			st_remove_node(words, &head);
+			continue ;
+		}
+		*words = (*words)->next;
 	}
 	*words = head;
 }

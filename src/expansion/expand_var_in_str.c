@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/29 18:55:29 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/30 19:04:06 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/01 20:50:12 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*st_extend_var(char *old_str, char *new_str, t_table *env, t_info \
 	}
 	else if (old_str[info->i] == '?')
 	{
-		new_str = str_append_exit_code(old_str, new_str, info);
+		new_str = str_append_exit_code(new_str, old_str, info);
 		info->i++;
 	}
 	else if ((ft_strchr("\'\"", old_str[info->i]) && info->d_quoted) || \

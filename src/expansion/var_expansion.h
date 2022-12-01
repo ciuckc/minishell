@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 02:34:51 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/30 18:11:43 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/01 18:54:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,9 @@ void		count_data_len(char **str, t_expand_len *len, t_table *table, \
 bool d_quoted);
 
 void		remove_quotes(t_token *word);
+
+void		remove_quotes_list(t_token *word);
+
+bool		needs_expansion(char *str);
 
 #endif
