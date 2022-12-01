@@ -38,10 +38,3 @@ echo | | (SEGV on unknown address)
 
 
 
-
-
-
-
-
-exit 9223372036854775808
-exit -9223372036854775810
