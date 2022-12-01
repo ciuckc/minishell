@@ -20,19 +20,21 @@ git merge execution
 git checkout execution
 
 
-Line 20: echo "test Fail - Wrong exit code
-Line 25: echo "$TEST$TEST=lol$TEST" Fail
-Line 30: echo "$=TEST" Fail
-Line 34: echo "$1TEST" Fail
-Line 42: echo testing multi ; echo "test 1 ; | and 2" ; cat tests/lorem.txt | grep Lorem Fail
-Line 43: | test Success! - Wrong exit code
-Line 44: echo > < Success! - Wrong exit code
-Line 45: echo | | Success! - Wrong exit code
-Line 46: < Success! - Wrong exit code
-Line 55: cd gdhahahad Fail
+
+echo test     \    test
+echo \"test
+echo $TEST (why no \n?)
+echo    $TEST lol $TEST
+echo "\$TEST"
+echo "$=TEST"
+echo "$1TEST"
+
+$ $LS ; (AddressSanitizer: heap-use-after-free  count_cmds get_cmd.c:63)
+| test
+echo > < (SEGV on unknown address)
+echo | | (SEGV on unknown address)
+<		(SEGV on unknown address 0x000000000000)
 
 
-value = remove_item(data->expo_var.name, &env_table);
-		if (value != NULL)
-			free(value);
-		value = NULL;
+
+

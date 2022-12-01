@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 13:14:10 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:06:42 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,27 @@ int32_t	mini_ft_strchr(const char *s, int c)
 	return (len);
 }
 
+static int32_t	error_not_valid(char *var)
+{
+	ft_putstr_fd("minishell: export:`", 2);
+	ft_putstr_fd(var, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_exit_code = 1;
+	return (1);
+}
+
 static int32_t	st_if_valid(char *var)
 {
-	int			i;
+	int	i;
 
 	i = 0;
+	if (var[0] == '=')
+		return (error_not_valid(var));
 	while (var[i] && var[i] != '=')
 	{
-		if (ft_isdigit(var[0])
+		if (ft_isdigit(var[0]) || (var[0] == '=') \
 			|| (!ft_isalpha(var[i]) && !ft_isdigit(var[i]) && var[i] != '_'))
-		{
-			ft_putstr_fd("minishell: export:`", 2);
-			ft_putstr_fd(var, 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			g_exit_code = 1;
-			return (1);
-		}
+			return (error_not_valid(var));
 		i++;
 	}
 	return (0);
