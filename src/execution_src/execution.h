@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 19:03:14 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:14:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int32_t		ft_echo(t_input *data);
 int32_t		ft_pwd(t_input *data);
 int32_t		ft_exit(t_input *data);
 
-int32_t		ft_strcmp(const char *s1, const char *s2);
+// int32_t		ft_strcmp(const char *s1, const char *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 18:24:32 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:48:54 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,33 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
 
-char	**get_table(t_table *table, char **new_table, u_int32_t i, u_int32_t j)
+char	**get_table(t_table *table, char **new_t, u_int32_t i, u_int32_t j)
 {
 	t_container	*head;
+	char		*temp;
 
+	temp = NULL;
 	head = table->table[0];
 	while (i < table->containers)
 	{
 		head = table->table[i];
 		while (table->table[i])
 		{
-			new_table[j] = ft_strdup(table->table[i]->key_str);
+			temp = ft_strdup(table->table[i]->key_str);
+			if (!temp)
+				return (ft_free_mem(&new_t), NULL);
 			if (table->table[i]->data && ft_strlen(table->table[i]->data))
-				new_table[j] = ft_strjoin_va(3, new_table[j], "=", \
-				table->table[i]->data);
+				new_t[j] = ft_strjoin_va(3, temp, "=", table->table[i]->data);
 			else if (table->table[i]->data && !ft_strlen(table->table[i]->data))
-				new_table[j] = ft_strjoin_va(3, new_table[j], "=", "\"\"");
+				new_t[j] = ft_strjoin_va(3, temp, "=", "\"\"");
+			free (temp);
 			j++;
 			table->table[i] = table->table[i]->next;
 		}
 		table->table[i] = head;
 		i++;
 	}
-	new_table[j] = NULL;
-	return (new_table);
+	return (new_t);
 }
 
 static void	st_swap(char **str_j, char **str_j1)
@@ -101,7 +104,7 @@ char	**sort_table(t_table *table)
 
 	i = 0;
 	j = 0;
-	current_table = (char **)malloc(sizeof(char *) * (table->containers + 1));
+	current_table = calloc(sizeof(char *), table->containers + 1);
 	if (!current_table)
 		error_exit("Malloc failed", 1);
 	current_table = get_table(table, current_table, 0, 0);

@@ -20,17 +20,10 @@ git merge execution
 git checkout execution
 
 
+echo "$=TEST" nothing vs $=TEST
+echo "$1TEST" nothing vs TEST
 
-echo test     \    test
-echo \"test
-echo $TEST (why no \n?)
-echo    $TEST lol $TEST
-echo "\$TEST"
-echo "$=TEST"
-echo "$1TEST"
 
-$ $LS ; (AddressSanitizer: heap-use-after-free  count_cmds get_cmd.c:63)
-| test
 echo > < (SEGV on unknown address)
 echo | | (SEGV on unknown address)
 <		(SEGV on unknown address 0x000000000000)
