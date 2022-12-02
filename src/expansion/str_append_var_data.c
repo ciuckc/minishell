@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 16:29:26 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/30 18:52:20 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/02 01:24:17 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_info *info)
 	var.name = ft_substr(old_str + info->i, 0, name_len);
 	if (var.name == NULL)
 		return (free(old_str), free(new_str), NULL);
-	printf("%s\n", var.name);
 	container = item_search(var.name, env);
 	info->i += name_len;
 	if (container == NULL)
