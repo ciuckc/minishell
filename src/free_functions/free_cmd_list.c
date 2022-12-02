@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
+/*   free_cmd_list.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/01 19:18:18 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 23:55:22 by scristia      ########   odam.nl         */
+/*   Created: 2022/12/02 00:32:36 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/02 00:51:09 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "free_functions.h"
 
-# include "minishell.h"
+static u_int32_t	st_get_len(t_cmd_list *lst)
+{
+	u_int32_t	i;
 
-# define PROMPT "\001\033[1;32m\002minishell$\001\033[0m\002 "
+	i = 0;
+	while (lst[i].cmd_list_type != END)
+		i++;
+	return (i + 1);
+}
 
-int32_t		synthax_check(t_token *words);
+void	free_cmd_list(t_cmd_list **lst)
+{
+	u_int32_t	len;
+	u_int32_t	i;
 
-void		remove_null_str(t_token **words);
-
-void		remove_quotes_list(t_token *word);
-
-void		execute_loop(t_cmd_list **cmd_listm, t_table *env_table, char \
-***env);
-
-#endif
+	i = 0;
+	len = st_get_len(*lst);
+	while (i <= len)
+	{
+		free_word_list(&(*lst)[i].cmd_list);
+		i++;
+	}
+	free(*lst);
+	*lst = NULL;
+}

@@ -57,7 +57,8 @@ OBJ += $(PARSE_OBJ)
 
 FREE_DIR = $(SRC_DIR)/free_functions
 
-FREE_SRC = free_scan_list.c free_word_list.c free_new_envp.c
+FREE_SRC = free_scan_list.c free_word_list.c free_new_envp.c \
+free_cmd_list.c
 
 FREE_OBJ = $(addprefix $(OBJ_DIR)/,$(FREE_SRC:.c=.o))
 
@@ -89,7 +90,8 @@ OBJ += $(EXEC_OBJ)
 
 MAIN_DIR = $(SRC_DIR)/main
 
-MAIN_SRC = minishell.c remove_null_str.c remove_quotes_list.c synthax_check.c
+MAIN_SRC = minishell.c remove_null_str.c remove_quotes_list.c synthax_check.c \
+execute_loop.c
 
 MAIN_OBJ = $(addprefix $(OBJ_DIR)/,$(MAIN_SRC:.c=.o))
 
