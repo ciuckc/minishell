@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/25 18:24:32 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_export_utils.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/02 19:11:14 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 
 	value = NULL;
 	key_len = mini_ft_strchr(data->cmd_args[pos], '=');
-	data->expo_var.name = malloc(sizeof(char *) * key_len + 1);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
+	if (data->expo_var.name == NULL)
+		return ;
 	if (item_search(data->expo_var.name, env_table) != NULL)
 	{
 		value = remove_item(data->expo_var.name, &env_table);
@@ -30,9 +31,11 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 		value = NULL;
 	}
 	data_len = ft_strlen(data->cmd_args[pos]) - key_len;
-	data->expo_var.value = malloc(sizeof(char *) * data_len);
 	data->expo_var.value = ft_substr(data->cmd_args[pos], key_len + 1, \
 	data_len - 1);
+	if (data->expo_var.value == NULL)
+		return (free(data->expo_var.name));
+	//
 	insert_in_table(data->expo_var.name, data->expo_var.value, &env_table);
 }
 
@@ -43,7 +46,6 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 
 	value = NULL;
 	key_len = ft_strlen(data->cmd_args[pos]);
-	data->expo_var.name = malloc(sizeof(char *) * key_len + 1);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
 	if (item_search(data->expo_var.name, env_table) != NULL)
 	{
@@ -52,7 +54,6 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 			free(value);
 		value = NULL;
 	}
-	data->expo_var.value = malloc(sizeof(char *) * 1);
 	data->expo_var.value = ft_strdup("");
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
@@ -73,6 +74,8 @@ char	**get_table(t_table *table, char **new_table, u_int32_t i, u_int32_t j)
 				table->table[i]->data);
 			else if (table->table[i]->data && !ft_strlen(table->table[i]->data))
 				new_table[j] = ft_strjoin_va(3, new_table[j], "=", "\"\"");
+			if (!new_table[j])
+				return (NULL);
 			j++;
 			table->table[i] = table->table[i]->next;
 		}

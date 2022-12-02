@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/30 14:05:57 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_cd.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/25 09:16:35 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/02 19:00:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ static void	st_new_pwd(t_input *data, t_table *env_table, char *new_cwd)
 			free(value);
 		value = NULL;
 	}
-	data->new_var.name = malloc(sizeof(char *) * 4);
 	data->new_var.name = ft_strdup("PWD");
-	data->new_var.value = malloc (sizeof (char *) * ft_strlen(new_cwd) + 1);
+	if (data->new_var.name == NULL)
+		return ;
 	data->new_var.value = ft_strdup(new_cwd);
+	if (data->new_var.name == NULL)
+		return (free(data->new_var.name));
 	insert_in_table(data->new_var.name, data->new_var.value, &env_table);
 	// free (data->new_var.name);
 	// data->new_var.name = NULL;
@@ -56,10 +58,12 @@ static int32_t	st_old_pwd(t_input *data, t_table *env_table, char *old_cwd)
 		ft_putendl_fd("No such file or directory", 2);
 		return (1) ;
 	}
-	data->old_var.name = malloc(sizeof(char *) * 7);
 	data->old_var.name = ft_strdup("OLDPWD");
-	data->old_var.value = malloc (sizeof (char *) * ft_strlen(old_cwd) + 1);
+	if (!data->old_var.name)
+		return (1);
 	data->old_var.value = ft_strdup(old_cwd);
+	if (!data->old_var.value)
+		return (free(data->old_var.name), 1);
 	insert_in_table(data->old_var.name, data->old_var.value, &env_table);
 	return (0);
 }
