@@ -6,19 +6,19 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/30 13:11:49 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:13:10 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int32_t	ft_free_mem(char ***str)
+void	ft_free_mem(char ***str)
 {
 	int	c;
 
 	c = 0;
 	if (!*str)
-		return (0);
+		return ;
 	while ((*str)[c])
 	{
 		free((*str)[c]);
@@ -27,7 +27,6 @@ int32_t	ft_free_mem(char ***str)
 	}
 	free(*str);
 	*str = NULL;
-	return (1);
 }
 
 t_input	*data_init(char **envp)

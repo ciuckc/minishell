@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   single_cmd.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/30 19:13:13 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   single_cmd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
+/*   Updated: 2022/12/02 18:18:52 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,15 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 		reset_fd(data);
 		return (g_exit_code);
 	}
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == -1)
 		error_exit("Fork failed", 1);
 	if (id == 0)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
 		g_exit_code = exec_single(token, data);
+	}
 	g_exit_code = waiting(id, 1);
 	return (g_exit_code);
 }

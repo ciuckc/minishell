@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execution.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/02 19:37:25 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
+/*   Updated: 2022/12/04 15:26:35 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int32_t		ft_echo(t_input *data);
 int32_t		ft_pwd(t_input *data);
 int32_t		ft_exit(t_input *data);
 
-int32_t		ft_strcmp(const char *s1, const char *s2);
+// int32_t		ft_strcmp(const char *s1, const char *s2);
 
 #endif

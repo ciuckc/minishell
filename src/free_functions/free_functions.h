@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   free_functions.h                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/04 03:49:13 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/02 00:54:09 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   free_functions.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/04 03:49:13 by scristia          #+#    #+#             */
+/*   Updated: 2022/12/02 20:12:50 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void			free_new_envp(char ***envp, u_int32_t i);
  * @brief 
  * 
  * @param str 
- * @return int32_t 
+ * @return char* 
  */
-int32_t			ft_free_mem(char ***str);
+void			ft_free_mem(char ***str);
 
 void			free_cmd_list(t_cmd_list **lst);
 
