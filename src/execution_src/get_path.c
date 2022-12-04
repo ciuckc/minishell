@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 13:01:48 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/30 15:04:51 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:01:20 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-char	*seeking_path(t_input *data)
+char	*st_seeking_path(t_input *data)
 {
 	char	*get_path;
 	char	*path;
@@ -55,7 +55,7 @@ void	get_path(t_input *data)
 
 	my_path = NULL;
 	data->paths = NULL;
-	my_path = seeking_path(data);
+	my_path = st_seeking_path(data);
 	if (!my_path)
 	{
 		data->paths = ft_split("", ' ');

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/04 15:30:28 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/04 16:03:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ static void	st_new_pwd(t_input *data, t_table *env_table, char *new_cwd)
 	if (data->new_var.name == NULL)
 		return (free(data->new_var.name));
 	insert_in_table(data->new_var.name, data->new_var.value, &env_table);
-	// free (data->new_var.name);
-	// data->new_var.name = NULL;
-	// free (data->new_var.value);
-	// data->new_var.value = NULL;
 }
 
 static int32_t	st_old_pwd(t_input *data, t_table *env_table, char *old_cwd)
@@ -123,7 +119,6 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 	new_cwd = getcwd(0, 0);
 	if (!new_cwd)
 		return (0);
-		// ft_putendl_fd("No such file or directory", 2);;
 	st_new_pwd(data, env_table, new_cwd);
 	free (new_cwd);
 	return (0);

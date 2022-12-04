@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:43:31 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/01 16:37:22 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:17:21 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int32_t	dup_and_close(int fd, int in_out)
 	return (0);
 }
 
-static int32_t	redirection_heredoc(t_token *tok, t_input *data)
+static int32_t	st_redirection_heredoc(t_token *tok, t_input *data)
 {
 	int	bites;
 	int	fd_hd;
@@ -67,7 +67,7 @@ int32_t	open_infiles(t_token *tok, t_input *data)
 		else if (tok->type == DLESS)
 		{
 			ret = 1;
-			if (redirection_heredoc(tok, data))
+			if (st_redirection_heredoc(tok, data))
 				error_exit("heredoc file error", 1);
 		}
 		tok = tok->next;
@@ -75,7 +75,7 @@ int32_t	open_infiles(t_token *tok, t_input *data)
 	return (ret);
 }
 
-static int32_t	redirection_dgreat(t_token *tok, t_input *data)
+static int32_t	st_redirection_dgreat(t_token *tok, t_input *data)
 {
 	if (data->fds[WRITE] != STDOUT_FILENO)
 		close(data->fds[WRITE]);
@@ -105,11 +105,10 @@ int32_t	open_outfiles(t_token *tok, t_input *data)
 		else if (tok->type == DGREAT)
 		{
 			ret = 1;
-			if (redirection_dgreat(tok, data))
+			if (st_redirection_dgreat(tok, data))
 				error_exit(tok->next->str, 1);
 		}
 		tok = tok->next;
 	}
 	return (ret);
 }
-
