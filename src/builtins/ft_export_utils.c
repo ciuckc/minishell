@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/05 19:49:46 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/05 20:00:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,17 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
 
-static void	st_join_str_data(t_table *env, char ***new_t, int i, int *j)
+static void	st_join_str_data(t_table *env, char ***new_t, u_int32_t i, \
+u_int32_t *j)
 {
 	char	*temp;
 
 	temp = ft_strdup(env->table[i]->key_str);
 	if (!temp)
-		return (NULL);
+	{
+		ft_free_mem(new_t);
+		return ;
+	}
 	if (env->table[i]->data == NULL)
 		(*new_t)[*j] = ft_strdup(temp);
 	else if (env->table[i]->data && ft_strlen(env->table[i]->data))
@@ -93,7 +97,7 @@ char	**get_table(t_table *table, char **new_t, u_int32_t i, u_int32_t j)
 		head = table->table[i];
 		while (table->table[i])
 		{
-			st_join_str_data(table, new_t, i, &j);
+			st_join_str_data(table, &new_t, i, &j);
 			if (new_t == NULL)
 				return (NULL);
 			table->table[i] = table->table[i]->next;
