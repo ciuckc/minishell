@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 23:47:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/02 01:30:54 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/05 20:25:02 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,3 @@ char ***envp)
 	}
 	free_cmd_list(cmd_list);
 }
-
-//exec leaks?
