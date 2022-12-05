@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/02 19:11:14 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/05 19:49:46 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	replace_var(t_input *data, t_table *env_table, int pos)
 	data_len - 1);
 	if (data->expo_var.value == NULL)
 		return (free(data->expo_var.name));
-	//
+	data->expo_var.value = ft_export_expand_var(data->expo_var.value, \
+	env_table);
 	insert_in_table(data->expo_var.name, data->expo_var.value, &env_table);
 }
 
@@ -55,45 +56,52 @@ void	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 		value = NULL;
 	}
 	data->expo_var.value = ft_strdup("");
+	if (!data->expo_var.value)
+		return ;
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 }
 
-char	**get_table(t_table *table, char **new_table, u_int32_t i, u_int32_t j)
+static void	st_join_str_data(t_table *env, char ***new_t, int i, int *j)
+{
+	char	*temp;
+
+	temp = ft_strdup(env->table[i]->key_str);
+	if (!temp)
+		return (NULL);
+	if (env->table[i]->data == NULL)
+		(*new_t)[*j] = ft_strdup(temp);
+	else if (env->table[i]->data && ft_strlen(env->table[i]->data))
+		(*new_t)[*j] = ft_strjoin_va(3, temp, "=", env->table[i]->data);
+	else if (env->table[i]->data && !ft_strlen(env->table[i]->data))
+		(*new_t)[*j] = ft_strjoin_va(3, temp, "=", "\"\"");
+	free (temp);
+	if ((*new_t)[*j] == NULL)
+	{
+		ft_free_mem(new_t);
+		return ;
+	}
+	(*j)++;
+}
+
+char	**get_table(t_table *table, char **new_t, u_int32_t i, u_int32_t j)
 {
 	t_container	*head;
 
-	head = table->table[0];
+	head = table->table[i];
 	while (i < table->containers)
 	{
 		head = table->table[i];
 		while (table->table[i])
 		{
-			new_table[j] = ft_strdup(table->table[i]->key_str);
-			if (table->table[i]->data && ft_strlen(table->table[i]->data))
-				new_table[j] = ft_strjoin_va(3, new_table[j], "=", \
-				table->table[i]->data);
-			else if (table->table[i]->data && !ft_strlen(table->table[i]->data))
-				new_table[j] = ft_strjoin_va(3, new_table[j], "=", "\"\"");
-			if (!new_table[j])
+			st_join_str_data(table, new_t, i, &j);
+			if (new_t == NULL)
 				return (NULL);
-			j++;
 			table->table[i] = table->table[i]->next;
 		}
 		table->table[i] = head;
 		i++;
 	}
-	new_table[j] = NULL;
-	return (new_table);
-}
-
-static void	st_swap(char **str_j, char **str_j1)
-{
-	char		*swap;
-
-	swap = NULL;
-	swap = *str_j;
-	*str_j = *str_j1;
-	*str_j1 = swap;
+	return (new_t);
 }
 
 char	**sort_table(t_table *table)
@@ -104,7 +112,7 @@ char	**sort_table(t_table *table)
 
 	i = 0;
 	j = 0;
-	current_table = (char **)malloc(sizeof(char *) * (table->containers + 1));
+	current_table = (char **)ft_calloc(sizeof(char *), (table->containers + 1));
 	if (!current_table)
 		error_exit("Malloc failed", 1);
 	current_table = get_table(table, current_table, 0, 0);
@@ -114,7 +122,7 @@ char	**sort_table(t_table *table)
 		while (j < table->entries - i - 1)
 		{
 			if (ft_strcmp(current_table[j], current_table[j + 1]) > 0)
-				st_swap(&current_table[j], &current_table[j + 1]);
+				ft_str_swap(&current_table[j], &current_table[j + 1]);
 			j++;
 		}
 		i++;
