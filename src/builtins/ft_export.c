@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/04 18:52:29 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:56:48 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int32_t	st_if_valid(char *var)
 	return (0);
 }
 
-static int32_t	sort_print(t_table *env_table)
+static int32_t	st_sort_print(t_table *env_table)
 {
 	u_int32_t	i;
 	char		**new_var_table;
@@ -83,15 +83,15 @@ int32_t	ft_export(t_input *data, t_table *env_table)
 	ret = 0;
 	i = 1;
 	if (data->cmd_args[1] == NULL)
-		sort_print(env_table);
+		st_sort_print(env_table);
 	while (data->cmd_args[i])
 	{
 		if (st_if_valid(data->cmd_args[i]))
 			return (1);
 		if (mini_ft_strchr(data->cmd_args[i], '='))
-			ret = replace_var(data, env_table, i);
+			ret = insert_replace_var(data, env_table, i);
 		else
-			ret = replace_var_no_eq(data, env_table, i);
+			ret = ins_replace_var_no_eq(data, env_table, i);
 		if (ret == 1)
 			return (1);
 		i++;

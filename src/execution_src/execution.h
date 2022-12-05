@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/04 19:47:47 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:15:08 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,27 +188,146 @@ int32_t		multiple_commands(t_token *tok, t_input *data, t_table *env_table);
 int32_t		waiting(int id, int max);
 
 /**
- * @brief execution of the multple commands, interruption of signals, check for
+ * @brief execution of the multple commands, where the processis forked and
+ * the commands piped; interruption of signals, check for
  * redirections and assignement of correct fd (pipe ends and redirections )
- * Argumenrs : token list, struct with multiple information, number of commands 
+ * Arguments : token list, struct with multiple information, number of commands 
  * (max) and hash table
  */
 void		child_process(t_token *tok, t_input *data, int max, \
 			t_table *env_table);
 
 /**built-ins **/
+
+/**
+ * @brief check if built in by comparison of cmd name from tokens
+ * 
+ * @param cmd string from 2d array containing the cmd and its arguments
+ * @return true 
+ * @return false 
+ */
 bool		is_built_in(char *cmd);
+
+/**
+ * @brief if built in run execution
+ * 
+ * @param data struct with list of commands
+ * @param env_table hash table
+ * @return int32_t exit code
+ */
 int32_t		run_builtin(t_input *data, t_table *env_table);
+
+/**
+ * @brief reproduce the command export, if there are no arguments , it will 
+ * print the sorted list including variable not inizialized;
+ * If export has arguments it will export those to the env list 
+ * 
+ * @param data struct containing 2d with command and its arguments
+ * @param env_table hash table with environment and variables
+ * @return int32_t 0 succes 1 failure
+ */
 int32_t		ft_export(t_input *data, t_table *env_table);
+
+/**
+ * @brief 
+ * 
+ * @param unexp_value 
+ * @param env 
+ * @return char* 
+ */
 char		*ft_export_expand_var(char *unexp_value, t_table *env);
+
+/**
+ * @brief sorting in alphabetical order of env + variable list 
+ * 
+ * @param table hash table
+ * @return char** return 2d array sorted
+ */
 char		**sort_table(t_table *table);
+
+/**
+ * @brief checks if the string contains the char '='
+ * 
+ * @param s string to check
+ * @param c char '='
+ * @return int32_t 0 success 1 failure
+ */
 int32_t		mini_ft_strchr(const char *s, int c);
-int32_t		replace_var(t_input *data, t_table *env_table, int pos);
-int32_t		replace_var_no_eq(t_input *data, t_table *env_table, int pos);
+
+/**
+ * @brief insert in hash map new variable as per export cmd, variable passed 
+ * with a sign = with or without data assigned
+ * 
+ * @param data struct with cmd and its arguments (possibility to pass
+ * multiple variable)
+ * @param env_table hash table 
+ * @param pos index of current element in the list of arguments (multiple vars)
+ * @return int32_t 0 success 1 failure
+ */
+int32_t		insert_replace_var(t_input *data, t_table *env_table, int pos);
+
+/**
+ * @brief insert in hash map new variable as per export cmd, variable passed 
+ * without a sign = hence it will be stored in the has map but not in the
+ * environment with the variables which have been initialized with sign =
+ * with or without data
+ * 
+ * @param data struct with cmd and its arguments (possibility to pass
+ * multiple variable)
+ * @param env_table hash table
+ * @param pos index of current element in the list of arguments (multiple vars)
+ * @return int32_t 0 success 1 failure
+ */
+int32_t		ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos);
+
+/**
+ * @brief remove variable from hash table and env, possible multiple input 
+ * with multiple variables to be removed
+ * 
+ * @param data struct with cmd and its arguments (possibility to pass
+ * multiple variable)
+ * @param env_table  hash table
+ * @return int32_t 0 success 1 failure
+ */
 int32_t		ft_unset(t_input *data, t_table *env_table);
+
+/**
+ * @brief change directory to commands[1]
+ * 
+ * @param data struct with 2d array where to find cmd and the directory name
+ * @param env_table  hash table
+ * @return int32_t 0 success 1 failure
+ */
 int32_t		ft_cd(t_input *data, t_table *env_table);
+
+/**
+ * @brief executes the echo command. Prints all commands with a space inbetween.
+ * Ends with a newline unless commands[1] is -n 
+ * 
+ * @param data struct with cmd and its arguments (possibility to pass
+ * multiple strings to be printed)commands[0] is echo and will not
+ * be printed. If flaged, until the flag -n is repeated, it will not be printed 
+ * and there won't be a newline in the end.
+ * @return int32_t 0 success 1 failure
+ */
 int32_t		ft_echo(t_input *data);
+
+/**
+ * @brief prints the current working directory, if function call to change 
+ * directory returns NULL, it wll be printed last recorded working directory 
+ * from environment else an error will be printed out
+ * 
+ * @param data structure where to retrieve 2d array with environment
+ * @return int32_t 0 success 1 failure
+ */
 int32_t		ft_pwd(t_input *data);
+
+/**
+ * @brief executes the exit command with possibility of passing the exit value
+ * 
+ * @param data struct with 2d array where to find cmd and the numeric value
+ * @return int32_t 1 if incorrect input is passed as value
+ */
 int32_t		ft_exit(t_input *data);
 
 #endif

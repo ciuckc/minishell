@@ -6,13 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/04 18:46:10 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:56:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution_src/execution.h"
 
-int32_t	replace_var(t_input *data, t_table *env_table, int pos)
+int32_t	insert_replace_var(t_input *data, t_table *env_table, int pos)
 {
 	char		*value;
 	u_int32_t	key_len;
@@ -39,7 +39,7 @@ int32_t	replace_var(t_input *data, t_table *env_table, int pos)
 	return (0);
 }
 
-int32_t	replace_var_no_eq(t_input *data, t_table *env_table, int pos)
+int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 {
 	char		*value;
 	u_int32_t	key_len;

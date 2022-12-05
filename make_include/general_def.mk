@@ -6,8 +6,7 @@ OBJ_DIR := obj
 
 CC := gcc
 
-FLAGS := -Wall -Wextra -Werror -g 
-# -fsanitize=address
+FLAGS := -Wall -Wextra -Werror -g -fsanitize=address
 
 INCLUDE := -I include -I src/utils/hashmap
 
