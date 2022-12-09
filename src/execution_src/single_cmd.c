@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/30 19:13:13 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/09 16:10:36 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec_single(t_token *tok, t_input *data)
 {
 	t_token	*token;
 
+	init_sig_handle(2);
 	token = tok;
 	if (open_infiles(token, data))
 	{
@@ -71,8 +72,6 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 		reset_fd(data);
 		return (g_exit_code);
 	}
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == -1)
 		error_exit("Fork failed", 1);

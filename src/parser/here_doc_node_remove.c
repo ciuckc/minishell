@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 22:14:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 23:41:46 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/09 15:52:26 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void	here_doc_node_remove(t_cmd_list **cmd)
 		(*cmd)[i].cmd_list = head;
 		i++;
 	}
+	init_sig_handle(1);
 }

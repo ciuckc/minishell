@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/28 18:09:29 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_cmd.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/19 14:02:46 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/07 22:41:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	get_cmd(t_token *tok, t_input *data)
 	i = 0;
 	token = tok;
 	len = st_lstsize(tok) + 1;
-	data->cmd_args = (char **)ft_calloc(len, sizeof (char *));
+	data->cmd_args = ft_calloc(len, sizeof (char *));
 	while (token && token->type != PIPE)
 	{
 		if (token->type == WORD || token->type == DOLLAR || \
@@ -42,6 +42,8 @@ void	get_cmd(t_token *tok, t_input *data)
 		token->type == ASSIGNMENT_WORD)
 		{
 			data->cmd_args[i] = ft_strdup(token->str);
+			if (data->cmd_args[i] == NULL)
+				error_exit("minishell: Malloc failed", 1);
 			i++;
 		}
 		if (token->type == LESS || token->type == GREAT || \
@@ -50,7 +52,6 @@ void	get_cmd(t_token *tok, t_input *data)
 		else
 			token = token->next;
 	}
-	data->cmd_args[i] = NULL;
 }
 
 void	count_cmds(t_token *tok, t_input *data)
