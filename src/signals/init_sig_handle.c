@@ -6,18 +6,17 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 07:02:55 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/02 00:01:42 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/09 17:36:37by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <termios.h>
 
-static void	st_handle_interrupt(int signum, siginfo_t *info, void *context)
+static void	st_handle_interrupt(int signum)
 {
-	(void)info;
 	(void)signum;
-	(void)context;
+	g_exit_code = 1;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -34,13 +33,27 @@ static void	st_shell_env(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 }
 
-void	init_sig_handle(void)
+void	init_sig_handle(int mode)
 {
-	struct sigaction	sig_inter;
-
-	st_shell_env();
-	sig_inter.sa_flags = SA_SIGINFO;
-	sig_inter.sa_sigaction = st_handle_interrupt;
-	sigaction(SIGINT, &sig_inter, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	if (mode == 0)
+	{
+		st_shell_env();
+		signal(SIGINT, st_handle_interrupt);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == 1)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == 2)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	else if (mode == 3)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }

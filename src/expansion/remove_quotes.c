@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 02:51:04 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 19:04:55 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/07 21:15:06 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ static void	st_dec_quote_len(char *str, ssize_t *len)
 
 static void	st_assign_str(char *src, char *dst)
 {
-	char	*dst_cpy;
 	char	the_quote;
 
 	the_quote = '\0';
-	dst_cpy = dst;
 	while (*src)
 	{
 		if (*src == '\'' || *src == '\"')

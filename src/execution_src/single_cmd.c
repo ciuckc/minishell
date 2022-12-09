@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/02 18:18:52 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:16:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec_single(t_token *tok, t_input *data)
 {
 	t_token	*token;
 
+	init_sig_handle(2);
 	token = tok;
 	if (open_infiles(token, data))
 	{

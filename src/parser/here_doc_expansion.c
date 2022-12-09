@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 22:11:31 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/09 18:08:44 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	st_read_concat(char **delim, char **here, char **read)
 		{
 			free(*delim);
 			*delim = NULL;
-			return (free (*here));
+			return (free(*here));
 		}
 	}
 	free(*read);
@@ -59,15 +59,16 @@ static void	st_uncouple_nodes(t_token **delim, char *here_doc)
 
 static void	st_read_here(t_token **delim)
 {
-	char	*read_line;
-	char	*here_doc;
+	char		*read_line;
+	char		*here_doc;
 
 	here_doc = ft_strdup("");
 	if (here_doc == NULL)
 		return ;
 	read_line = readline("> ");
-	if (read_line == NULL)
+	if (read_line == NULL || g_exit_code == 42)
 	{
+		g_exit_code = 1;
 		free((*delim)->str);
 		(*delim)->str = NULL;
 		return ;
@@ -95,6 +96,7 @@ void	here_doc_expansion(t_cmd_list **cmd)
 
 	i = 0;
 	head = NULL;
+	init_sig_handle(3);
 	while ((*cmd)[i].cmd_list)
 	{
 		head = (*cmd)[i].cmd_list;
@@ -102,14 +104,12 @@ void	here_doc_expansion(t_cmd_list **cmd)
 		{
 			st_if_type_is_dless(cmd, i);
 			if ((*cmd)[i].cmd_list->str == NULL)
-			{
-				*cmd = NULL;
-				return ;
-			}
+				return (free_cmd_list(cmd));
 			(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;
 		}
 		(*cmd)[i].cmd_list = head;
 		i++;
 	}
 	here_doc_node_remove(cmd);
+	init_sig_handle(1);
 }

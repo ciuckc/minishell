@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 19:22:37 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/09 13:39:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 extern u_int64_t	g_exit_code;
 
-void		init_sig_handle(void);
+void		init_sig_handle(int mode);
 
 int			execution(t_token *tok, t_table *table, char **envp);
 
