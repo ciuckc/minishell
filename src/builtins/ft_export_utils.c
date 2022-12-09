@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/09 18:16:09 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:19:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ u_int32_t *j)
 char	**get_table(t_table *table, char **new_t, u_int32_t i, u_int32_t j)
 {
 	t_container	*head;
-	char		*temp;
 
 	head = table->table[i];
 	while (i < table->containers)
