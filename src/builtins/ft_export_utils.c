@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/05 18:40:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:43:17 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 			free(value);
 		value = NULL;
 	}
-	data->expo_var.value = ft_strdup("");
-	if (!data->expo_var.value)
-		return (free(data->expo_var.value), 1);
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 	return (0);
 }

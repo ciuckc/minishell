@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/01 15:28:48 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:24:24 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static void	st_check_if_valid(char **arg)
 	}
 }
 
-long int	ft_atol(const char *str)
+int64_t	ft_atoll(char *str)
 {
-	long long int	number;
-	int				sign;
-	int				i;
+	int64_t		number;
+	int			sign;
+	int			i;
 
 	number = 0;
 	sign = 1;
@@ -56,22 +56,24 @@ long int	ft_atol(const char *str)
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
 		number *= 10;
-		number += (int)str[i] - '0';
+		number += (int64_t)str[i] - '0';
 		i++;
 	}
 	return (number * sign);
 }
+	// printf ("number here %lli and str %c\n", number, str[i]);
 
 int32_t	ft_exit(t_input *data)
 {
-	long int	value;
+	int64_t	value;
 
 	value = 0;
 	if (data->cmd_args[1])
 	{
 		st_check_if_valid(data->cmd_args);
-		value = ft_atol(data->cmd_args[1]);
-		if ((value < LONG_MAX) || value > LONG_MAX)
+		value = ft_atoll(data->cmd_args[1]);
+		printf ("value here %lld\n", value);
+		if (value < LONG_MIN || value > LONG_MAX)
 			error_numeric_argument(data->cmd_args[1]);
 		ft_putendl_fd("exit", STDERR_FILENO);
 		if (data->cmd_args[2])
