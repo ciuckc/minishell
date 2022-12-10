@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/10 17:24:24 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:32:39 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int32_t	ft_exit(t_input *data)
 	{
 		st_check_if_valid(data->cmd_args);
 		value = ft_atoll(data->cmd_args[1]);
-		printf ("value here %lld\n", value);
 		if (value < LONG_MIN || value > LONG_MAX)
 			error_numeric_argument(data->cmd_args[1]);
 		ft_putendl_fd("exit", STDERR_FILENO);
