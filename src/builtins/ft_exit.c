@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:30:17 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/10 17:32:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/11 21:36:37 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	error_numeric_argument(char *arg)
 {
 	ft_putendl_fd("exit", STDERR_FILENO);
-	ft_putstr_fd("minishell: exit ", STDERR_FILENO);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
 	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 	exit (255);
@@ -59,33 +59,45 @@ int64_t	ft_atoll(char *str)
 		number += (int64_t)str[i] - '0';
 		i++;
 	}
+	if ((sign == -1) && (number > LONG_MAX))
+		error_numeric_argument(str);
 	return (number * sign);
 }
-	// printf ("number here %lli and str %c\n", number, str[i]);
+
+static size_t	ft_double_strlen(char **str)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len] != NULL)
+		len++;
+	return (len);
+}
 
 int32_t	ft_exit(t_input *data)
 {
 	int64_t	value;
 
 	value = 0;
-	if (data->cmd_args[1])
+	if (ft_double_strlen(data->cmd_args) > 2)
 	{
-		st_check_if_valid(data->cmd_args);
-		value = ft_atoll(data->cmd_args[1]);
-		if (value < LONG_MIN || value > LONG_MAX)
-			error_numeric_argument(data->cmd_args[1]);
-		ft_putendl_fd("exit", STDERR_FILENO);
-		if (data->cmd_args[2])
-		{
-			ft_putendl_fd("minishell: exit: too many arguments", 2);
-			return (1);
-		}
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		return (1);
 	}
-	else
+	else if (ft_double_strlen(data->cmd_args) == 1)
 	{
 		if (!data->exit_for_pipe)
 			ft_putendl_fd("exit", STDERR_FILENO);
 		exit (g_exit_code);
+	}
+	else
+	{
+		st_check_if_valid(data->cmd_args);
+		value = ft_atoll(data->cmd_args[1]);
+		if ((ft_isdigit(data->cmd_args[1][0]) || \
+		data->cmd_args[1][0] == '+') && (value < 0))
+			error_numeric_argument(data->cmd_args[1]);
+		ft_putendl_fd("exit", STDERR_FILENO);
 	}
 	exit (value % 256);
 }

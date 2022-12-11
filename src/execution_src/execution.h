@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/05 12:15:08 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:11:23 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ int32_t		access_file(t_input *data);
  */
 int32_t		open_infiles(t_token *tok, t_input *data);
 
+int32_t		built_open_infiles(t_token *tok, t_input *data);
+
 /**
  * @brief in case of redirection as output, opens the files and assigns the 
  * related file descriptor to the writing end of pipe or as standard output;
@@ -139,6 +141,8 @@ int32_t		open_infiles(t_token *tok, t_input *data);
  */
 int32_t		open_outfiles(t_token *tok, t_input *data);
 
+int32_t	built_open_outfiles(t_token *tok, t_input *data);
+
 /**
  * @brief dup2 of the current file descriptors and close fd
  * 
@@ -148,6 +152,8 @@ int32_t		open_outfiles(t_token *tok, t_input *data);
  * @return int32_t -1 in case of failure
  */
 int32_t		dup_and_close(int fd, int in_out);
+
+int32_t		built_dup_and_close(int fd, int in_out);
 
 /**
  * @brief execute cmd when the count from readline is 1;

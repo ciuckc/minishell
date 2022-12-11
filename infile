@@ -7,27 +7,3 @@ git push
 
 Greedy baby push:
 
-git checkout sig
-git brench -b new
-git merge execution
-git add .
-git commit -m " "
-git push 
-
-git checkout sig
-git pull
-git merge execution
-git checkout execution
-
-
-echo "$=TEST" nothing vs $=TEST
-echo "$1TEST" nothing vs TEST
-
-
-echo > < (SEGV on unknown address)
-echo | | (SEGV on unknown address)
-<		(SEGV on unknown address 0x000000000000)
-
-
-
-

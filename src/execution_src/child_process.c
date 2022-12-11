@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/30 13:07:37 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:50:43 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	dup_infile(t_token *tok, t_input *data)
 	if (open_infiles(tok, data))
 	{
 		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			error_exit("Dup failed", 1);
+			exit(EXIT_FAILURE);
 	}
 	dup_and_close(data->pipe_fd[1], STDOUT_FILENO);
 	if (open_outfiles(tok, data))
 	{
 		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
-			error_exit("Dup failed", 1);
+			exit(EXIT_FAILURE);
 	}
 }
 
@@ -37,13 +37,13 @@ void	dup_outfile(t_token *tok, t_input *data)
 	if (open_infiles(tok, data))
 	{
 		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			error_exit("Dup failed", 1);
+			exit(EXIT_FAILURE);
 	}
 	close(data->pipe_fd[1]);
 	if (open_outfiles(tok, data))
 	{
 		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
-			error_exit("Dup failed", 1);
+			exit(EXIT_FAILURE);
 	}
 }
 
@@ -51,19 +51,19 @@ void	dup_pipes(t_token *tok, t_input *data)
 {
 	close(data->pipe_fd[0]);
 	if (dup2(data->readfd, 0) < 0)
-		error_exit("Dup failed", 1);
+		exit(EXIT_FAILURE);
 	close(data->readfd);
 	if (open_infiles(tok, data))
 	{
 		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			error_exit("Dup failed", 1);
+			exit(EXIT_FAILURE);
 	}
 	if (dup_and_close(data->pipe_fd[1], STDOUT_FILENO) < 0)
-		error_exit("Dup failed", 1);
+		exit(EXIT_FAILURE);
 	if (open_outfiles(tok, data))
 	{
 		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
-			error_exit("Dup failed", 1);
+			exit(EXIT_FAILURE);
 	}
 }
 
