@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/11/30 18:06:42 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:39:19 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,41 +55,45 @@ static int32_t	st_if_valid(char *var)
 	return (0);
 }
 
-static void	st_print_table(char **new_table)
+static int32_t	st_sort_print(t_table *env_table)
 {
 	u_int32_t	i;
+	char		**new_var_table;
 
+	new_var_table = sort_table(env_table);
+	if (!new_var_table)
+		return (error_print("Malloc failed"), 1);
 	i = 0;
-	while (new_table[i])
+	while (new_var_table[i])
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(new_table[i], STDOUT_FILENO);
+		ft_putstr_fd(new_var_table[i], STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
+	ft_free_mem(&new_var_table);
+	return (0);
 }
 
 int32_t	ft_export(t_input *data, t_table *env_table)
 {
 	int32_t		i;
-	char		**new_var_table;
+	int32_t		ret;
 
+	ret = 0;
 	i = 1;
 	if (data->cmd_args[1] == NULL)
-	{
-		new_var_table = sort_table(env_table);
-		st_print_table(new_var_table);
-		ft_free_mem(&new_var_table);
-		return (0);
-	}
+		st_sort_print(env_table);
 	while (data->cmd_args[i])
 	{
 		if (st_if_valid(data->cmd_args[i]))
 			return (1);
 		if (mini_ft_strchr(data->cmd_args[i], '='))
-			replace_var(data, env_table, i);
+			ret = insert_replace_var(data, env_table, i);
 		else
-			replace_var_no_eq(data, env_table, i);
+			ret = ins_replace_var_no_eq(data, env_table, i);
+		if (ret == 1)
+			return (1);
 		i++;
 	}
 	return (0);

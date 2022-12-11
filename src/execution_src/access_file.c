@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   access_file.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/19 15:57:16 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/11/30 19:12:53 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   access_file.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
+/*   Updated: 2022/12/10 17:26:49 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static int	if_path(t_input *data)
+static int32_t	if_path(t_input *data)
 {
 	int	i;
 
@@ -26,12 +26,16 @@ static int	if_path(t_input *data)
 	return (0);
 }
 
-static int	no_path(t_input *data)
+static int32_t	no_path(t_input *data)
 {
 	if (access(data->cmd_args[0], X_OK) == 0)
 	{
 		if (if_path(data))
+		{
 			data->cmd_path = ft_strdup(data->cmd_args[0]);
+			if (!data->cmd_path)
+				error_exit("Malloc failed", 1);
+		}
 		else
 			command_not_found(data);
 		return (1);
@@ -39,7 +43,7 @@ static int	no_path(t_input *data)
 	return (0);
 }
 
-int	access_file(t_input *data)
+int32_t	access_file(t_input *data)
 {
 	int		i;
 

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_cmd.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/09 18:16:31 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_cmd.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/11 16:47:53 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	exec_single(t_token *tok, t_input *data)
+int32_t	exec_single(t_token *tok, t_input *data)
 {
 	t_token	*token;
 
@@ -39,12 +39,21 @@ int	exec_single(t_token *tok, t_input *data)
 	return (0);
 }
 
+/**
+ * @brief save the standard in and output * 
+ * @param data 
+ */
 void	init_fd(t_input *data)
 {
 	data->temp_fd[READ] = dup(STDIN_FILENO);
 	data->temp_fd[WRITE] = dup(STDOUT_FILENO);
 }
 
+/**
+ * @brief  go to dup2_builtin and reset the stdin and stdout afterwards
+ * 
+ * @param data 
+ */
 void	reset_fd(t_input *data)
 {
 	if (dup2(data->temp_fd[READ], STDIN_FILENO) == -1)
@@ -55,7 +64,7 @@ void	reset_fd(t_input *data)
 	close(data->temp_fd[WRITE]);
 }
 
-int	single_command(t_token *tok, t_input *data, t_table *env_table)
+int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 {
 	t_token	*token;
 	pid_t	id;
@@ -81,6 +90,5 @@ int	single_command(t_token *tok, t_input *data, t_table *env_table)
 		signal(SIGINT, SIG_IGN);
 		g_exit_code = exec_single(token, data);
 	}
-	g_exit_code = waiting(id, 1);
-	return (g_exit_code);
+	return (waiting(id, 1));
 }
