@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 23:47:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/07 21:56:10 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/09 19:32:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char ***envp)
 		remove_null_str(&(*cmd_list)[i].cmd_list);
 		if ((*cmd_list)[i].cmd_list == NULL)
 		{
+			free_new_envp(envp, 0);
 			i++;
 			continue ;
 		}

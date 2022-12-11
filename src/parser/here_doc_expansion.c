@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/09 18:08:44 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/10 22:26:37 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	st_read_concat(char **delim, char **here, char **read)
 	char	*temp;
 
 	temp = NULL;
-	while (ft_strcmp(*delim, *read))
+	while (ft_strcmp(*delim, *read) || ft_strcmp("^C", *read))
 	{
 		temp = ft_strjoin_va(3, *here, *read, "\n");
 		free(*here);
@@ -62,11 +62,12 @@ static void	st_read_here(t_token **delim)
 	char		*read_line;
 	char		*here_doc;
 
+	init_sig_handle(3);
 	here_doc = ft_strdup("");
 	if (here_doc == NULL)
 		return ;
 	read_line = readline("> ");
-	if (read_line == NULL || g_exit_code == 42)
+	if (read_line == NULL)
 	{
 		g_exit_code = 1;
 		free((*delim)->str);
@@ -96,7 +97,6 @@ void	here_doc_expansion(t_cmd_list **cmd)
 
 	i = 0;
 	head = NULL;
-	init_sig_handle(3);
 	while ((*cmd)[i].cmd_list)
 	{
 		head = (*cmd)[i].cmd_list;

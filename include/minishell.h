@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/09 13:39:03 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/10 22:26:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "../src/free_functions/free_functions.h"
 # include "signal.h"
 
-extern u_int64_t	g_exit_code;
+extern volatile u_int64_t	g_exit_code;
 
 void		init_sig_handle(int mode);
 

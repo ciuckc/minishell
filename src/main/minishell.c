@@ -6,14 +6,14 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/09 13:50:44 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/11 15:21:48 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "main.h"
 
-u_int64_t	g_exit_code = 0;
+u_int64_t volatile	g_exit_code = 0;
 
 static void	st_cmd_input(t_table *env_table, char ***envp)
 {
