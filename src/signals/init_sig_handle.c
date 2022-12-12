@@ -33,17 +33,6 @@ static void	st_shell_env(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 }
 
-static void	st_handle_here(int signum)
-{
-	(void)signum;
-	g_exit_code = 1;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("^C", 0);
-	rl_redisplay();
-	return ;
-}
-
 void	init_sig_handle(int mode)
 {
 	if (mode == 0)
@@ -64,7 +53,7 @@ void	init_sig_handle(int mode)
 	}
 	else if (mode == 3)
 	{
-		signal(SIGINT, st_handle_here);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }
