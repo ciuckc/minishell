@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/12 04:37:36 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/12 05:11:51 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	st_if_type_is_dless(t_cmd_list **cmd, u_int32_t i)
 	{
 		(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;
 		remove_quotes((*cmd)[i].cmd_list);
-		mini_talk_here(&(*cmd)[i].cmd_list);
+		st_read_here(&(*cmd)[i].cmd_list);
 	}
 }
 
