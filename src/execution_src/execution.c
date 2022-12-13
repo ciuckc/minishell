@@ -6,11 +6,12 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/02 20:13:10 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:39:02 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+// #include <termios.h>
 
 void	ft_free_mem(char ***str)
 {
@@ -40,6 +41,7 @@ t_input	*data_init(char **envp)
 	if (!data_in->paths)
 		error_exit("Malloc failed", 1);
 	data_in->exit_code = 0;
+	data_in->value = 0;
 	data_in->fds[READ] = STDIN_FILENO;
 	data_in->fds[WRITE] = STDOUT_FILENO;
 	data_in->exit_for_pipe = 0;
@@ -68,3 +70,27 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	data = NULL;
 	return (g_exit_code);
 }
+
+// int32_t	execution(t_token *tok, t_table *env_table, char **envp, \
+// struct sigaction *sig_inter)
+// {
+// 	t_input			*data;
+// 	// struct termios	attr;
+
+// 	signal(SIGINT, SIG_IGN);
+// 	// tcgetattr(STDIN_FILENO, &attr);
+// 	data = NULL;
+// 	data = data_init(envp);
+// 	get_path(data);
+// 	count_cmds(tok, data);
+// 	if (data->cmd_count == 1)
+// 		g_exit_code = single_command(tok, data, env_table);
+// 	else
+// 		g_exit_code = multiple_commands(tok, data, env_table);
+// 	ft_free_mem(&data->paths);
+// 	free (data);
+// 	data = NULL;
+// 	sigaction(SIGINT, sig_inter, NULL);
+// 	// tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
+// 	return (g_exit_code);
+// }

@@ -80,7 +80,9 @@ OBJ += $(BUILTINS_OBJ)
 EXEC_DIR = $(SRC_DIR)/execution_src
 
 EXEC_SRC = execution.c access_file.c single_cmd.c multiple_cmd.c get_cmd.c \
-get_path.c redirections.c errors.c child_process.c redir_builtins.c
+get_path.c errors.c redir_builtins.c redir_loop.c child_process.c \
+redirections.c
+
 
 EXEC_OBJ = $(addprefix $(OBJ_DIR)/,$(EXEC_SRC:.c=.o))
 

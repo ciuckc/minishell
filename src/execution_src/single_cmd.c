@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/11 20:08:59 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:08:59 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,9 @@ int32_t	exec_single(t_token *tok, t_input *data)
 	t_token	*token;
 
 	token = tok;
-	if (open_infiles(token, data))
-	{
-		if (dup_and_close(data->fds[READ], STDIN_FILENO))
-			return (1);
-	}
-	token = tok;
-	if (open_outfiles(token, data))
-	{
-		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO))
-			return (1);
-	}
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	open_in_andoutfiles(tok, data);
 	if (!data->cmd_args[0])
 		return (0);
 	access_file(data);
@@ -38,27 +30,16 @@ int32_t	exec_single(t_token *tok, t_input *data)
 	return (0);
 }
 
-static int32_t	check_if_redir(t_token *tok, t_input *data)
+static int32_t	dup_if_redirection_built(t_input *data)
 {
-	t_token	*toky;
-	t_token	*toky_b;
-
-	toky = tok;
-	toky_b = tok;
-	if (built_open_infiles(toky_b, data) == 2)
-		return (1);
-	else if (built_open_infiles(toky, data) == 1)
+	if (data->fds[READ] != STDIN_FILENO)
 	{
-		if (built_dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
+		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
 			return (1);
 	}
-	toky = tok;
-	toky_b = tok;
-	if (built_open_outfiles(toky_b, data) == 2)
-		return (1);
-	else if (built_open_outfiles(toky, data) == 1)
+	if (data->fds[WRITE] != STDOUT_FILENO)
 	{
-		if (built_dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
+		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
 			return (1);
 	}
 	return (0);
@@ -100,7 +81,9 @@ int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 	if (is_built_in(data->cmd_args[0]))
 	{
 		st_init_fd(data);
-		if (check_if_redir(token, data))
+		if (check_if_redir_built(token, data))
+			return (1);
+		if (dup_if_redirection_built(data))
 			return (1);
 		g_exit_code = run_builtin(data, env_table);
 		st_reset_fd(data);
@@ -110,13 +93,6 @@ int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 	if (id == -1)
 		return (error_print("fork"), 1);
 	if (id == 0)
-	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, SIG_IGN);
 		g_exit_code = exec_single(token, data);
-	}
 	return (waiting(id, 1));
 }
-
-		// if (open_outfiles(token, data))
-		// 	dup_and_close(data->fds[WRITE], STDOUT_FILENO);

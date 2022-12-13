@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_process.c                                    :+:      :+:    :+:   */
+/*   child_process_new.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/11 16:50:43 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:32:44 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,8 @@
 void	dup_infile(t_token *tok, t_input *data)
 {
 	close(data->pipe_fd[0]);
-	if (open_infiles(tok, data))
-	{
-		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			exit(EXIT_FAILURE);
-	}
 	dup_and_close(data->pipe_fd[1], STDOUT_FILENO);
-	if (open_outfiles(tok, data))
-	{
-		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
-			exit(EXIT_FAILURE);
-	}
+	open_in_andoutfiles(tok, data);
 }
 
 void	dup_outfile(t_token *tok, t_input *data)
@@ -34,17 +25,8 @@ void	dup_outfile(t_token *tok, t_input *data)
 	if (dup2(data->readfd, 0) < 0)
 		error_exit("Dup failed", 1);
 	close(data->readfd);
-	if (open_infiles(tok, data))
-	{
-		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			exit(EXIT_FAILURE);
-	}
 	close(data->pipe_fd[1]);
-	if (open_outfiles(tok, data))
-	{
-		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
-			exit(EXIT_FAILURE);
-	}
+	open_in_andoutfiles(tok, data);
 }
 
 void	dup_pipes(t_token *tok, t_input *data)
@@ -53,18 +35,9 @@ void	dup_pipes(t_token *tok, t_input *data)
 	if (dup2(data->readfd, 0) < 0)
 		exit(EXIT_FAILURE);
 	close(data->readfd);
-	if (open_infiles(tok, data))
-	{
-		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
-			exit(EXIT_FAILURE);
-	}
 	if (dup_and_close(data->pipe_fd[1], STDOUT_FILENO) < 0)
 		exit(EXIT_FAILURE);
-	if (open_outfiles(tok, data))
-	{
-		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
-			exit(EXIT_FAILURE);
-	}
+	open_in_andoutfiles(tok, data);
 }
 
 void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
@@ -72,8 +45,8 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 	t_token	*token;
 
 	token = tok;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	if (data->cmd_count == max)
 		dup_infile(tok, data);
 	else if (data->cmd_count == 1)
@@ -83,8 +56,7 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 	get_cmd(tok, data);
 	if (is_built_in(data->cmd_args[0]))
 	{
-		if (open_outfiles(token, data))
-			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
+		open_in_andoutfiles(tok, data);
 		data->exit_for_pipe = 1;
 		exit (run_builtin(data, env_table));
 	}

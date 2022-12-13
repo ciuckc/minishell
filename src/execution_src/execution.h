@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/11 18:11:23 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:33:45 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_input
 	int32_t			exit_for_pipe;
 	int32_t			cmd_count;
 	int32_t			exit_code;
+	int64_t			value;
 	t_env			expo_var;
 	t_env			old_var;
 	t_env			new_var;
@@ -114,36 +115,6 @@ void		count_cmds(t_token *tok, t_input *data);
 int32_t		access_file(t_input *data);
 
 /**
- * @brief in case of redirection as input, opens the files and assigns the 
- * related file descriptor to the reading end of pipe or as standard input;
- * in case of heredoc, it calls st_redirection_heredoc to create a file where 
- * the text from readline will be written and the file will be read and 
- * redirected to the correct reading end. If not existing or if the permissions
- * don't allow the reading of the file, an error will be printed on std error.
- * @param tok list of tokens from parsing
- * @param data struct where file descriptors are stored before dup2
- * @return int32_t 0 if no redirections, 1 if redirection
- */
-int32_t		open_infiles(t_token *tok, t_input *data);
-
-int32_t		built_open_infiles(t_token *tok, t_input *data);
-
-/**
- * @brief in case of redirection as output, opens the files and assigns the 
- * related file descriptor to the writing end of pipe or as standard output;
- * in case of heredoc, it calls st_redirection_dgreat to create a file where 
- * the text received  will be appended and the file will be assigned 
- * to the correct writing end. If not existing the file will be created
- * 
- * @param tok token list
- * @param data struct where file descriptors are stored before dup2
- * @return int32_t 0 if no redirections, 1 if redirection
- */
-int32_t		open_outfiles(t_token *tok, t_input *data);
-
-int32_t	built_open_outfiles(t_token *tok, t_input *data);
-
-/**
  * @brief dup2 of the current file descriptors and close fd
  * 
  * @param fd 
@@ -153,7 +124,32 @@ int32_t	built_open_outfiles(t_token *tok, t_input *data);
  */
 int32_t		dup_and_close(int fd, int in_out);
 
-int32_t		built_dup_and_close(int fd, int in_out);
+/**
+ * @brief in case of redirection as input, opens the files and assigns the 
+ * related file descriptor to the reading end of pipe or as standard input;
+ * in case of heredoc, it calls st_redirection_heredoc to create a file where 
+ * the text from readline will be written and the file will be read and 
+ * redirected to the correct reading end. If not existing or if the permissions
+ * don't allow the reading of the file, an error will be printed on std error.
+ * in case of redirection as output, opens the files and assigns the 
+ * related file descriptor to the writing end of pipe or as standard output;
+ * in case of heredoc, it calls st_redirection_dgreat to create a file where 
+ * the text received  will be appended and the file will be assigned 
+ * to the correct writing end. If not existing the file will be created
+ * 
+ * @param tok ist of tokens from parsing
+ * @param data struct where file descriptors are stored before dup2
+ */
+void		open_in_andoutfiles(t_token *tok, t_input *data);
+
+void		redir_less(t_token *tok, t_input *data);
+void		redir_dless(t_token *tok, t_input *data);
+void		redir_great(t_token *tok, t_input *data);
+void		redir_dgreat(t_token *tok, t_input *data);
+
+int32_t		check_if_redir_built(t_token *tok, t_input *data);
+int32_t		built_open_infiles(t_token *tok, t_input *data);
+int32_t		built_open_outfiles(t_token *tok, t_input *data);
 
 /**
  * @brief execute cmd when the count from readline is 1;

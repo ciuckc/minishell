@@ -7,3 +7,45 @@ git push
 
 Greedy baby push:
 
+top 
+
+redirectio in __ORDER
+exit piped????????
+
+
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+
+		signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+
+	disable_signals();
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
+
+
+
+tcgetattr
+
+tcsetattr
+cat Makefile |>out3 cat (minishell: synthax error near unexpected token `>')
+
+bash-3.2$ cat
+^\Quit: 3
+
+export ZZZ=
+export ZZZ  // overwrites the variable (and it should not)
+
+<< xx cat
+> hello
+> 
+> 
+> 
+> 
+> 
+> xx
+hello
+ // this also needs to print the empty lines
+
+heredoc: ctrl-D doesn't work, ctrl-C doesn't work
+

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/10 16:39:19 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:14:56 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int32_t	ft_export(t_input *data, t_table *env_table)
 		st_sort_print(env_table);
 	while (data->cmd_args[i])
 	{
-		if (st_if_valid(data->cmd_args[i]))
-			return (1);
+		st_if_valid(data->cmd_args[i]);
 		if (mini_ft_strchr(data->cmd_args[i], '='))
 			ret = insert_replace_var(data, env_table, i);
 		else

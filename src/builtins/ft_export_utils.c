@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/09 19:43:17 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:13:26 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,6 @@ int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	return (0);
 }
 
-char	**get_table(t_table *table, char **new_t, u_int32_t i, u_int32_t j)
-{
-	t_container	*head;
-	char		*temp;
-
-	temp = NULL;
-	head = table->table[0];
-	while (i < table->containers)
-	{
-		head = table->table[i];
-		while (table->table[i])
-		{
-			temp = ft_strdup(table->table[i]->key_str);
-			if (!temp)
-				return (NULL);
-			if (table->table[i]->data && ft_strlen(table->table[i]->data))
-				new_t[j] = ft_strjoin_va(3, temp, "=", table->table[i]->data);
-			else if (table->table[i]->data && !ft_strlen(table->table[i]->data))
-				new_t[j] = ft_strjoin_va(3, temp, "=", "\"\"");
-			free (temp);
-			j++;
-			table->table[i] = table->table[i]->next;
-		}
-		table->table[i] = head;
-		i++;
-	}
-	return (new_t);
-}
-
 static void	st_swap(char **str_j, char **str_j1)
 {
 	char		*swap;
@@ -99,6 +70,53 @@ static void	st_swap(char **str_j, char **str_j1)
 	*str_j1 = swap;
 }
 
+static void	st_join_str_data(t_table *env, char ***new_t, u_int32_t i, \
+u_int32_t *j)
+{
+	char	*temp;
+
+	temp = ft_strdup(env->table[i]->key_str);
+	if (!temp)
+	{
+		ft_free_mem(new_t);
+		return ;
+	}
+	if (env->table[i]->data == NULL)
+		(*new_t)[*j] = ft_strdup(temp);
+	else if (env->table[i]->data && ft_strlen(env->table[i]->data))
+		(*new_t)[*j] = ft_strjoin_va(3, temp, "=", env->table[i]->data);
+	else if (env->table[i]->data && !ft_strlen(env->table[i]->data))
+		(*new_t)[*j] = ft_strjoin_va(3, temp, "=", "\"\"");
+	free (temp);
+	if ((*new_t)[*j] == NULL)
+	{
+		ft_free_mem(new_t);
+		return ;
+	}
+	(*j)++;
+}
+
+char	**get_table(t_table *table, char **new_t, u_int32_t i, u_int32_t j)
+{
+	t_container	*head;
+
+	head = table->table[i];
+	while (i < table->containers)
+	{
+		head = table->table[i];
+		while (table->table[i])
+		{
+			st_join_str_data(table, &new_t, i, &j);
+			if (new_t == NULL)
+				return (NULL);
+			table->table[i] = table->table[i]->next;
+		}
+		table->table[i] = head;
+		i++;
+	}
+	return (new_t);
+}
+
 char	**sort_table(t_table *table)
 {
 	u_int32_t	i;
@@ -107,7 +125,7 @@ char	**sort_table(t_table *table)
 
 	i = 0;
 	j = 0;
-	current_table = calloc(sizeof(char *), table->containers + 1);
+	current_table = (char **)ft_calloc(sizeof(char *), (table->containers + 1));
 	if (!current_table)
 		return (error_print("Malloc failed"), NULL);
 	current_table = get_table(table, current_table, 0, 0);
