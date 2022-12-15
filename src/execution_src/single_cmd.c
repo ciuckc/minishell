@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:22:15 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 20:29:11 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 int32_t	exec_single(t_token *tok, t_input *data)
 {
-	t_token	*token;
-
 	init_sig_handle(2);
-	token = tok;
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	open_in_andoutfiles(tok, data);

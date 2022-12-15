@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/15 13:58:58 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execution.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/15 20:26:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 # define READ 0
 # define WRITE 1
-
-# include <sys/_types/_s_ifmt.h>
 
 typedef struct s_input
 {

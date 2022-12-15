@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 16:49:07 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 20:05:45 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ t_token			*build_word(t_scan_tok **lst);
 void			create_cmd_list(t_cmd_list **list, t_token *words);
 
 int32_t			create_tmp_file_here(char **str, t_token *id_ptr);
+
+int32_t			wait_here(pid_t child_pid);
 
 #endif

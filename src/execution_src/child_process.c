@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/16 15:01:55 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:19:56 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 20:29:25 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	dup_pipes(t_token *tok, t_input *data)
 
 void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 {
-	t_token	*token;
 
-	token = tok;
 	init_sig_handle(2);
 	if (data->cmd_count == max)
 		dup_infile(tok, data);

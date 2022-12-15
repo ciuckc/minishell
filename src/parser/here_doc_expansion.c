@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:22:45 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 21:53:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,18 @@
 
 static void	st_uncouple_nodes(t_token **word, char *file_name)
 {
-	t_token	*delim;
-	t_token	*delim_next;
-	t_token	*dless;
+	t_token	*d_less;
 
-	delim = *word;
-	delim_next = (*word)->next;
-	dless = (*word)->prev;
-	if (delim_next)
-		delim_next = dless;
-	if (dless)
-		dless->next = delim_next;
-	free(delim->str);
-	free(delim);
-	free(dless->str);
-	dless->str = file_name;
-	*word = dless;
+	d_less = (*word)->prev;
+	if ((*word)->next != NULL)
+		(*word)->next->prev = (*word)->prev;
+	if ((*word)->prev != NULL)
+		(*word)->prev->next = (*word)->next;
+	free((*word)->str);
+	free((*word));
+	*word = d_less;
+	free((*word)->str);
+	(*word)->str = file_name;
 }
 
 static void	st_read_here(t_token **delim, int32_t fd)
@@ -44,7 +40,7 @@ static void	st_read_here(t_token **delim, int32_t fd)
 	{
 		read_line = readline("> ");
 		if (read_line == NULL)
-			exit (1);
+			exit (0);
 		if (!ft_strcmp(read_line, (*delim)->str))
 			break ;
 		ft_putendl_fd(read_line, fd);
@@ -75,7 +71,7 @@ static void	st_if_type_is_dless(t_cmd_list **cmd, u_int32_t i)
 			error_exit("fork failed", 1);
 		if (child_pid == 0)
 			st_read_here(&(*cmd)[i].cmd_list, fd);
-		waiting(child_pid, 1);
+		g_exit_code = wait_here(child_pid);
 		close(fd);
 		st_uncouple_nodes(&(*cmd)[i].cmd_list, file_name);
 	}
