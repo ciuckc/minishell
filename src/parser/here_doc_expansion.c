@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   here_doc_expansion.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 18:33:40 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 19:22:45 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

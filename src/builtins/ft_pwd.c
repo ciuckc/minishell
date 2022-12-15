@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:34:40 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/05 12:12:23 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:22:39 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	st_seeking_pwd(t_input *data)
 	{
 		if (ft_memcmp("PWD", data->environ[i], 3) == 0)
 		{
-			pwd = ft_strdup(data->environ[i]);
+			pwd = ft_strdup(data->environ[i] + 4);
 			if (!pwd)
 				error_exit("Malloc failed", 1);
 		}

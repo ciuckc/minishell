@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:01:18 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 19:22:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

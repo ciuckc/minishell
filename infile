@@ -7,27 +7,46 @@ git push
 
 Greedy baby push:
 
-git checkout sig
-git brench -b new
-git merge execution
-git add .
-git commit -m " "
-git push 
-
-git checkout sig
-git pull
-git merge execution
-git checkout execution
+top ; SIGQUIT
 
 
-echo "$=TEST" nothing vs $=TEST
-echo "$1TEST" nothing vs TEST
+signal(SIGQUIT, SIG_DFL);
+signal(SIGINT, SIG_DFL);
 
+signal(SIGQUIT, SIG_IGN);
+signal(SIGINT, SIG_IGN);
 
-echo > < (SEGV on unknown address)
-echo | | (SEGV on unknown address)
-<		(SEGV on unknown address 0x000000000000)
+disable_signals();
+signal(SIGINT, SIG_DFL);
+signal(SIGQUIT, SIG_IGN);
 
 
 
+tcgetattr
 
+tcsetattr
+cat Makefile |>out3 cat (minishell: synthax error near unexpected token `>')
+
+bash-3.2$ cat
+^\Quit: 3
+
+export ZZZ=
+export ZZZ  // overwrites the variable (and it should not)
+
+<< xx cat
+> hello
+> 
+> 
+> 
+> 
+> 
+> xx
+hello
+ // this also needs to print the empty lines
+
+heredoc: ctrl-D doesn't work, ctrl-C doesn't work
+
+#include <errno.h>
+strerror(errno);
+
+printf("minishell: synthax error near unexpected token `%s'\n", quote);

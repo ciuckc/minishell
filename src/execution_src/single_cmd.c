@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 18:57:18 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 19:22:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,14 @@ int32_t	exec_single(t_token *tok, t_input *data)
 
 	init_sig_handle(2);
 	token = tok;
-	if (open_infiles(token, data))
-	{
-		if (dup_and_close(data->fds[READ], STDIN_FILENO))
-			return (1);
-	}
-	token = tok;
-	if (open_outfiles(token, data))
-	{
-		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO))
-			return (1);
-	}
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	open_in_andoutfiles(tok, data);
 	if (!data->cmd_args[0])
 		return (0);
 	access_file(data);
+	if (is_dir(data->cmd_path))
+		err_is_directory(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		command_not_found(data);
 	free (data->cmd_path);
@@ -39,11 +33,26 @@ int32_t	exec_single(t_token *tok, t_input *data)
 	return (0);
 }
 
+static int32_t	dup_if_redirection_built(t_input *data)
+{
+	if (data->fds[READ] != STDIN_FILENO)
+	{
+		if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
+			return (1);
+	}
+	if (data->fds[WRITE] != STDOUT_FILENO)
+	{
+		if (dup_and_close(data->fds[WRITE], STDOUT_FILENO) < 0)
+			return (1);
+	}
+	return (0);
+}
+
 /**
  * @brief save the standard in and output * 
  * @param data 
  */
-void	init_fd(t_input *data)
+static void	st_init_fd(t_input *data)
 {
 	data->temp_fd[READ] = dup(STDIN_FILENO);
 	data->temp_fd[WRITE] = dup(STDOUT_FILENO);
@@ -54,7 +63,7 @@ void	init_fd(t_input *data)
  * 
  * @param data 
  */
-void	reset_fd(t_input *data)
+static void	st_reset_fd(t_input *data)
 {
 	if (dup2(data->temp_fd[READ], STDIN_FILENO) == -1)
 		error_exit("Dup infile failed", 1);
@@ -74,16 +83,18 @@ int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 	token = tok;
 	if (is_built_in(data->cmd_args[0]))
 	{
-		init_fd(data);
-		if (open_outfiles(token, data))
-			dup_and_close(data->fds[WRITE], STDOUT_FILENO);
+		st_init_fd(data);
+		if (check_if_redir_built(token, data))
+			return (1);
+		if (dup_if_redirection_built(data))
+			return (1);
 		g_exit_code = run_builtin(data, env_table);
-		reset_fd(data);
+		st_reset_fd(data);
 		return (g_exit_code);
 	}
 	id = fork();
 	if (id == -1)
-		error_exit("Fork failed", 1);
+		return (error_print("fork"), 1);
 	if (id == 0)
 		g_exit_code = exec_single(token, data);
 	return (waiting(id, 1));
