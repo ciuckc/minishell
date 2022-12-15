@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 22:14:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/09 15:52:26 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 18:20:51 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	st_remove_node(t_token **word, t_token **head)
 	if (*head == *word)
 		*head = next;
 	*word = next;
+	unlink(curr->str);
+	free(curr->str);
 	free(curr);
 }
 
@@ -66,6 +68,7 @@ static void	st_check_if_one_here_doc(t_token *word)
 {
 	if (word->type == DLESS && !word->next && !word->prev)
 	{
+		unlink(word->str);
 		free(word->str);
 		word->str = NULL;
 	}

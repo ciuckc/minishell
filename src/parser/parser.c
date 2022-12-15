@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 22:03:18 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 19:01:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_cmd_list	*parser(char *full_cmd)
 	t_token		*tokens;
 	t_cmd_list	*cmd_list;
 
+	init_sig_handle(1);
 	tokens = retrieve_word_list(full_cmd);
 	if (tokens == NULL)
 		return (NULL);

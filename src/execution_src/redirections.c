@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/26 15:43:31 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/11 16:47:44 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 13:14:49 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,12 @@ int32_t	dup_and_close(int fd, int in_out)
 
 static int32_t	st_redirection_heredoc(t_token *tok, t_input *data)
 {
-	int	bites;
-	int	fd_hd;
-
 	if (data->fds[READ] != STDIN_FILENO)
 		close(data->fds[READ]);
-	fd_hd = open ("/tmp/hdoc_file.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
-	if (fd_hd < 0)
-	{
-		dprintf (2, "errno %d\n", errno);
-		strerror(errno);
-		return (1);
-	}
-	bites = write(fd_hd, tok->str, ft_strlen(tok->str));
-	if (bites < 0)
-		return (1);
-	close (fd_hd);
-	data->fds[READ] = open ("/tmp/hdoc_file.txt", O_RDONLY);
+	data->fds[READ] = open (tok->str, O_RDONLY);
 	if (data->fds[READ] < 0)
 		error_exit("heredoc_file", 1);
-	unlink("/tmp/hdoc_file.txt");
+	unlink(tok->str);
 	return (0);
 }
 

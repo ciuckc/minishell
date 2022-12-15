@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/16 15:01:55 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/09 16:04:16 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 18:56:48 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 	t_token	*token;
 
 	token = tok;
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
+	init_sig_handle(2);
 	if (data->cmd_count == max)
 		dup_infile(tok, data);
 	else if (data->cmd_count == 1)
