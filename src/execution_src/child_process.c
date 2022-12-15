@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_process_new.c                                :+:      :+:    :+:   */
+/*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:01:55 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/12 17:32:44 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:59:15 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 	if (!data->cmd_args[0])
 		exit (0);
 	access_file(data);
+	if (is_dir(data->cmd_path))
+		err_is_directory(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		command_not_found(data);
 }

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 17:33:45 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:58:58 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define READ 0
 # define WRITE 1
+
+# include <sys/_types/_s_ifmt.h>
 
 typedef struct s_input
 {
@@ -113,7 +115,9 @@ void		count_cmds(t_token *tok, t_input *data);
  * @return int32_t 0 succes 1 failure
  */
 int32_t		access_file(t_input *data);
+void		err_is_directory(t_input *data);
 
+int32_t		is_dir(char *path);
 /**
  * @brief dup2 of the current file descriptors and close fd
  * 

@@ -6,11 +6,13 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 19:13:37 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:58:05 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include <errno.h>
+#include <sys/stat.h>
 
 static int32_t	if_path(t_input *data)
 {
@@ -43,6 +45,24 @@ static int32_t	no_path(t_input *data)
 	return (0);
 }
 
+void	err_is_directory(t_input *data)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(data->cmd_path, STDERR_FILENO);
+	ft_putendl_fd(": is a directory", STDERR_FILENO);
+	exit (126);
+}
+
+int32_t	is_dir(char *path)
+{
+	struct stat	stats;
+
+	stat(path, &stats);
+	if (S_ISDIR(stats.st_mode))
+		return (1);
+	return (0);
+}
+
 int32_t	access_file(t_input *data)
 {
 	int		i;
@@ -68,3 +88,12 @@ int32_t	access_file(t_input *data)
 	}
 	return (0);
 }
+
+
+/*
+if (access(data->cmd_args[0], X_OK) < 0)
+{
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	no_such_file(data);
+}
+*/

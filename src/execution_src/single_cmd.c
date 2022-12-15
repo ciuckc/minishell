@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 17:08:59 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:58:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int32_t	exec_single(t_token *tok, t_input *data)
 	if (!data->cmd_args[0])
 		return (0);
 	access_file(data);
+	if (is_dir(data->cmd_path))
+		err_is_directory(data);
 	if (execve(data->cmd_path, data->cmd_args, data->environ) < 0)
 		command_not_found(data);
 	free (data->cmd_path);

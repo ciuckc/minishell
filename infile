@@ -7,21 +7,18 @@ git push
 
 Greedy baby push:
 
-top 
-
-redirectio in __ORDER
-exit piped????????
+top ; SIGQUIT
 
 
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
+signal(SIGQUIT, SIG_DFL);
+signal(SIGINT, SIG_DFL);
 
-		signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
+signal(SIGQUIT, SIG_IGN);
+signal(SIGINT, SIG_IGN);
 
-	disable_signals();
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_IGN);
+disable_signals();
+signal(SIGINT, SIG_DFL);
+signal(SIGQUIT, SIG_IGN);
 
 
 
@@ -49,3 +46,7 @@ hello
 
 heredoc: ctrl-D doesn't work, ctrl-C doesn't work
 
+#include <errno.h>
+strerror(errno);
+
+printf("minishell: synthax error near unexpected token `%s'\n", quote);

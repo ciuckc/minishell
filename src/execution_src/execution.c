@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:19:05 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 19:39:02 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:06:30 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	return (g_exit_code);
 }
 
-// int32_t	execution(t_token *tok, t_table *env_table, char **envp, \
-// struct sigaction *sig_inter)
+// int32_t	execution(t_token *tok, t_table *env_table, char **envp,
+// \ struct sigaction *sig_inter)
 // {
 // 	t_input			*data;
 // 	// struct termios	attr;
