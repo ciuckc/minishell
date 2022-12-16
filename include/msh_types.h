@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 05:54:23 by scristia          #+#    #+#             */
-/*   Updated: 2022/11/25 18:02:47 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   msh_types.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/14 05:54:23 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/15 20:28:34 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MSH_TYPES_H
 
 # include <stddef.h>
+# include <stdint.h>
 
 # define OPERATORS "<>|&"
 # define IFS " \t\n"

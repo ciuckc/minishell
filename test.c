@@ -30,7 +30,7 @@ int	main(void)
 	while (*tests)
 	{
 		if (!st_test(*tests))
-			dprintf(2, "error: where test is %s\n", *tests);
+			printf("error: where test is %s\n", *tests);
 		else
 			printf("ok: where test is %s\n", *tests);
 		tests++;

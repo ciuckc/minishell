@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 21:54:47 by scristia          #+#    #+#             */
-/*   Updated: 2022/12/13 19:30:13 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/15 19:22:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "main.h"
 
-u_int64_t	g_exit_code = 0;
+u_int64_t volatile	g_exit_code = 0;
 
 static void	st_cmd_input(t_table *env_table, char ***envp)
 {
@@ -54,7 +54,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 	t_table	*env_table;
 
 	env_table = create_env_table(envp);
-	init_sig_handle();
+	init_sig_handle(0);
 	rl_outstream = stderr;
 	if (env_table == NULL)
 		return (EXIT_FAILURE);
@@ -62,5 +62,6 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 		st_cmd_input(env_table, &envp);
 	else if (argc == 2)
 		st_one_cmd(*(argv + 1), env_table, &envp);
+	remove_all(env_table);
 	return (g_exit_code);
 }

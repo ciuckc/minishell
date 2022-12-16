@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_cmd.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/15 13:58:31 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_cmd.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 10:40:04 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/16 02:27:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 int32_t	exec_single(t_token *tok, t_input *data)
 {
-	t_token	*token;
-
-	token = tok;
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
+	init_sig_handle(2);
 	open_in_andoutfiles(tok, data);
 	if (!data->cmd_args[0])
 		return (0);
@@ -74,16 +70,13 @@ static void	st_reset_fd(t_input *data)
 
 int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 {
-	t_token	*token;
 	pid_t	id;
 
-	token = tok;
-	get_cmd(token, data);
-	token = tok;
+	get_cmd(tok, data);
 	if (is_built_in(data->cmd_args[0]))
 	{
 		st_init_fd(data);
-		if (check_if_redir_built(token, data))
+		if (check_if_redir_built(tok, data))
 			return (1);
 		if (dup_if_redirection_built(data))
 			return (1);
@@ -95,6 +88,7 @@ int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 	if (id == -1)
 		return (error_print("fork"), 1);
 	if (id == 0)
-		g_exit_code = exec_single(token, data);
+		g_exit_code = exec_single(tok, data);
+	ft_free_mem(&data->cmd_args);
 	return (waiting(id, 1));
 }

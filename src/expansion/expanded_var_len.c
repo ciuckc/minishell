@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 04:17:43 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/16 22:03:44 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 23:52:57 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 static void	st_count_exp_var(char **str, t_expand_len *len, t_table *table, \
 bool d_quoted)
 {
-	t_env		param;
-
-	param = (t_env){0};
-	if (**str == '$')
+	if (ft_isdigit(**str))
+		(*str)++;
+	else if (**str == '$')
 	{
 		len->env_var_len += get_pid_len();
 		(*str)++;

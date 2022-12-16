@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/15 13:58:58 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execution.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/16 01:22:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 # define READ 0
 # define WRITE 1
-
-# include <sys/_types/_s_ifmt.h>
 
 typedef struct s_input
 {
@@ -114,7 +112,7 @@ void		count_cmds(t_token *tok, t_input *data);
  * @param data struct where stored list of comands and path
  * @return int32_t 0 succes 1 failure
  */
-int32_t		access_file(t_input *data);
+void		access_file(t_input *data);
 void		err_is_directory(t_input *data);
 
 int32_t		is_dir(char *path);
@@ -235,11 +233,11 @@ int32_t		run_builtin(t_input *data, t_table *env_table);
 int32_t		ft_export(t_input *data, t_table *env_table);
 
 /**
- * @brief 
+ * @brief DEPRECATED
  * 
- * @param unexp_value 
- * @param env 
- * @return char* 
+ * @param unexp_value DEPRECATED
+ * @param env DEPRECATED
+ * @return char* DEPRECATED
  */
 char		*ft_export_expand_var(char *unexp_value, t_table *env);
 
@@ -335,5 +333,7 @@ int32_t		ft_pwd(t_input *data);
  * @return int32_t 1 if incorrect input is passed as value
  */
 int32_t		ft_exit(t_input *data);
+
+void		st_print_array(t_token *lst);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tok_len_scan_list.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 03:09:34 by scristia          #+#    #+#             */
-/*   Updated: 2022/12/15 12:22:03 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   tok_len_scan_list.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/21 03:09:34 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/16 03:53:28 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void	st_quote_len(char **full_cmd, u_int32_t *pos)
 		(*pos)++;
 	if ((*full_cmd)[*pos] == '\0')
 	{
-		printf("minishell: synthax error near unexpected token `%s'\n", quote);
+		ft_putstr_fd("minishell: synthax error near unexpected token ", 2);
+		ft_putendl_fd(quote, 2);
 		*full_cmd = NULL;
 	}
 	else

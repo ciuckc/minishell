@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 18:13:26 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_export_utils.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/15 19:19:34 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,6 @@ int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	}
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 	return (0);
-}
-
-static void	st_swap(char **str_j, char **str_j1)
-{
-	char		*swap;
-
-	swap = NULL;
-	swap = *str_j;
-	*str_j = *str_j1;
-	*str_j1 = swap;
 }
 
 static void	st_join_str_data(t_table *env, char ***new_t, u_int32_t i, \
@@ -137,7 +127,7 @@ char	**sort_table(t_table *table)
 		while (j < table->entries - i - 1)
 		{
 			if (ft_strcmp(current_table[j], current_table[j + 1]) > 0)
-				st_swap(&current_table[j], &current_table[j + 1]);
+				ft_str_swap(&current_table[j], &current_table[j + 1]);
 			j++;
 		}
 		i++;

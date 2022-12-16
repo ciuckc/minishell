@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 22:03:18 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 03:41:01 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,23 @@
 
 static void	st_print_error(t_token *words, t_token_type cmd_type)
 {
-	char	**str_token_table;
-
-	str_token_table = (char *[]){[PIPE / 4] = "|", [AMP / 4] = "&", \
-	[LESS / 4] = "<", [DLESS / 4] = "<<", [GREAT / 4] = ">", \
-	[DGREAT / 4] = ">>"};
 	if (words == NULL)
 	{
 		if (cmd_type == END)
-			dprintf(2, "minishell: synthax error near unexpected token \
-`%s'\n", "END");
+			ft_putendl_fd("minishell: synthax error near unexpected token \
+`END'", 2);
 		else if (cmd_type == AND_IF)
-			dprintf(2, "minishell: synthax error near unexpected token \
-`%s'\n", "&&");
+			ft_putendl_fd("minishell: synthax error near unexpected token \
+`AND_IF'", 2);
 		else if (cmd_type == OR_IF)
-			dprintf(2, "minishell: synthax error near unexpected token \
-`%s'\n", "||");
+			ft_putendl_fd("minishell: synthax error near unexpected token \
+`OR_IF'", 2);
 	}
-	else if (words->type != WORD || words->type == DOLLAR)
+	else if (words->type != WORD && words->type != DOLLAR && words->type != \
+	ASSIGNMENT_WORD && words->type != PIPE)
 	{
-		dprintf(2, "minishell: synthax error near unexpected token \
-`%s'\n", str_token_table[words->type / 4]);
+		ft_putstr_fd("minishell: synthax error near unexpected token ", 2);
+		ft_putendl_fd(words->str, 2);
 	}
 }
 
@@ -45,20 +41,19 @@ static bool	st_check_single_cmd(t_token *words, t_token_type cmd_type)
 		while (words)
 		{
 			if (words->type != DOLLAR && words->type != WORD && words->type \
-			!= ASSIGNMENT_WORD)
+			!= ASSIGNMENT_WORD && words->type != PIPE)
 				break ;
 			words = words->next;
 		}
 		if (words == NULL)
 			break ;
 		if (words->type == LESS || words->type == DLESS || words->type == \
-		GREAT || words->type == DGREAT || words->type == PIPE || words->type \
-		== AMP)
+		GREAT || words->type == DGREAT)
 			words = words->next;
 		if (words == NULL)
 			return (st_print_error(words, cmd_type), true);
 		else if (words->type != WORD && words->type != DOLLAR && words->type != \
-		ASSIGNMENT_WORD)
+		ASSIGNMENT_WORD && words->type != PIPE)
 			return (st_print_error(words, cmd_type), true);
 	}
 	return (false);
@@ -73,7 +68,7 @@ static void	st_synthax_check(t_cmd_list **cmd)
 	{
 		if (st_check_single_cmd((*cmd)[i].cmd_list, (*cmd)[i].cmd_list_type))
 		{
-			*cmd = NULL;
+			free_cmd_list(cmd);
 			return ;
 		}
 		i++;
@@ -85,6 +80,7 @@ t_cmd_list	*parser(char *full_cmd)
 	t_token		*tokens;
 	t_cmd_list	*cmd_list;
 
+	init_sig_handle(1);
 	tokens = retrieve_word_list(full_cmd);
 	if (tokens == NULL)
 		return (NULL);

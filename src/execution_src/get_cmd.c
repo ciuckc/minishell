@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/10 17:29:58 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_cmd.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/19 14:02:46 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/16 01:49:37 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	get_cmd(t_token *tok, t_input *data)
 
 	i = 0;
 	to = tok;
-	len = st_lstsize(tok) + 1;
-	data->cmd_args = (char **)ft_calloc(len, sizeof (char *));
+	len = st_lstsize(tok);
+	data->cmd_args = ft_calloc(len + 1, sizeof (char *));
+	if (data->cmd_args == NULL)
+		error_exit("Malloc failed", 1);
 	while (to && to->type != PIPE)
 	{
 		if (to->type == WORD || to->type == DOLLAR || to->type == S_QUOTE || \
@@ -46,11 +48,10 @@ void	get_cmd(t_token *tok, t_input *data)
 			i++;
 		}
 		if (to->type == LESS || to->type == GREAT || to->type == DGREAT)
-		to = to->next->next;
+			to = to->next->next;
 		else
 			to = to->next;
 	}
-	data->cmd_args[i] = NULL;
 }
 
 void	count_cmds(t_token *tok, t_input *data)

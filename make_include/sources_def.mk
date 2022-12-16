@@ -45,9 +45,9 @@ OBJ += $(EXPANSION_OBJ)
 
 PARSE_DIR = $(SRC_DIR)/parser
 
-PARSE_SRC = parser.c retrieve_word_list.c create_token.c tok_len_scan_list.c \
+PARSE_SRC = parser.c retrieve_word_list.c tok_len_scan_list.c \
 add_boundry_to_list.c build_word.c create_cmd_list.c here_doc_expansion.c \
-here_doc_node_remove.c
+here_doc_node_remove.c create_tmp_file_here.c wait_here.c
 
 PARSE_OBJ = $(addprefix $(OBJ_DIR)/,$(PARSE_SRC:.c=.o))
 
@@ -69,7 +69,7 @@ OBJ += $(FREE_OBJ)
 BUILTINS_DIR = $(SRC_DIR)/builtins
 
 BUILTINS_SRC = built_in.c ft_cd.c ft_echo.c ft_exit.c ft_pwd.c ft_unset.c \
-ft_export.c ft_export_utils.c ft_export_expand_var.c
+ft_export.c ft_export_utils.c
 
 BUILTINS_OBJ = $(addprefix $(OBJ_DIR)/,$(BUILTINS_SRC:.c=.o))
 

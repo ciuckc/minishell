@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 04:44:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/23 17:11:14 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 04:01:34 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,15 @@ static size_t	st_count_cmds(t_token *words)
 static void	st_and_or_synthax_check(t_token **words, t_cmd_list **list, \
 size_t len)
 {
-	size_t	i;
-
-	i = 0;
 	if ((*words) == (*list)[len].cmd_list)
 	{
 		if ((*words)->type == OR_IF)
-			printf("minishell: synthax error near `||'.\n");
+			ft_putendl_fd("minishell: synthax error near `||'", 2);
 		else if ((*words)->type == AND_IF)
-			printf("minishell: synthax error near `&&'.\n");
+			ft_putendl_fd("minishell: synthax error near `&&'", 2);
 		else if ((*words)->type == END)
-			printf("minishell: synthax error near `END'.\n");
-		while (i < len)
-		{
-			free_word_list(&(*list)[i].cmd_list);
-			i++;
-		}
-		free(*list);
-		*list = NULL;
+			ft_putendl_fd("minishell: synthax error near `END'", 2);
+		free_cmd_list(list);
 	}
 }
 

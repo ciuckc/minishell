@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 20:52:52 by scristia          #+#    #+#             */
-/*   Updated: 2022/12/13 19:31:01 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/15 19:18:24 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include "../src/free_functions/free_functions.h"
 # include "signal.h"
 
-extern u_int64_t	g_exit_code;
+extern volatile u_int64_t	g_exit_code;
 
-void		init_sig_handle(void);
+void		init_sig_handle(int mode);
 
 int			execution(t_token *tok, t_table *table, char **envp);
 
