@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:43:31 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/15 19:14:22 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/16 04:08:45 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	redir_dless(t_token *tok, t_input *data)
 	data->fds[READ] = open ("/tmp/hdoc_file.txt", O_RDONLY);
 	if (data->fds[READ] < 0)
 		error_exit("heredoc_file", 1);
+	unlink("/tmp/hdoc_file.txt");
 	if (dup_and_close(data->fds[READ], STDIN_FILENO) < 0)
 		exit(EXIT_FAILURE);
-	unlink("/tmp/hdoc_file.txt");
 }
 
 void	redir_great(t_token *tok, t_input *data)
