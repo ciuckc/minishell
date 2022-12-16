@@ -31,7 +31,7 @@ bash-3.2$ cat
 ^\Quit: 3
 
 export ZZZ=
-export ZZZ  // overwrites the variable (and it should not)
+export ZZZ  // overwrites the variable (and it should not) Done!
 
 << xx cat
 > hello
