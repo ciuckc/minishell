@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 06:15:05 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:17:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_cmd_list	*parser(char *full_cmd)
 	t_token		*tokens;
 	t_cmd_list	*cmd_list;
 
+	add_history(full_cmd);
 	init_sig_handle(1);
 	tokens = retrieve_word_list(full_cmd);
 	if (tokens == NULL)
@@ -93,6 +94,5 @@ t_cmd_list	*parser(char *full_cmd)
 	if (cmd_list == NULL)
 		return (NULL);
 	here_doc_expansion(&cmd_list);
-	add_history(full_cmd);
 	return (cmd_list);
 }

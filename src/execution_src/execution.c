@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "execution.h"
-// #include <termios.h>
+#include <termios.h>
 
 void	ft_free_mem(char ***str)
 {
@@ -52,20 +52,13 @@ t_input	*data_init(char **envp)
 	return (data_in);
 }
 
-void	st_print_array(t_token *lst)
-{
-	while (lst)
-	{
-		ft_putendl_fd(lst->str, 2);
-		lst = lst->next;
-	}
-	ft_putendl_fd("ok\n", 2);
-}
-
 int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 {
-	t_input		*data;
+	t_input			*data;
+	struct termios	attr;
 
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag &= ~(ECHOCTL);
 	data = data_init(envp);
 	get_path(data);
 	count_cmds(tok, data);
@@ -77,5 +70,6 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	ft_free_mem(&data->paths);
 	free(data);
 	init_sig_handle(0);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 	return (g_exit_code);
 }
