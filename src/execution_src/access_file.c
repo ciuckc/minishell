@@ -6,12 +6,20 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/16 04:23:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/16 04:34:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include <errno.h>
+
+void	err_is_directory(t_input *data)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(data->cmd_path, STDERR_FILENO);
+	ft_putendl_fd(": is a directory", STDERR_FILENO);
+	exit (126);
+}
 
 static int32_t	if_path(t_input *data)
 {
@@ -50,14 +58,6 @@ static void	error_if_no_access(t_input *data)
 		no_such_file(data);
 	else
 		permission_denied(data);
-}
-
-void	err_is_directory(t_input *data)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(data->cmd_path, STDERR_FILENO);
-	ft_putendl_fd(": is a directory", STDERR_FILENO);
-	exit (126);
 }
 
 void	access_file(t_input *data)
