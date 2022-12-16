@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/29 18:55:29 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/02 01:19:29 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 23:58:42 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*st_extend_var(char *old_str, char *new_str, t_table *env, t_info \
 		info->i++;
 	}
 	else if ((ft_strchr("\'\"", old_str[info->i]) && info->d_quoted) || \
-	!old_str[info->i])
+	old_str[info->i] == '\0')
 	{
 		new_str[info->j] = '$';
 		info->j++;
@@ -42,7 +42,9 @@ static char	*st_extend_var(char *old_str, char *new_str, t_table *env, t_info \
 static char	*st_copy_d_quote(char *old_str, char *new_str, t_table *env, \
 t_info *info)
 {
-	new_str[info->j++] = old_str[info->i++];
+	new_str[info->j] = old_str[info->i];
+	info->i++;
+	info->j++;
 	while (old_str[info->i] != '\"')
 	{
 		if (old_str[info->i] == '$')
@@ -52,9 +54,15 @@ t_info *info)
 				return (NULL);
 		}
 		else
-			new_str[info->j++] = old_str[info->i++];
+		{
+			new_str[info->j] = old_str[info->i];
+			info->i++;
+			info->j++;
+		}
 	}
-	new_str[info->j++] = old_str[info->i++];
+	new_str[info->j] = old_str[info->i];
+	info->i++;
+	info->j++;
 	return (new_str);
 }
 

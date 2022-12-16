@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 23:47:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:22:33 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 00:42:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ char ***envp, u_int32_t i)
 	create_new_envp(env_table, envp);
 	expand_words(&(*cmd_list)[i].cmd_list, env_table);
 	remove_quotes_list((*cmd_list)[i].cmd_list);
+}
+
+static bool	st_or_and_clause(t_cmd_list *cmd, u_int32_t i)
+{
+	if (g_exit_code != 0 && cmd[i].cmd_list_type == AND_IF)
+		return (true);
+	else if (g_exit_code == 0 && cmd[i].cmd_list_type== OR_IF)
+		return (true);
+	return (false);
 }
 
 void	execute_loop(t_cmd_list **cmd_list, t_table *env_table, \
@@ -39,7 +48,7 @@ char ***envp)
 			continue ;
 		}
 		g_exit_code = execution((*cmd_list)[i].cmd_list, env_table, *envp);
-		if (g_exit_code != 0 && (*cmd_list)[i].cmd_list_type == AND_IF)
+		if (st_or_and_clause(*cmd_list, i))
 			break ;
 		free_new_envp(envp, 0);
 		i++;

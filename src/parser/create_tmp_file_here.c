@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/12 06:28:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 18:02:06 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 22:32:12 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static pid_t	st_get_pid(void)
 
 	exit_temp = g_exit_code;
 	sig_act.sa_flags = SA_SIGINFO;
+	sigemptyset(&sig_act.sa_mask);
 	sig_act.sa_sigaction = self_pid;
 	sigaction(SIGUSR1, &sig_act, NULL);
 	kill(0, SIGUSR1);

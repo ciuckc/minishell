@@ -6,11 +6,22 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/16 15:01:55 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 20:29:25 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 02:09:18 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include <sys/stat.h>
+
+int32_t	is_dir(char *path)
+{
+	struct stat	stats;
+
+	stat(path, &stats);
+	if (S_ISDIR(stats.st_mode))
+		return (1);
+	return (0);
+}
 
 void	dup_infile(t_token *tok, t_input *data)
 {
@@ -42,7 +53,6 @@ void	dup_pipes(t_token *tok, t_input *data)
 
 void	child_process(t_token *tok, t_input *data, int max, t_table *env_table)
 {
-
 	init_sig_handle(2);
 	if (data->cmd_count == max)
 		dup_infile(tok, data);

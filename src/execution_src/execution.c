@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 18:19:05 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:20:05 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 01:03:03by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_input	*data_init(char **envp)
 	if (!data_in)
 		error_exit("Malloc failed", 1);
 	data_in->paths = NULL;
+	data_in->cmd_path = NULL;
 	data_in->exit_code = 0;
 	data_in->value = 0;
 	data_in->fds[READ] = STDIN_FILENO;
@@ -49,6 +50,16 @@ t_input	*data_init(char **envp)
 	data_in->old_var.name = NULL;
 	data_in->old_var.value = NULL;
 	return (data_in);
+}
+
+void	st_print_array(t_token *lst)
+{
+	while (lst)
+	{
+		ft_putendl_fd(lst->str, 2);
+		lst = lst->next;
+	}
+	ft_putendl_fd("ok\n", 2);
 }
 
 int32_t	execution(t_token *tok, t_table *env_table, char **envp)
@@ -68,27 +79,3 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	init_sig_handle(0);
 	return (g_exit_code);
 }
-
-// int32_t	execution(t_token *tok, t_table *env_table, char **envp,
-// \ struct sigaction *sig_inter)
-// {
-// 	t_input			*data;
-// 	// struct termios	attr;
-
-// 	signal(SIGINT, SIG_IGN);
-// 	// tcgetattr(STDIN_FILENO, &attr);
-// 	data = NULL;
-// 	data = data_init(envp);
-// 	get_path(data);
-// 	count_cmds(tok, data);
-// 	if (data->cmd_count == 1)
-// 		g_exit_code = single_command(tok, data, env_table);
-// 	else
-// 		g_exit_code = multiple_commands(tok, data, env_table);
-// 	ft_free_mem(&data->paths);
-// 	free (data);
-// 	data = NULL;
-// 	sigaction(SIGINT, sig_inter, NULL);
-// 	// tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
-// 	return (g_exit_code);
-// }

@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   access_file.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 15:57:16 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/15 13:58:05 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   access_file.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/19 15:57:16 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/15 22:24:53 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include <errno.h>
-#include <sys/stat.h>
 
 static int32_t	if_path(t_input *data)
 {
@@ -53,24 +52,16 @@ void	err_is_directory(t_input *data)
 	exit (126);
 }
 
-int32_t	is_dir(char *path)
-{
-	struct stat	stats;
 
-	stat(path, &stats);
-	if (S_ISDIR(stats.st_mode))
-		return (1);
-	return (0);
-}
 
-int32_t	access_file(t_input *data)
+void	access_file(t_input *data)
 {
 	int		i;
 
 	i = 0;
 	if (no_path(data))
-		return (1);
-	while (data->paths[i])
+		return ;
+	while (data->paths[i++])
 	{
 		if (if_path(data))
 		{
@@ -79,14 +70,17 @@ int32_t	access_file(t_input *data)
 			else
 				permission_denied(data);
 		}
+		if (data->cmd_path)
+		{
+			free(data->cmd_path);
+			data->cmd_path = NULL;
+		}
 		data->cmd_path = ft_strjoin(data->paths[i], data->cmd_args[0]);
 		if (!data->cmd_path)
 			error_exit("Malloc failed", 1);
 		if (access(data->cmd_path, X_OK) >= 0)
-			return (1);
-		i++;
+			return ;
 	}
-	return (0);
 }
 
 

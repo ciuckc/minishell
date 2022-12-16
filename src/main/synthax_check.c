@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 16:54:08 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/01 21:10:48 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 03:48:04 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static int32_t	st_check_redirections(t_token *words)
 		{
 			words = words->next;
 			if (words == NULL)
-				return (dprintf(2, "minishell: sythax error near unexpected \
-token `newline\'\n"));
+				return (ft_putendl_fd("minishell: sythax error near unexpected \
+token `newline\'", 2), 1);
 			if (words->str == NULL)
-				return (dprintf(2, "minishell: ambiguos redirect\n"));
+				return (ft_putendl_fd("minishell: ambiguos redirect", 2), 1);
 			if (words->type != WORD && words->type != DOLLAR && words->type != \
 			ASSIGNMENT_WORD)
-				return (dprintf(2, "minishell: synthax error near unexpected \
-token `%s\'\n", words->str));
+				return (ft_putstr_fd("minishell: synthax error near unexpected \
+token `", 2), ft_putstr_fd(words->str, 2), ft_putendl_fd("'", 2), 1);
 		}
 		words = words->next;
 	}
@@ -52,13 +52,13 @@ static int32_t	st_check_pipe(t_token *words)
 		if (words == NULL && had_words == true)
 			return (0);
 		if (words->type == PIPE && had_words == false)
-			return (dprintf(2, "minishell: synthax error near unexpected \
-token \"|\"\n"));
+			return (ft_putendl_fd("minishell: synthax error near unexpected \
+token \"|\"", 2), 1);
 		had_words = false;
 		words = words->next;
-		if (words == NULL && had_words == false)
-			return (dprintf(2, "minishell: synthax error near unexpected \
-token `|\'\n"));
+		if (words == NULL)
+			return (ft_putendl_fd("minishell: synthax error near unexpected \
+token `|\'", 2), 1);
 	}
 	return (1);
 }

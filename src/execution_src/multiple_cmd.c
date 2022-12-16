@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   multiple_cmd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 16:34:34 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/11 20:08:47 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   multiple_cmd.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/27 16:34:34 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/16 02:03:25 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	waiting(int id, int max)
 
 void	parent_process(t_input *data)
 {
-	close(data->readfd);
+	if (data->readfd != -1)
+		close(data->readfd);
 	data->readfd = data->pipe_fd[0];
 	close(data->pipe_fd[1]);
 	if (data->cmd_count == 1)

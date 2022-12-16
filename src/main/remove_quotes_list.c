@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 19:02:27 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/05 20:24:10 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/15 23:43:48 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	remove_quotes_list(t_token *word)
 			continue ;
 		}
 		if ((ft_strchr(word->str, '\'') || ft_strchr(word->str, '\"')) \
-		&& word->type != DLESS && word->type != ASSIGNMENT_WORD)
+		&& word->type != DLESS)
 			remove_quotes(word);
 		word = word->next;
 	}
