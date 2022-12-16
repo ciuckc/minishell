@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 21:53:33 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:58:22 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	st_uncouple_nodes(t_token **word, char *file_name)
 	(*word)->str = file_name;
 }
 
-static void	st_read_here(t_token **delim, int32_t fd)
+static void	st_read_here(t_token **delim, int32_t fd, t_table *env)
 {
 	char		*read_line;
 
@@ -43,6 +43,9 @@ static void	st_read_here(t_token **delim, int32_t fd)
 			exit (0);
 		if (!ft_strcmp(read_line, (*delim)->str))
 			break ;
+		read_line = ft_export_expand_var(read_line, env);
+		if (read_line == NULL)
+			exit (0);
 		ft_putendl_fd(read_line, fd);
 		free(read_line);
 	}
@@ -50,7 +53,7 @@ static void	st_read_here(t_token **delim, int32_t fd)
 	exit (0);
 }
 
-static void	st_if_type_is_dless(t_cmd_list **cmd, u_int32_t i)
+static void	st_if_type_is_dless(t_cmd_list **cmd, u_int32_t i, t_table *env)
 {
 	pid_t	child_pid;
 	char	*file_name;
@@ -70,7 +73,7 @@ static void	st_if_type_is_dless(t_cmd_list **cmd, u_int32_t i)
 		if (child_pid == -1)
 			error_exit("fork failed", 1);
 		if (child_pid == 0)
-			st_read_here(&(*cmd)[i].cmd_list, fd);
+			st_read_here(&(*cmd)[i].cmd_list, fd, env);
 		g_exit_code = wait_here(child_pid);
 		close(fd);
 		st_uncouple_nodes(&(*cmd)[i].cmd_list, file_name);
@@ -105,7 +108,7 @@ static void	st_count_here_docs(t_cmd_list **cmd)
 	}
 }
 
-void	here_doc_expansion(t_cmd_list **cmd)
+void	here_doc_expansion(t_cmd_list **cmd, t_table *env)
 {
 	t_token		*head;
 	u_int32_t	i;
@@ -118,7 +121,7 @@ void	here_doc_expansion(t_cmd_list **cmd)
 		head = (*cmd)[i].cmd_list;
 		while ((*cmd)[i].cmd_list)
 		{
-			st_if_type_is_dless(cmd, i);
+			st_if_type_is_dless(cmd, i, env);
 			if ((*cmd)[i].cmd_list->str == NULL)
 				return (free_cmd_list(cmd));
 			(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:32:08 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:41:06 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	st_cmd_input(t_table *env_table, char ***envp)
 			write(1, "exit\n", 6);
 			return ;
 		}
-		cmd_list = parser(full_cmd);
+		cmd_list = parser(full_cmd, env_table);
 		if (cmd_list == NULL)
 		{
 			free(full_cmd);
@@ -43,7 +43,7 @@ static void	st_one_cmd(char *argv, t_table *env_table, char ***envp)
 {
 	t_cmd_list	*cmd_list;
 
-	cmd_list = parser(argv);
+	cmd_list = parser(argv, env_table);
 	if (cmd_list == NULL)
 		return ;
 	execute_loop(&cmd_list, env_table, envp);
