@@ -21,32 +21,16 @@ signal(SIGINT, SIG_DFL);
 signal(SIGQUIT, SIG_IGN);
 
 
+minishell: synthax error near unexpected token `END'
+minishell$ echo $?
+0
+minishell$ hello > $ffff
+minishell: ambiguos redirect
+minishell$ hello > > hello // when synthax error there is no history recorded
 
-tcgetattr
+minishell: synthax error near unexpected token >
+minishell$ hello > > hello
+minishell: synthax error near unexpected token >
+minishell$ hello > 
 
-tcsetattr
-cat Makefile |>out3 cat (minishell: synthax error near unexpected token `>')
 
-bash-3.2$ cat
-^\Quit: 3
-
-export ZZZ=
-export ZZZ  // overwrites the variable (and it should not) Done!
-
-<< xx cat
-> hello
-> 
-> 
-> 
-> 
-> 
-> xx
-hello
- // this also needs to print the empty lines
-
-heredoc: ctrl-D doesn't work, ctrl-C doesn't work
-
-#include <errno.h>
-strerror(errno);
-
-printf("minishell: synthax error near unexpected token `%s'\n", quote);

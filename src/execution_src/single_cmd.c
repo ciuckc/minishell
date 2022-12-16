@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:40:04 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/16 16:33:47 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:41:02 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ int32_t	single_command(t_token *tok, t_input *data, t_table *env_table)
 		return (error_print("fork"), 1);
 	if (id == 0)
 		g_exit_code = exec_single(tok, data);
-	ft_free_mem(&data->cmd_args);
+	// ft_free_mem(&data->cmd_args);
 	return (waiting(id, 1));
 }

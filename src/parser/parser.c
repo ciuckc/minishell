@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 03:41:01 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 13:42:44 by scristia          #+#    #+#             */
+/*   Updated: 2022/12/16 18:16:35 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,5 @@ t_cmd_list	*parser(char *full_cmd)
 	if (cmd_list == NULL)
 		return (NULL);
 	here_doc_expansion(&cmd_list);
-	add_history(full_cmd);
 	return (cmd_list);
 }

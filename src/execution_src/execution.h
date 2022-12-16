@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execution.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/10 14:00:13 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/16 01:22:28 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
+/*   Updated: 2022/12/16 18:10:29 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_input
 	int32_t			fds[2];
 	int32_t			readfd;
 	int32_t			pipe_fd[2];
+	t_table			*h_table;
 }	t_input;
 
 /**
