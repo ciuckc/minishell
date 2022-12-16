@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 15:57:16 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 22:24:53 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 04:35:18 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,3 @@ void	access_file(t_input *data)
 			return ;
 	}
 }
-
-
-/*
-if (access(data->cmd_args[0], X_OK) < 0)
-{
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	no_such_file(data);
-}
-*/
