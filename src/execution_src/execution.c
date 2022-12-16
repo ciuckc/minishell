@@ -89,7 +89,6 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	ft_free_mem(&data->paths);
 	ft_free_mem(&data->cmd_args);
 	free(data);
-	init_sig_handle(0);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 	if (g_exit_code == 131)
 		ft_putendl_fd("^\\Quit: 3", 2);

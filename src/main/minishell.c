@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:41:06 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 20:56:43 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	st_cmd_input(t_table *env_table, char ***envp)
 
 	while (true)
 	{
+		init_sig_handle(0);
 		full_cmd = readline(PROMPT);
 		if (!full_cmd)
 		{

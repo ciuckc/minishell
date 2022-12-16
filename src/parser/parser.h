@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 16:08:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:43:47 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 22:40:57 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void			here_doc_expansion(t_cmd_list **cmd, t_table *env);
  * 
  * @param cmd 
  */
-void			here_doc_node_remove(t_cmd_list **cmd);
+void			here_doc_node_remove(t_cmd_list **cmd, bool remove_all);
+
+void			remove_here_files(t_token **words);
 
 /**
  * @brief get word list

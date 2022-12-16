@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:43:07 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 23:34:32 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ t_cmd_list	*parser(char *full_cmd, t_table *env)
 	if (cmd_list == NULL)
 		return (NULL);
 	here_doc_expansion(&cmd_list, env);
+	if (cmd_list == NULL)
+		return (NULL);
 	return (cmd_list);
 }

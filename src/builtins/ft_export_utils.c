@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/16 16:26:48 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_export_utils.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/16 21:47:12 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ int32_t	insert_replace_var(t_input *data, t_table *env_table, int pos)
 
 int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 {
-	char		*value;
 	u_int32_t	key_len;
 
-	value = NULL;
 	key_len = ft_strlen(data->cmd_args[pos]);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
 	if (data->expo_var.name == NULL)

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 19:26:12 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:58:22 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 23:47:39 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,24 @@ static void	st_if_type_is_dless(t_cmd_list **cmd, u_int32_t i, t_table *env)
 	child_pid = -1;
 	file_name = NULL;
 	fd = -1;
-	if ((*cmd)[i].cmd_list->type == DLESS)
+	(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;
+	remove_quotes((*cmd)[i].cmd_list);
+	fd = create_tmp_file_here(&file_name, (*cmd)[i].cmd_list);
+	if (fd == -1)
+		error_exit("file descriptor failed", 1);
+	child_pid = fork();
+	if (child_pid == -1)
+		error_exit("fork failed", 1);
+	if (child_pid == 0)
+		st_read_here(&(*cmd)[i].cmd_list, fd, env);
+	g_exit_code = wait_here(child_pid);
+	close(fd);
+	if (g_exit_code == 1)
 	{
-		(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;
-		remove_quotes((*cmd)[i].cmd_list);
-		fd = create_tmp_file_here(&file_name, (*cmd)[i].cmd_list);
-		if (fd == -1)
-			error_exit("file descriptor failed", 1);
-		child_pid = fork();
-		if (child_pid == -1)
-			error_exit("fork failed", 1);
-		if (child_pid == 0)
-			st_read_here(&(*cmd)[i].cmd_list, fd, env);
-		g_exit_code = wait_here(child_pid);
-		close(fd);
-		st_uncouple_nodes(&(*cmd)[i].cmd_list, file_name);
+		unlink(file_name);
+		return (free(file_name), remove_here_files(&(*cmd)[i].cmd_list));
 	}
+	st_uncouple_nodes(&(*cmd)[i].cmd_list, file_name);
 }
 
 static void	st_count_here_docs(t_cmd_list **cmd)
@@ -121,14 +123,18 @@ void	here_doc_expansion(t_cmd_list **cmd, t_table *env)
 		head = (*cmd)[i].cmd_list;
 		while ((*cmd)[i].cmd_list)
 		{
-			st_if_type_is_dless(cmd, i, env);
+			if ((*cmd)[i].cmd_list->type == DLESS)
+				st_if_type_is_dless(cmd, i, env);
 			if ((*cmd)[i].cmd_list->str == NULL)
+			{
+				(*cmd)[i].cmd_list = head;
 				return (free_cmd_list(cmd));
+			}
 			(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;
 		}
 		(*cmd)[i].cmd_list = head;
 		i++;
 	}
-	here_doc_node_remove(cmd);
+	here_doc_node_remove(cmd, false);
 	init_sig_handle(1);
 }
