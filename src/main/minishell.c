@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 21:54:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:22:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 04:14:30 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int32_t	main(int32_t argc, char **argv, char **envp)
 		st_cmd_input(env_table, &envp);
 	else if (argc == 2)
 		st_one_cmd(*(argv + 1), env_table, &envp);
+	clear_history();
 	remove_all(env_table);
 	return (g_exit_code);
 }
