@@ -30,13 +30,32 @@ void	ft_free_mem(char ***str)
 	*str = NULL;
 }
 
-t_input	*data_init(char **envp)
+static int	st_lstsize(t_token *tok)
 {
-	t_input	*data_in;
+	int	i;
+
+	i = 0;
+	while (tok)
+	{
+		i++;
+		tok = tok->next;
+	}
+	return (i);
+}
+
+static t_input	*st_data_init(char **envp, t_token *tok, t_table *env_table)
+{
+	t_input		*data_in;
+	u_int32_t	len;
 
 	data_in = malloc(sizeof(t_input));
 	if (!data_in)
 		error_exit("Malloc failed", 1);
+	len = st_lstsize(tok);
+	data_in->cmd_args = ft_calloc(len + 1, sizeof (char *));
+	if (data_in->cmd_args == NULL)
+		error_exit("Malloc failed", 1);
+	data_in->h_table = env_table;
 	data_in->paths = NULL;
 	data_in->cmd_path = NULL;
 	data_in->exit_code = 0;
@@ -59,7 +78,7 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 
 	tcgetattr(STDIN_FILENO, &attr);
 	attr.c_lflag &= ~(ECHOCTL);
-	data = data_init(envp);
+	data = st_data_init(envp, tok, env_table);
 	get_path(data);
 	count_cmds(tok, data);
 	init_sig_handle(1);
@@ -68,8 +87,11 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	else
 		g_exit_code = multiple_commands(tok, data, env_table);
 	ft_free_mem(&data->paths);
+	ft_free_mem(&data->cmd_args);
 	free(data);
 	init_sig_handle(0);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
+	if (g_exit_code == 131)
+		ft_putendl_fd("^\\Quit: 3", 2);
 	return (g_exit_code);
 }

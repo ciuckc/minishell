@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 07:02:55 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:25:57 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:33:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	st_handle_interrupt(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_exit_code = 1;
 	return ;
 }
 

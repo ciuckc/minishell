@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_export_utils.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:19:34 by scristia      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/23 16:52:44 by emlicame          #+#    #+#             */
+/*   Updated: 2022/12/16 16:26:48 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,7 @@ int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 	if (data->expo_var.name == NULL)
 		return (free(data->expo_var.name), 1);
 	if (item_search(data->expo_var.name, env_table) != NULL)
-	{
-		value = remove_item(data->expo_var.name, &env_table);
-		if (value != NULL)
-			free(value);
-		value = NULL;
-	}
+		return (0);
 	insert_in_table(data->expo_var.name, NULL, &env_table);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: scristia <scristia@student.codam.nl>         +#+                     */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 18:17:15 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:32:46 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
