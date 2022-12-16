@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 23:47:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 00:42:29 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 06:19:14 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	st_or_and_clause(t_cmd_list *cmd, u_int32_t i)
 {
 	if (g_exit_code != 0 && cmd[i].cmd_list_type == AND_IF)
 		return (true);
-	else if (g_exit_code == 0 && cmd[i].cmd_list_type== OR_IF)
+	else if (g_exit_code == 0 && cmd[i].cmd_list_type == OR_IF)
 		return (true);
 	return (false);
 }

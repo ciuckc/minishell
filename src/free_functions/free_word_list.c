@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 17:28:39 by scristia      #+#    #+#                 */
-/*   Updated: 2022/11/09 16:06:30 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 06:33:31 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	free_word_list(t_token **list)
 	while (*list != NULL)
 	{
 		*list = (*list)->next;
-		free(prev->str);
+		if (prev->str)
+			free(prev->str);
 		free(prev);
 		prev = *list;
 	}

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 03:41:01 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 06:15:05 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	st_print_error(t_token *words, t_token_type cmd_type)
 		ft_putstr_fd("minishell: synthax error near unexpected token ", 2);
 		ft_putendl_fd(words->str, 2);
 	}
+	g_exit_code = 258;
 }
 
 static bool	st_check_single_cmd(t_token *words, t_token_type cmd_type)

@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/04 04:44:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 04:01:34 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 06:15:36 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ size_t len)
 		else if ((*words)->type == END)
 			ft_putendl_fd("minishell: synthax error near `END'", 2);
 		free_cmd_list(list);
+		g_exit_code = 258;
 	}
 }
 
