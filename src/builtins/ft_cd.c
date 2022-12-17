@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:16:35 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/17 01:12:46 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/17 02:11:25 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	st_new_pwd(t_input *data, t_table *env_table, char *new_cwd)
 		return ;
 	data->new_var.value = ft_strdup(new_cwd);
 	if (data->new_var.value == NULL)
-		return (free(data->new_var.value));
+		return (free(data->new_var.name));
 	insert_in_table(data->new_var.name, data->new_var.value, &env_table);
 }
 
@@ -64,7 +64,7 @@ static int32_t	st_old_pwd(t_input *data, t_table *env_table, char *old_cwd)
 	return (0);
 }
 
-static int32_t	st_not_a_directory(char *str)
+static int32_t	st_not_a_d(char *str)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
 	if (str)
@@ -109,20 +109,20 @@ int32_t	ft_cd(t_input *data, t_table *env_table)
 	{
 		data->d = st_seeking_home(data);
 		if (!data->d)
-			return (ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
-		else if (data->d == NULL && ft_strcmp (data->d, "HOME=") == 0)
-			return (0);
+			return (ft_putendl_fd("minishell: cd: HOME not set", 2), \
+			free(old_cwd), 1);
+		else if (ft_strcmp(data->d, "HOME=") == 0)
+			return (free(old_cwd), free(data->d), 0);
 		if (chdir(data->d) == -1)
-			return (st_not_a_directory(data->d), free(old_cwd), \
-			free(data->d), 1);
-		return (0);
+			return (free (old_cwd), st_not_a_d(data->d), free(data->d), 1);
+		return (free (old_cwd), free(data->d), 0);
 	}
 	if (chdir(data->cmd_args[1]) == -1)
-		return (st_not_a_directory(data->d), free (old_cwd), free(data->d), 1);
+		return (st_not_a_d(data->d), free (old_cwd), free(data->d), 1);
 	st_old_pwd(data, env_table, old_cwd);
 	new_cwd = getcwd(0, 0);
 	if (!new_cwd)
-		return (0);
+		return (free(data->d), free(new_cwd), free(old_cwd), 0);
 	st_new_pwd(data, env_table, new_cwd);
 	return (free(data->d), free(new_cwd), free(old_cwd), 0);
 }
