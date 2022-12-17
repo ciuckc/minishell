@@ -17,7 +17,11 @@ $(NAME): $(OBJ)
 $(NAME_HASH):
 	$(MAKE) -C $(DIR_HASH)
 
-$(NAME_LIBFT):
+$(DIR_LIBFT):
+	git submodule init
+	git submodule update
+
+$(NAME_LIBFT): $(DIR_LIBFT)
 	$(MAKE) bonus -C $(DIR_LIBFT)
 
 #	Template for adding new object file from src files
