@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 16:54:08 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 06:19:57 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/17 01:01:40 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int32_t	st_check_pipe(t_token *words)
 			return (0);
 		if (words->type == PIPE && had_words == false)
 			return (ft_putendl_fd("minishell: synthax error near unexpected \
-token \"|\"", 2), 258);
+token `|'", 2), 258);
 		had_words = false;
 		words = words->next;
 		if (words == NULL)

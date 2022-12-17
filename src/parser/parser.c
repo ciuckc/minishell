@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/16 23:34:32 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/17 01:03:01 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static void	st_print_error(t_token *words, t_token_type cmd_type)
 	else if (words->type != WORD && words->type != DOLLAR && words->type != \
 	ASSIGNMENT_WORD && words->type != PIPE)
 	{
-		ft_putstr_fd("minishell: synthax error near unexpected token ", 2);
-		ft_putendl_fd(words->str, 2);
+		ft_putstr_fd("minishell: synthax error near unexpected token `", 2);
+		ft_putstr_fd(words->str, 2);
+		ft_putendl_fd("'", 2);
 	}
 	g_exit_code = 258;
 }

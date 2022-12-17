@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 14:25:33 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 18:14:56 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_export.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/22 14:25:33 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/17 00:55:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int32_t	st_if_valid(char *var)
 	int	i;
 
 	i = 0;
-	if (var[0] == '=')
+	if (var[0] == '=' || !ft_strlen(var))
 		return (error_not_valid(var));
 	while (var[i] && var[i] != '=')
 	{
