@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/01 22:14:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 18:20:51 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 23:49:33 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ static void	st_remove_node(t_token **word, t_token **head)
 }
 
 static void	st_remove_extra_nodes(t_token **words, t_token **head, u_int32_t \
-len)
+len, bool remove_all)
 {
-	if (len <= 1)
+	if (remove_all)
+		len++;
+	else if (len <= 1)
 		return ;
 	while (len > 1)
 	{
@@ -74,7 +76,7 @@ static void	st_check_if_one_here_doc(t_token *word)
 	}
 }
 
-void	here_doc_node_remove(t_cmd_list **cmd)
+void	here_doc_node_remove(t_cmd_list **cmd, bool remove_all)
 {
 	t_token		*head;
 	u_int32_t	i;
@@ -89,7 +91,7 @@ void	here_doc_node_remove(t_cmd_list **cmd)
 		while ((*cmd)[i].cmd_list)
 		{
 			len = st_here_doc_count((*cmd)[i].cmd_list);
-			st_remove_extra_nodes(&(*cmd)[i].cmd_list, &head, len);
+			st_remove_extra_nodes(&(*cmd)[i].cmd_list, &head, len, remove_all);
 			st_check_if_one_here_doc((*cmd)[i].cmd_list);
 			(*cmd)[i].cmd_list = (*cmd)[i].cmd_list->next;
 		}

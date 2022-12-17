@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_sig_handle.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 07:02:55 by scristia          #+#    #+#             */
-/*   Updated: 2022/12/16 16:47:31 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init_sig_handle.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 07:02:55 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/16 18:33:03 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,10 @@ static void	st_handle_interrupt(int signum)
 	return ;
 }
 
-static void	st_shell_env(void)
-{
-	struct termios	attr;
-
-	tcgetattr(STDIN_FILENO, &attr);
-	attr.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
-}
-
 void	init_sig_handle(int mode)
 {
 	if (mode == 0)
 	{
-		st_shell_env();
 		signal(SIGINT, st_handle_interrupt);
 		signal(SIGQUIT, SIG_IGN);
 	}

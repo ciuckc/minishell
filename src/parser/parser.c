@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 13:42:44 by scristia          #+#    #+#             */
-/*   Updated: 2022/12/17 00:07:30 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
+/*   Updated: 2022/12/17 01:22:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static void	st_print_error(t_token *words, t_token_type cmd_type)
 	else if (words->type != WORD && words->type != DOLLAR && words->type != \
 	ASSIGNMENT_WORD && words->type != PIPE)
 	{
-		ft_putstr_fd("minishell: synthax error near unexpected token ", 2);
-		ft_putendl_fd(words->str, 2);
+		ft_putstr_fd("minishell: synthax error near unexpected token `", 2);
+		ft_putstr_fd(words->str, 2);
+		ft_putendl_fd("'", 2);
 	}
+	g_exit_code = 258;
 }
 
 static bool	st_check_single_cmd(t_token *words, t_token_type cmd_type)
@@ -75,11 +77,12 @@ static void	st_synthax_check(t_cmd_list **cmd)
 	}
 }
 
-t_cmd_list	*parser(char *full_cmd)
+t_cmd_list	*parser(char *full_cmd, t_table *env)
 {
 	t_token		*tokens;
 	t_cmd_list	*cmd_list;
 
+	add_history(full_cmd);
 	init_sig_handle(1);
 	add_history(full_cmd);
 	tokens = retrieve_word_list(full_cmd);
@@ -92,6 +95,8 @@ t_cmd_list	*parser(char *full_cmd)
 	st_synthax_check(&cmd_list);
 	if (cmd_list == NULL)
 		return (NULL);
-	here_doc_expansion(&cmd_list);
+	here_doc_expansion(&cmd_list, env);
+	if (cmd_list == NULL)
+		return (NULL);
 	return (cmd_list);
 }

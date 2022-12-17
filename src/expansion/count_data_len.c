@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/16 15:43:02 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/02 01:18:28 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/17 01:19:01 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ bool d_quoted)
 	var = item_search(param.name, table);
 	(*str) += name_len;
 	if (var == NULL)
+		return (free(param.name));
+	if (var->data == NULL)
 		return (free(param.name));
 	param.value = var->data;
 	len->env_var_len += ft_strlen(param.value);

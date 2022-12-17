@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/20 17:32:42 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/13 18:35:08 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_unset.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/20 17:32:42 by emlicame      #+#    #+#                 */
+/*   Updated: 2022/12/17 01:08:32 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int32_t	st_if_valid(char *var)
 	int	i;
 
 	i = 0;
+	if (!ft_strlen(var))
+		return (error_not_valid(var));
 	while (var[i])
 	{
 		if (ft_isdigit(var[0]) || (var[i] == '=') \

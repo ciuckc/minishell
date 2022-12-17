@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 20:52:52 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/15 19:18:24 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/16 18:41:55 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			execution(t_token *tok, t_table *table, char **envp);
 
 void		expand_words(t_token **words, t_table *table);
 
-t_cmd_list	*parser(char *full_cmd);
+t_cmd_list	*parser(char *full_cmd, t_table *env);
 
 /**
  * @brief Create a env table object. When initialised, we remove the $OLDPWD 

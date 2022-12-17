@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "execution.h"
+#include <termios.h>
 
 void	ft_free_mem(char ***str)
 {
@@ -72,8 +73,11 @@ static t_input	*st_data_init(char **envp, t_token *tok)
 
 int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 {
-	t_input		*data;
+	t_input			*data;
+	struct termios	attr;
 
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag &= ~(ECHOCTL);
 	data = st_data_init(envp, tok);
 	get_path(data);
 	count_cmds(tok, data);
@@ -85,7 +89,7 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 	ft_free_mem(&data->paths);
 	ft_free_mem(&data->cmd_args);
 	free(data);
-	init_sig_handle(0);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 	if (g_exit_code == 131)
 		ft_putendl_fd("^\\Quit: 3", 2);
 	return (g_exit_code);
