@@ -6,37 +6,19 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/17 00:00:44 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/17 01:21:09 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-// static int	st_lstsize(t_token *tok)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tok)
-// 	{
-// 		i++;
-// 		tok = tok->next;
-// 	}
-// 	return (i);
-// }
-
 void	get_cmd(t_token *tok, t_input *data)
 {
-	// int		len;
 	int		i;
 	t_token	*to;
 
 	i = 0;
 	to = tok;
-	// len = st_lstsize(tok);
-	// data->cmd_args = ft_calloc(len + 1, sizeof (char *));
-	// if (data->cmd_args == NULL)
-	// 	error_exit("Malloc failed", 1);
 	while (to && to->type != PIPE)
 	{
 		if (to->type == WORD || to->type == DOLLAR || to->type == S_QUOTE || \
