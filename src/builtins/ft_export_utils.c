@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 16:52:44 by emlicame      #+#    #+#                 */
-/*   Updated: 2022/12/16 21:47:12 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/17 03:06:29 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,21 @@ int32_t	insert_replace_var(t_input *data, t_table *env_table, int pos)
 int32_t	ins_replace_var_no_eq(t_input *data, t_table *env_table, int pos)
 {
 	u_int32_t	key_len;
+	t_container	*container;
 
 	key_len = ft_strlen(data->cmd_args[pos]);
 	data->expo_var.name = ft_substr(data->cmd_args[pos], 0, key_len);
 	if (data->expo_var.name == NULL)
 		return (free(data->expo_var.name), 1);
-	if (item_search(data->expo_var.name, env_table) != NULL)
-		return (0);
-	insert_in_table(data->expo_var.name, NULL, &env_table);
+	container = item_search(data->expo_var.name, env_table);
+	if (container != NULL)
+	{
+		free(data->expo_var.name);
+		free(container->data);
+		container->data = NULL;
+	}
+	else
+		insert_in_table(data->expo_var.name, NULL, &env_table);
 	return (0);
 }
 
