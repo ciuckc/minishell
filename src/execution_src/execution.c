@@ -43,7 +43,7 @@ static int	st_lstsize(t_token *tok)
 	return (i);
 }
 
-static t_input	*st_data_init(char **envp, t_token *tok, t_table *env_table)
+static t_input	*st_data_init(char **envp, t_token *tok)
 {
 	t_input		*data_in;
 	u_int32_t	len;
@@ -55,9 +55,9 @@ static t_input	*st_data_init(char **envp, t_token *tok, t_table *env_table)
 	data_in->cmd_args = ft_calloc(len + 1, sizeof (char *));
 	if (data_in->cmd_args == NULL)
 		error_exit("Malloc failed", 1);
-	data_in->h_table = env_table;
 	data_in->paths = NULL;
 	data_in->cmd_path = NULL;
+	data_in->d = NULL;
 	data_in->exit_code = 0;
 	data_in->value = 0;
 	data_in->fds[READ] = STDIN_FILENO;
@@ -78,7 +78,7 @@ int32_t	execution(t_token *tok, t_table *env_table, char **envp)
 
 	tcgetattr(STDIN_FILENO, &attr);
 	attr.c_lflag &= ~(ECHOCTL);
-	data = st_data_init(envp, tok, env_table);
+	data = st_data_init(envp, tok);
 	get_path(data);
 	count_cmds(tok, data);
 	init_sig_handle(1);

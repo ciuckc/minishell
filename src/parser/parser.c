@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 13:42:44 by scristia      #+#    #+#                 */
-/*   Updated: 2022/12/17 01:03:01 by scristia      ########   odam.nl         */
+/*   Updated: 2022/12/17 01:22:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_cmd_list	*parser(char *full_cmd, t_table *env)
 
 	add_history(full_cmd);
 	init_sig_handle(1);
+	add_history(full_cmd);
 	tokens = retrieve_word_list(full_cmd);
 	if (tokens == NULL)
 		return (NULL);
