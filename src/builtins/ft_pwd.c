@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:34:40 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/12 15:22:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:52:04 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@ static int	st_seeking_pwd(t_input *data)
 		}
 		i++;
 	}
-	if (pwd)
-		ft_putendl_fd(pwd, 2);
+	if (!pwd)
+		return (ft_putendl_fd("minishell: pwd not found", 2), 1);
 	else
-	{
-		ft_putendl_fd("minishell: pwd not found", 2);
-		return (1);
-	}
+		ft_putendl_fd(pwd, 2);
 	free (pwd);
 	return (0);
 }

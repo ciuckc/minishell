@@ -6,11 +6,24 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:02:46 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/16 16:39:29 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:00:44 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+// static int	st_lstsize(t_token *tok)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (tok)
+// 	{
+// 		i++;
+// 		tok = tok->next;
+// 	}
+// 	return (i);
+// }
 
 void	get_cmd(t_token *tok, t_input *data)
 {

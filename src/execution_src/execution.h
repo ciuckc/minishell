@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:00:13 by emlicame          #+#    #+#             */
-/*   Updated: 2022/12/16 18:10:29 by emlicame         ###   ########.fr       */
+/*   Updated: 2022/12/17 01:11:36 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ typedef struct s_input
 {
 	char			**environ;
 	char			**paths;
-	char			*cmd_path;
 	char			**cmd_args;
+	char			*cmd_path;
+	char			*d;
 	int32_t			exit_for_pipe;
 	int32_t			cmd_count;
 	int32_t			exit_code;
@@ -39,7 +40,6 @@ typedef struct s_input
 	int32_t			fds[2];
 	int32_t			readfd;
 	int32_t			pipe_fd[2];
-	t_table			*h_table;
 }	t_input;
 
 /**
